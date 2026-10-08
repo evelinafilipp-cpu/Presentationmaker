@@ -370,10 +370,10 @@ textarea.in{resize:vertical;min-height:60px;display:block}
 .s-media .m-big{flex:none;width:574px;background:var(--big);color:var(--bigText);border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8px 62px}
 .s-media .m-big .v{font-weight:700;font-size:106px;line-height:1.36;white-space:pre-wrap;max-width:100%}
 .s-media .m-big .l{font-size:40px;line-height:1.07;white-space:pre-wrap}
-.s-media .m-right{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;gap:14px}
-.s-media .m-block{position:relative;flex:1 1 auto;min-height:0;background:var(--card);border-radius:10px;padding:0 32px 0 44px;display:grid;grid-template-columns:387px minmax(0,1fr);column-gap:49px;align-items:center}
+.s-media .m-right{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--bg,14px)}
+.s-media .m-block{position:relative;flex:1 1 auto;min-height:auto;background:var(--card);border-radius:10px;padding:var(--bp,14px) 32px var(--bp,14px) 44px;display:grid;grid-template-columns:387px minmax(0,1fr);column-gap:49px;align-items:center}
 .s-media .m-bt{font-weight:600;font-size:33px;line-height:1.21;color:var(--cardTitle);white-space:pre-wrap}
-.s-media .m-list{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none;min-width:0}
+.s-media .m-list{display:flex;flex-direction:column;gap:var(--mg,8px);margin:0;padding:0;list-style:none;min-width:0}
 .s-media .m-li{position:relative;display:flex;gap:12px;align-items:flex-start;font-size:26px;line-height:1.21;color:var(--text)}
 .s-media .m-li .mkw{flex:none;display:block;width:18px;height:20px;margin-top:5.7px;color:var(--marker)}
 .s-media .m-li .mk{display:block;width:18px;height:20px}
@@ -788,7 +788,7 @@ const R={
     ${d.blocks.map((b,j)=>`<div class="m-block hov"${ck("card,cardTitle,text,marker")}>${nb>1?eb("del",`data-list="data.blocks" data-i="${j}"`,IC.x,"del","Удалить блок"):""}
       <div class="m-bt wrap"${ck("cardTitle")}${ed(`data.blocks.${j}.title`,{multi:1})}>${txt(b.title)}</div>
       <ul class="m-list">${b.bullets.map((t,k)=>`<li class="m-li hov"><span class="mkw"${ck("marker")}>${BULLET_SVG}</span><span class="tx wrap"${ck("text")}${ed(`data.blocks.${j}.bullets.${k}`,{multi:1})}>${txt(t)}</span>${b.bullets.length>1?eb("del",`data-list="data.blocks.${j}.bullets" data-i="${k}"`,IC.x,"del","Удалить пункт"):""}</li>`).join("")}</ul>
-      ${E()&&b.bullets.length<4?`<div class="m-badd"><button class="pillbtn" data-act="add" data-list="data.blocks.${j}.bullets" tabindex="-1">${IC.plus}Пункт</button></div>`:""}
+      ${E()&&b.bullets.length<9?`<div class="m-badd"><button class="pillbtn" data-act="add" data-list="data.blocks.${j}.bullets" tabindex="-1">${IC.plus}Пункт</button></div>`:""}
     </div>`).join("")}
     ${E()&&nb<6?`<div class="m-addb"><button class="pillbtn" data-act="add" data-list="data.blocks" tabindex="-1">${IC.plus}Блок</button></div>`:""}
    </div>
@@ -887,6 +887,22 @@ function fitStage(){
  const sl=stage.firstElementChild;if(sl)sl.style.zoom=scale;
 }
 let selSid=null;
+let MEDIA_ROOM={bullet:true,block:true};
+/* "Медиаподдержка": the right column has a fixed height. White blocks share it; when the text no longer fits,
+   the blocks shrink to their content and the spacing (between blocks, inside them, between bullets) tightens. */
+const MEDIA_STEPS=[[14,14,8],[12,12,7],[10,10,6],[9,8,5],[8,7,4],[7,6,3],[6,5,2]];
+function fitMedia(root){
+ if(!root)return;const list=root.classList&&root.classList.contains("s-media")?[root]:root.querySelectorAll(".s-media");
+ list.forEach(sl=>{const R=sl.querySelector(".m-right");if(!R)return;const rr=R.getBoundingClientRect();if(!rr.height)return;const k=rr.height/682;
+  const set=st=>{sl.style.setProperty("--bg",st[0]+"px");sl.style.setProperty("--bp",st[1]+"px");sl.style.setProperty("--mg",st[2]+"px")};
+  const need=st=>{set(st);const bs=[...R.children].filter(x=>x.classList.contains("m-block"));
+   return bs.reduce((a,b)=>{const t=b.querySelector(".m-bt"),l=b.querySelector(".m-list");return a+Math.max(t?t.getBoundingClientRect().height:0,l?l.getBoundingClientRect().height:0)/k+2*st[1]},0)+(bs.length-1)*st[0]};
+  const last=MEDIA_STEPS[MEDIA_STEPS.length-1];const min=need(last);
+  let pick=last;for(const st of MEDIA_STEPS){if(need(st)<=682.5){pick=st;break}}set(pick);
+  sl.dataset.roomBullet=min+34<=682?"1":"";sl.dataset.roomBlock=min+80<=682?"1":"";
+  sl.querySelectorAll(".m-badd").forEach(x=>x.hidden=!sl.dataset.roomBullet);const ab=sl.querySelector(".m-addb");if(ab)ab.hidden=!sl.dataset.roomBlock;
+ });
+}
 let FILL_FULL=false;
 /* "Наполнение бокса": another category may be added only while it still fits with gaps of at least 3px */
 function fillRoom(){
@@ -898,7 +914,12 @@ function fillRoom(){
  const pb=panel.querySelector('.addbtn[data-list="data.rows"]');if(pb)pb.disabled=full;
 }
 stage.addEventListener("input",()=>requestAnimationFrame(fillRoom));
-function renderMain(){const s=S();if(!s)return;stage.innerHTML=renderSlide(s,cur,"edit");stage.firstElementChild.style.zoom=scale;fillRoom();if(selSid!==s.id){SEL=[];selSid=s.id}if(typeof applySel==="function"&&SEL.length)applySel();else hideBucket()}
+function mediaRoom(){const s=S();if(!s||s.type!=="media")return;const sl=stage.firstElementChild;if(!sl)return;fitMedia(sl);
+ const nr={bullet:!!sl.dataset.roomBullet,block:!!sl.dataset.roomBlock};
+ panel.querySelectorAll('.addbtn[data-list]').forEach(b=>{const l=b.dataset.list;if(/^data\.blocks\.\d+\.bullets$/.test(l)){const j=+l.split(".")[2];b.disabled=!nr.bullet||(s.data.blocks[j]&&s.data.blocks[j].bullets.length>=9)}else if(l==="data.blocks")b.disabled=!nr.block||s.data.blocks.length>=6});
+ MEDIA_ROOM=nr}
+stage.addEventListener("input",()=>requestAnimationFrame(mediaRoom));
+function renderMain(){const s=S();if(!s)return;stage.innerHTML=renderSlide(s,cur,"edit");stage.firstElementChild.style.zoom=scale;fillRoom();mediaRoom();if(selSid!==s.id){SEL=[];selSid=s.id}if(typeof applySel==="function"&&SEL.length)applySel();else hideBucket()}
 function thumbHTML(s,i){
  return `<div class="thumb${i===cur?" on":""}${SELS.has(s.id)?" sel":""}" draggable="true" data-i="${i}" role="button" tabindex="0" aria-label="Слайд ${i+1}: ${TYPES[s.type].name}">
   <span class="num">${i+1}</span>
@@ -907,8 +928,8 @@ function thumbHTML(s,i){
   <div class="tacts"><button class="mini" data-tact="dup" title="Дублировать" aria-label="Дублировать">${IC.dup}</button>${deck.slides.length>1?`<button class="mini" data-tact="del" title="Удалить" aria-label="Удалить">${IC.trash}</button>`:""}</div>
  </div>`;
 }
-function renderThumbs(){thumbsEl.innerHTML=deck.slides.map(thumbHTML).join("");markSlideSel()}
-function renderThumb(i){const el=thumbsEl.children[i];if(!el)return renderThumbs();el.outerHTML=thumbHTML(deck.slides[i],i)}
+function renderThumbs(){thumbsEl.innerHTML=deck.slides.map(thumbHTML).join("");markSlideSel();fitMedia(thumbsEl)}
+function renderThumb(i){const el=thumbsEl.children[i];if(!el)return renderThumbs();el.outerHTML=thumbHTML(deck.slides[i],i);fitMedia(thumbsEl.children[i])}
 let thumbT=null;
 function thumbSoon(all){clearTimeout(thumbT);thumbT=setTimeout(()=>all?renderThumbs():renderThumb(cur),250)}
 function renderAll(){renderMain();renderThumbs();renderPanel()}
@@ -946,9 +967,9 @@ function contentFields(s){
   +U("data.photo","Изображение состава",{tip:"На слайде фото можно двигать мышью, масштабировать колесом или уголком справа внизу."});
  case "timing":return d.items.map((t,j)=>`<div class="fld">${L(plain(t.label).replace(/\n/g," "))}<div class="datef"><input class="in" id="f_data_items_${j}_date" data-path="data.items.${j}.date" value="${esc(t.date)}"><button class="calbtn" data-act="cal" data-i="${j}" title="Календарь" aria-label="Выбрать дату">${IC.cal}</button></div></div>`).join("");
  case "media":return F("data.reachValue","Охват",{tip:"Число в левом блоке. Подпись под ним можно поправить прямо на слайде."})
-  +`<div class="fld">${L("Блоки","Правая колонка фиксирована по высоте: новые блоки сжимаются за счёт отступов. До 6 блоков, до 4 пунктов в блоке.")}<div class="grp">${d.blocks.map((b,j)=>`<div class="item">${d.blocks.length>1?delBtn("data.blocks",j,"Удалить блок"):""}${F(`data.blocks.${j}.title`,null)}
+  +`<div class="fld">${L("Блоки","Правая колонка фиксирована по высоте. Когда места не хватает, белые блоки ужимаются, а расстояние между пунктами сокращается. До 6 блоков, до 9 пунктов в блоке.")}<div class="grp">${d.blocks.map((b,j)=>`<div class="item">${d.blocks.length>1?delBtn("data.blocks",j,"Удалить блок"):""}${F(`data.blocks.${j}.title`,null)}
      ${b.bullets.map((t,k)=>`<div class="sub"><input class="in" id="f_b${j}_${k}" data-path="data.blocks.${j}.bullets.${k}" value="${esc(t)}">${b.bullets.length>1?`<button class="x" data-act="del" data-list="data.blocks.${j}.bullets" data-i="${k}" title="Удалить пункт" aria-label="Удалить пункт">${IC.x}</button>`:"<span></span>"}</div>`).join("")}
-     ${addBtn(`data.blocks.${j}.bullets`,"Пункт",b.bullets.length>=4,1)}</div>`).join("")}${addBtn("data.blocks","Блок",d.blocks.length>=6)}</div></div>`;
+     ${addBtn(`data.blocks.${j}.bullets`,"Пункт",b.bullets.length>=9||!MEDIA_ROOM.bullet,1)}</div>`).join("")}${addBtn("data.blocks","Блок",d.blocks.length>=6||!MEDIA_ROOM.block)}</div></div>`;
  case "blogger":return F("data.title","Заголовок",{area:1,rows:2,tip:RICH_TIP})
   +F("data.body","Описание блогера",{area:1,rows:6,tip:"Ширина текста фиксирована, растёт только высота."})
   +F("data.audTitle","Блок про аудиторию")+F("data.audText",null,{area:1,rows:3})
@@ -1567,7 +1588,7 @@ async function renderIMG(i){links=[];
  const host=document.createElement("div");host.style.cssText="position:fixed;left:-30000px;top:0;width:1920px;height:1080px;overflow:hidden";
  host.innerHTML=renderSlide(deck.slides[i],i,"export");document.body.append(host);
  const node=host.firstElementChild;
- await document.fonts.ready;await Promise.all([...node.querySelectorAll("img")].map(im=>im.decode?im.decode().catch(()=>{}):null));
+ await document.fonts.ready;fitMedia(node);await Promise.all([...node.querySelectorAll("img")].map(im=>im.decode?im.decode().catch(()=>{}):null));
  try{if(!fontCSS)fontCSS=await htmlToImage.getFontEmbedCSS(node);
   const nb=node.getBoundingClientRect();links=[...node.querySelectorAll("a[data-url]")].filter(a=>a.dataset.url!=="#").map(a=>{const r=a.getBoundingClientRect();return{x:r.left-nb.left,y:r.top-nb.top,w:r.width,h:r.height,url:a.dataset.url}});
   return await htmlToImage.toJpeg(node,{width:1920,height:1080,pixelRatio:1,cacheBust:false,fontEmbedCSS:fontCSS,quality:.93})}
@@ -1778,7 +1799,7 @@ function drawDecks(){
    <div class="hmeta"><b title="${esc(x.name)}">${esc(x.name)}</b><span>Изменено ${fmtDate(x.updatedAt)}${by}</span><span>${plural(x.slides|0,"слайд","слайда","слайдов")}</span></div>
    <button class="x hmore" data-dk="menu" data-pid="${x.pid}" title="Действия" aria-label="Действия">${IC_MORE}</button>
   </div>`}).join("");
- grid.querySelectorAll(".dthumb").forEach(t=>t.style.setProperty("--k",t.clientWidth/1920));
+ grid.querySelectorAll(".dthumb").forEach(t=>t.style.setProperty("--k",t.clientWidth/1920));fitMedia(grid);
  if(thumbCache.size>300)thumbCache.clear();
  drawSel();
 }
@@ -2153,7 +2174,7 @@ async function sbLogout(){try{await deckSaveNow()}catch(e){}ME="";try{await SB.a
 
 /* ---------- show ---------- */
 let showEl=null,showI=0;
-function renderShow(){const st=showEl.querySelector(".stage");const k=Math.min(innerWidth/1920,innerHeight/1080);st.style.width=1920*k+"px";st.style.height=1080*k+"px";st.innerHTML=renderSlide(deck.slides[showI],showI,"thumb");st.firstElementChild.style.zoom=k;showEl.querySelector(".cnt").textContent=`${showI+1} / ${deck.slides.length}`}
+function renderShow(){const st=showEl.querySelector(".stage");const k=Math.min(innerWidth/1920,innerHeight/1080);st.style.width=1920*k+"px";st.style.height=1080*k+"px";st.innerHTML=renderSlide(deck.slides[showI],showI,"thumb");st.firstElementChild.style.zoom=k;fitMedia(st.firstElementChild);showEl.querySelector(".cnt").textContent=`${showI+1} / ${deck.slides.length}`}
 function openShow(){showI=cur;showEl=document.createElement("div");showEl.className="show";showEl.innerHTML=`<div class="stage"></div><div class="sc"><span class="cnt"></span><button data-s="-1" aria-label="Назад">←</button><button data-s="1" aria-label="Вперёд">→</button><button data-s="x">Выйти</button></div>`;document.body.append(showEl);renderShow();
  showEl.addEventListener("click",e=>{const b=e.target.closest("[data-s]");if(b){if(b.dataset.s==="x")return closeShow();showI=clamp(showI+ +b.dataset.s,0,deck.slides.length-1);return renderShow()}showI=clamp(showI+1,0,deck.slides.length-1);renderShow()});
  try{showEl.requestFullscreen&&showEl.requestFullscreen().catch(()=>{})}catch(e){}}
@@ -2168,7 +2189,7 @@ try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist().ca
 new ResizeObserver(fitStage).observe(stageWrap);
 showHome();
 renderAll();fitStage();commit(true);
-document.fonts&&document.fonts.ready.then(()=>renderThumbs());
+document.fonts&&document.fonts.ready.then(()=>{renderThumbs();mediaRoom()});
 loadSaved().then(ok=>{if(ok){renderAll();fitStage();hist=[];hi=-1;commit(true);ensureAssets()}updateTitle();setStatus(PID?"Сохранено":"Не сохранено")});
 $("saveBtn").onclick=()=>saveCmd();
 $("decksBtn").onclick=()=>openDecks();$("homeBtn").onclick=()=>openDecks();
