@@ -32,7 +32,7 @@ button{cursor:pointer}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 svg{flex:none}
 
-.app{height:100%;display:grid;grid-template-columns:200px minmax(0,1fr) 320px;grid-template-rows:52px minmax(0,1fr);grid-template-areas:"top top top" "strip stage panel"}
+.app{height:100%;position:relative;display:grid;grid-template-columns:var(--lw,200px) minmax(0,1fr) var(--rw,320px);grid-template-rows:52px minmax(0,1fr);grid-template-areas:"top top top" "strip stage panel"}
 .top{grid-area:top;display:flex;align-items:center;gap:8px;padding:0 14px;background:var(--surface);border-bottom:1px solid var(--line);min-width:0}
 .brand{font-family:"Manrope NBB",sans-serif;font-weight:600;font-size:16px;color:var(--brand-ink);white-space:nowrap}
 .top .sp{flex:1}
@@ -40,6 +40,7 @@ svg{flex:none}
 .tb:hover{background:var(--surface-2)}
 .tb.primary{background:var(--accent);border-color:var(--accent);color:#fff}
 .tb.icon{width:32px;padding:0;justify-content:center}
+.backbtn{margin-left:-4px}.backbtn svg{width:18px;height:18px}
 .tb:disabled{opacity:.35;cursor:default}
 .tb svg{width:16px;height:16px}
 .save-state{color:var(--muted);font-size:12px;white-space:nowrap}
@@ -65,7 +66,7 @@ svg{flex:none}
 
 
 /* strip */
-.strip{grid-area:strip;overflow:auto;padding:12px 10px 80px;border-right:1px solid var(--line);background:var(--surface)}
+.strip{grid-area:strip;overflow-x:hidden;overflow-y:auto;padding:12px 10px 80px;border-right:1px solid var(--line);background:var(--surface)}
 .thumbs{display:flex;flex-direction:column;gap:14px;padding-top:6px}
 .insb{position:absolute;left:24px;right:0;bottom:-15px;height:16px;border:0;background:none;padding:0;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .12s;z-index:3;color:#fff;cursor:pointer}
 .insb.top{bottom:auto;top:-13px}
@@ -75,8 +76,8 @@ svg{flex:none}
 .thumbs.dragging-any .insb{display:none}
 .thumb{position:relative;display:grid;grid-template-columns:18px 1fr;gap:6px;align-items:start;cursor:pointer;border-radius:8px;padding:3px}
 .thumb .num{font-size:12px;color:var(--muted);text-align:right;padding-top:2px;font-variant-numeric:tabular-nums}
-.thumb .tw{width:150px;height:84.375px;border-radius:5px;overflow:hidden;position:relative;box-shadow:0 0 0 1px var(--line);background:#fff}
-.thumb .tscale{position:absolute;left:0;top:0;transform-origin:0 0;transform:scale(.078125);pointer-events:none}
+.thumb .tw{width:var(--tw,150px);height:calc(var(--tw,150px) * .5625);border-radius:5px;overflow:hidden;position:relative;box-shadow:0 0 0 1px var(--line);background:#fff}
+.thumb .tscale{position:absolute;left:0;top:0;transform-origin:0 0;transform:scale(var(--tk,.078125));pointer-events:none}
 .thumb.on .tw{box-shadow:0 0 0 2px var(--accent)}
 .thumb.on .num{color:var(--accent)}
 .thumb.drop-before::before,.thumb.drop-after::after{content:"";position:absolute;left:24px;right:0;height:3px;border-radius:2px;background:var(--accent)}
@@ -87,7 +88,7 @@ svg{flex:none}
 .mini{width:22px;height:22px;border-radius:6px;border:0;background:rgba(20,20,20,.62);color:#fff;display:grid;place-items:center;padding:0}
 .mini svg{width:12px;height:12px}
 .mini:hover{background:rgba(20,20,20,.85)}
-.add-slide{margin:12px 0 0 24px;width:150px;position:relative}
+.add-slide{margin:12px 0 0 24px;width:var(--tw,150px);position:relative}
 .menu{position:absolute;z-index:50;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px;min-width:210px}
 .menu button{display:flex;width:100%;gap:10px;align-items:center;text-align:left;border:0;background:none;padding:8px 10px;border-radius:8px}
 .menu button:hover{background:var(--surface-2)}
@@ -209,6 +210,9 @@ textarea.in{resize:vertical;min-height:60px;display:block}
   .add-slide{margin:0;width:auto;flex:none;align-self:center}
   .stagewrap{padding:16px}
   .panel{border-left:0;overflow:visible}
+  .rsz{display:none}
+  .thumb .tw{width:150px;height:84.375px}.thumb .tscale{transform:scale(.078125)}.add-slide{width:auto}
+  .selbar{position:static;margin-top:8px}
 }
 
 
@@ -337,7 +341,11 @@ textarea.in{resize:vertical;min-height:60px;display:block}
 .s-fill .f-bar{top:194px;width:926px;height:77px;border-radius:12px;display:flex;align-items:center;gap:.27em;font-size:40px;line-height:1.12;white-space:nowrap;overflow:hidden}
 .s-fill .f-seg{left:23px;padding-left:35px;background:var(--bar);color:var(--barText)}
 .s-fill .f-run{left:969px;padding-left:42px;background:var(--panel);color:var(--runText)}
-.s-fill .f-list{left:24px;top:288px;width:925px;height:635px;background:var(--panel);border-radius:12px;padding:30px 34px;display:flex;flex-direction:column;justify-content:center;gap:16px}
+.s-fill .f-list{left:24px;top:288px;width:925px;height:635px;background:var(--panel);border-radius:12px;padding:0 34px;display:flex;flex-direction:column;justify-content:center}
+.s-fill .f-row{flex:none}
+.s-fill .f-pad{flex:0 1 30px;min-height:12px}
+.s-fill .f-gap{flex:0 1 16px;min-height:3px}
+.s-fill .f-add[hidden]{display:none}
 .s-fill .f-row{position:relative;display:grid;grid-template-columns:258px 558px;column-gap:41px;align-items:center}
 .s-fill .f-cat{font-weight:500;min-height:50px;background:var(--catBg);color:var(--catText);border-radius:10px;padding:10px 24px;font-size:24px;line-height:1.21;white-space:pre-wrap;display:flex;align-items:center;justify-content:flex-start}
 .s-fill .f-cat > span{text-align:left}
@@ -352,6 +360,8 @@ textarea.in{resize:vertical;min-height:60px;display:block}
 .s-timing .t-top,.s-timing .t-bot{position:relative;min-height:132px;background:var(--card);border-radius:16px;text-align:center;white-space:pre-wrap;display:flex;align-items:center;justify-content:center;line-height:1.12}
 .s-timing .t-top{font-weight:600;padding:36px 30px;color:var(--date);font-size:41px}
 .s-timing .t-bot{padding:26px 18px;color:var(--text);font-size:30px}
+.s-timing .t-top>.wrap,.s-timing .t-bot>.wrap{min-width:0;max-width:100%;overflow-wrap:anywhere}
+.s-timing .t-top,.s-timing .t-bot{min-width:0}
 .s-timing .t-top.hl,.s-timing .t-bot.hl{background:var(--hl);color:var(--hlText)}
 
 /* Медиаподдержка */
@@ -469,13 +479,87 @@ textarea.in{resize:vertical;min-height:60px;display:block}
 .s-contacts .ct-role{font-size:33px;line-height:1.067}
 .s-contacts .ct-lines{display:flex;flex-direction:column;gap:8px;font-size:33px;line-height:1.067;white-space:nowrap}
 .s-contacts .ct-sw{display:flex;gap:calc(6px / var(--sc));position:absolute;z-index:5;left:0;top:calc(100% + 10px / var(--sc))}
+
+/* resizable side panels */
+.rsz{position:absolute;top:52px;bottom:0;width:10px;z-index:30;cursor:col-resize;touch-action:none;outline:none}
+.rsz::after{content:"";position:absolute;left:4px;top:0;bottom:0;width:2px;background:transparent;transition:background .12s}
+.rsz:hover::after,.rsz.on::after,.rsz:focus-visible::after{background:var(--accent)}
+.rsz-l{left:calc(var(--lw,200px) - 5px)}
+.rsz-r{right:calc(var(--rw,320px) - 5px)}
+body.resizing{cursor:col-resize;user-select:none}
+body.resizing .stage,body.resizing .strip,body.resizing .panel{pointer-events:none}
+
+/* several slides selected */
+.thumb.sel .tw{box-shadow:0 0 0 2px var(--accent)}
+.thumb:focus-visible{outline:none}
+.thumb:focus-visible:not(.on):not(.sel) .tw{box-shadow:0 0 0 2px var(--faint)}
+.thumb.sel .num{color:var(--accent);font-weight:600}
+.thumb.sel::after{content:"";position:absolute;left:calc(24px + var(--tw,150px) - 22px);top:7px;width:16px;height:16px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/11px no-repeat;pointer-events:none;z-index:2}
+.thumbs.selecting .tacts{display:none}
+.selbar{position:sticky;bottom:-80px;margin:14px -10px -80px;padding:10px 10px 12px;background:var(--surface);border-top:1px solid var(--line);box-shadow:0 -6px 16px rgba(60,20,40,.06);display:flex;flex-direction:column;gap:8px;z-index:6}
+.selbar[hidden]{display:none}
+.sbh{display:flex;align-items:center;justify-content:space-between;font-size:13px}
+.sbh b{font-weight:600}
+.sbb{display:flex;gap:6px;flex-wrap:wrap}
+.sbb .tb{flex:1;justify-content:center;padding:0 8px;font-size:12.5px;min-width:0}
+.strip{container-type:inline-size}
+@container (max-width:250px){.sbb{flex-direction:column}}
+.tb.dangerb{color:var(--danger)}
+.tb.dangerb:hover{background:color-mix(in srgb,var(--danger) 10%,var(--surface))}
+.dlgbtns .tb.dangerb{background:var(--danger);border-color:var(--danger);color:#fff}
+
+/* home */
+.home{position:fixed;inset:0;z-index:300;background:var(--ground);overflow:auto}
+.home[hidden]{display:none}
+body.on-home .app{visibility:hidden}
+.htop{position:sticky;top:0;z-index:5;height:52px;display:flex;align-items:center;gap:10px;padding:0 20px;background:var(--surface);border-bottom:1px solid var(--line)}
+.htop .sp{flex:1}
+.hwho{font-size:13px;color:var(--muted);white-space:nowrap}
+.hwho .hname{color:var(--ink);text-decoration:none;font-weight:600}.hwho .hname:hover{color:var(--accent)}
+.hbody{max-width:1240px;margin:0 auto;padding:32px 24px 60px}
+.hhead{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:10px}
+.hhead h1{margin:0;font-size:26px;font-weight:700;letter-spacing:-.01em}
+.hbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hbar .tb{height:38px;padding:0 14px;font-size:14px}
+.hsearch{width:230px;height:38px}
+.hnote{font-size:12.5px;color:var(--muted);margin:0 0 18px;line-height:1.6}
+.hsel{position:sticky;top:60px;z-index:4;display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:8px 10px 8px 16px;margin:0 0 14px;font-size:14px}
+.hsel[hidden]{display:none}
+.hsel .sp{flex:1}
+.hsel .tb{height:34px}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:22px 18px}
+.hgrid .libempty{grid-column:1/-1}
+.hnew{aspect-ratio:16/9;border:1.5px dashed color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:12px;background:var(--surface);color:var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-size:14px;font-weight:600;cursor:pointer;padding:0}
+.hnew span{width:44px;height:44px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center}
+.hnew span svg{width:22px;height:22px}
+.hnew:hover{background:var(--surface-2);border-color:var(--accent)}
+.hcard{position:relative;display:flex;flex-direction:column;gap:8px;min-width:0}
+.hcard .dthumb{border-radius:12px;cursor:pointer;transition:box-shadow .12s,border-color .12s}
+.hcard .dthumb:hover{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.hcard.sel .dthumb{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent),0 0 0 6px var(--accent-soft)}
+.hchk{position:absolute;left:8px;top:8px;width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.92);box-shadow:0 1px 4px rgba(0,0,0,.18);display:grid;place-items:center;cursor:pointer;opacity:0;transition:opacity .12s;z-index:2}
+.hchk input{width:16px;height:16px;margin:0;accent-color:var(--accent);cursor:pointer}
+.hcard:hover .hchk,.hcard.sel .hchk,.home.selecting .hchk,.hchk:focus-within{opacity:1}
+.hmeta{display:flex;flex-direction:column;gap:2px;min-width:0;padding-right:34px}
+.hmeta b{font-weight:600;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hmeta span{font-size:12px;color:var(--muted)}
+.hmore{position:absolute;right:0;bottom:16px;width:30px;height:30px;color:var(--muted)}
+.hmore:hover{background:var(--surface-2);color:var(--ink)}
+.hmore svg{width:18px;height:18px}
+.hmenu{position:fixed;z-index:400;min-width:230px;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:6px;display:flex;flex-direction:column}
+.hmenu button{display:flex;align-items:center;gap:10px;border:0;background:none;border-radius:8px;padding:8px 10px;font-size:13.5px;color:var(--ink);text-align:left;cursor:pointer}
+.hmenu button:hover{background:var(--surface-2)}
+.hmenu button svg{width:16px;height:16px;color:var(--muted)}
+.hmenu .dangerm,.hmenu .dangerm svg{color:var(--danger)}
+@media (max-width:640px){.hbody{padding:20px 16px 40px}.hsearch{width:100%}.hbar{width:100%}.hgrid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
 </style>
 
 <div class="app" id="app">
   <header class="top">
+    <button class="tb icon backbtn" id="homeBtn" title="Ко всем презентациям" aria-label="Ко всем презентациям"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg></button>
     <div class="brand">Конструктор презентаций</div>
     <button class="tb" id="decksBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Все мои презентации</button>
-    <button class="deckname draft" id="deckName">Без названия</button>
+    <button class="deckname draft" id="deckName">Новая презентация</button>
     <span class="sp"></span>
     <span class="peers-top" id="peers"></span><span class="save-state" id="saveState"></span>
     <button class="tb icon" id="undoBtn" title="Отменить · Ctrl/⌘+Z" aria-label="Отменить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
@@ -489,10 +573,14 @@ textarea.in{resize:vertical;min-height:60px;display:block}
       <div class="thumbs" id="thumbs"></div>
       <div class="add-slide" id="addWrap"><button class="addbtn" id="addSlideBtn" style="width:100%"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Слайд</button></div>
     </div>
+    <div class="selbar" id="selBar" hidden></div>
   </aside>
   <main class="stagewrap" id="stageWrap"><div class="stage" id="stage"></div></main>
   <aside class="panel" id="panel" aria-label="Содержимое слайда"></aside>
+  <div class="rsz rsz-l" id="rszL" role="separator" aria-orientation="vertical" aria-label="Ширина панели слайдов" tabindex="0" title="Потяните, чтобы изменить ширину · двойной клик — по умолчанию"></div>
+  <div class="rsz rsz-r" id="rszR" role="separator" aria-orientation="vertical" aria-label="Ширина правой панели" tabindex="0" title="Потяните, чтобы изменить ширину · двойной клик — по умолчанию"></div>
 </div>
+<div class="home" id="home" hidden></div>
 <button class="bucket" id="bucket" hidden title="Цвет · Shift+клик — выбрать несколько" aria-label="Изменить цвет"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m19 11-8-8-8.6 8.6a2 2 0 0 0 0 2.8l5.2 5.2a2 2 0 0 0 2.8 0z"/><path d="m5 2 5 5M2 13h15"/><path d="M22 20a2 2 0 1 1-4 0c0-1.6 1.7-2.4 2-4 .3 1.6 2 2.4 2 4"/></svg><i></i><b hidden></b></button>
 <input type="file" id="fileIn" accept="image/png,image/jpeg,image/webp,image/svg+xml,image/gif" hidden>
 <input type="file" id="projIn" accept="application/json,.json" hidden>
@@ -677,9 +765,9 @@ const R={
   ${brandPill()}
   <div class="abs f-bar f-seg"${ck("bar,barText")}><span${ed("data.segLabel")}>${txt(d.segLabel)}</span><span${ed("data.segValue")}>${txt(d.segValue)}</span></div>
   <div class="abs f-bar f-run"${ck("panel,runText")}><span${ed("data.runLabel")}>${txt(d.runLabel)}</span><span${ed("data.runValue")}>${txt(d.runValue)}</span></div>
-  <div class="abs f-list"${ck("panel,text")}>
-   ${d.rows.map((r,j)=>`<div class="f-row hov">${d.rows.length>1?eb("del",`data-list="data.rows" data-i="${j}"`,IC.x,"del","Удалить категорию"):""}<div class="f-cat"${ck("catBg,catText")}><span class="wrap"${ed(`data.rows.${j}.cat`,{multi:1})}>${txt(r.cat)}</span></div><div class="f-desc wrap"${ck("text")}${ed(`data.rows.${j}.desc`,{multi:1})}>${txt(r.desc)}</div></div>`).join("")}
-   ${E()&&d.rows.length<9?`<div class="f-add"><button class="pillbtn" data-act="add" data-list="data.rows" tabindex="-1">${IC.plus}Категория</button></div>`:""}
+  <div class="abs f-list"${ck("panel,text")}><i class="f-pad"></i>
+   ${d.rows.map((r,j)=>`${j?'<i class="f-gap"></i>':""}<div class="f-row hov">${d.rows.length>1?eb("del",`data-list="data.rows" data-i="${j}"`,IC.x,"del","Удалить категорию"):""}<div class="f-cat"${ck("catBg,catText")}><span class="wrap"${ed(`data.rows.${j}.cat`,{multi:1})}>${txt(r.cat)}</span></div><div class="f-desc wrap"${ck("text")}${ed(`data.rows.${j}.desc`,{multi:1})}>${txt(r.desc)}</div></div>`).join("")}<i class="f-pad"></i>
+   ${E()?`<div class="f-add"${FILL_FULL?" hidden":""}><button class="pillbtn" data-act="add" data-list="data.rows" tabindex="-1">${IC.plus}Категория</button></div>`:""}
   </div>
   ${slot(s,"data.photo",926,635,{cls:"abs f-photo"})}
   ${yearPill()}${pagePill(i)}`},
@@ -799,16 +887,27 @@ function fitStage(){
  const sl=stage.firstElementChild;if(sl)sl.style.zoom=scale;
 }
 let selSid=null;
-function renderMain(){const s=S();if(!s)return;stage.innerHTML=renderSlide(s,cur,"edit");stage.firstElementChild.style.zoom=scale;if(selSid!==s.id){SEL=[];selSid=s.id}if(typeof applySel==="function"&&SEL.length)applySel();else hideBucket()}
+let FILL_FULL=false;
+/* "Наполнение бокса": another category may be added only while it still fits with gaps of at least 3px */
+function fillRoom(){
+ const s=S();if(!s||s.type!=="fill")return;const l=stage.querySelector(".f-list");if(!l||!l.offsetWidth)return;
+ const k=l.offsetWidth/925;const rows=[...l.querySelectorAll(".f-row")];
+ const used=rows.reduce((a,r)=>a+r.offsetHeight,0)/k;
+ const full=l.offsetHeight/k-used-rows.length*3-24<50;
+ FILL_FULL=full;const fa=l.querySelector(".f-add");if(fa)fa.hidden=full;
+ const pb=panel.querySelector('.addbtn[data-list="data.rows"]');if(pb)pb.disabled=full;
+}
+stage.addEventListener("input",()=>requestAnimationFrame(fillRoom));
+function renderMain(){const s=S();if(!s)return;stage.innerHTML=renderSlide(s,cur,"edit");stage.firstElementChild.style.zoom=scale;fillRoom();if(selSid!==s.id){SEL=[];selSid=s.id}if(typeof applySel==="function"&&SEL.length)applySel();else hideBucket()}
 function thumbHTML(s,i){
- return `<div class="thumb${i===cur?" on":""}" draggable="true" data-i="${i}" role="button" tabindex="0" aria-label="Слайд ${i+1}: ${TYPES[s.type].name}">
+ return `<div class="thumb${i===cur?" on":""}${SELS.has(s.id)?" sel":""}" draggable="true" data-i="${i}" role="button" tabindex="0" aria-label="Слайд ${i+1}: ${TYPES[s.type].name}">
   <span class="num">${i+1}</span>
   <div class="tw"><div class="tscale">${renderSlide(s,i,"thumb")}</div><span class="tpeers" data-psid="${s.id}">${typeof peerDots==="function"?peerDots(s.id):""}</span></div>
   <button class="insb" data-at="${i+1}" title="Добавить слайд сюда" aria-label="Добавить слайд после ${i+1}">${IC.plus}</button>
   <div class="tacts"><button class="mini" data-tact="dup" title="Дублировать" aria-label="Дублировать">${IC.dup}</button>${deck.slides.length>1?`<button class="mini" data-tact="del" title="Удалить" aria-label="Удалить">${IC.trash}</button>`:""}</div>
  </div>`;
 }
-function renderThumbs(){thumbsEl.innerHTML=deck.slides.map(thumbHTML).join("")}
+function renderThumbs(){thumbsEl.innerHTML=deck.slides.map(thumbHTML).join("");markSlideSel()}
 function renderThumb(i){const el=thumbsEl.children[i];if(!el)return renderThumbs();el.outerHTML=thumbHTML(deck.slides[i],i)}
 let thumbT=null;
 function thumbSoon(all){clearTimeout(thumbT);thumbT=setTimeout(()=>all?renderThumbs():renderThumb(cur),250)}
@@ -843,7 +942,7 @@ function contentFields(s){
   +F("data.body","Описание концепции",{area:1,rows:8,tip:"Пустая строка — новый абзац. Текст прижат к низу колонки."})
   +`<div class="fld">${L("Блоки","Высота всех блоков выравнивается по самому высокому. До 5 блоков.")}<div class="grp">${d.stats.map((t,j)=>`<div class="item">${d.stats.length>1?delBtn("data.stats",j):""}${F(`data.stats.${j}.value`,null)}${F(`data.stats.${j}.label`,null)}</div>`).join("")}${addBtn("data.stats","Блок",d.stats.length>=5)}</div></div>`;
  case "fill":return F("data.segValue","Сегмент")+F("data.runValue","Тираж")
-  +`<div class="fld">${L("Категории и наполнение","Текст наполнения фиксирован по ширине и растёт только по высоте. До 9 категорий.")}<div class="grp">${d.rows.map((r,j)=>`<div class="item">${d.rows.length>1?delBtn("data.rows",j):""}${F(`data.rows.${j}.cat`,null)}${F(`data.rows.${j}.desc`,null,{area:1,rows:2})}</div>`).join("")}${addBtn("data.rows","Категория",d.rows.length>=9)}</div></div>`
+  +`<div class="fld">${L("Категории и наполнение","Текст наполнения фиксирован по ширине и растёт только по высоте. Категории можно добавлять, пока они помещаются в блок: расстояние между ними сокращается до 3 px.")}<div class="grp">${d.rows.map((r,j)=>`<div class="item">${d.rows.length>1?delBtn("data.rows",j):""}${F(`data.rows.${j}.cat`,null)}${F(`data.rows.${j}.desc`,null,{area:1,rows:2})}</div>`).join("")}${addBtn("data.rows","Категория",FILL_FULL)}</div></div>`
   +U("data.photo","Изображение состава",{tip:"На слайде фото можно двигать мышью, масштабировать колесом или уголком справа внизу."});
  case "timing":return d.items.map((t,j)=>`<div class="fld">${L(plain(t.label).replace(/\n/g," "))}<div class="datef"><input class="in" id="f_data_items_${j}_date" data-path="data.items.${j}.date" value="${esc(t.date)}"><button class="calbtn" data-act="cal" data-i="${j}" title="Календарь" aria-label="Выбрать дату">${IC.cal}</button></div></div>`).join("");
  case "media":return F("data.reachValue","Охват",{tip:"Число в левом блоке. Подпись под ним можно поправить прямо на слайде."})
@@ -914,19 +1013,19 @@ function redo(){if(commitT)commit(true);if(hi<hist.length-1){hi++;restore(hist[h
 function updUndo(){$("undoBtn").disabled=hi<=0;$("redoBtn").disabled=hi>=hist.length-1}
 /* Ctrl+Z / Ctrl+Shift+Z / Ctrl+Y on Windows, ⌘+Z / ⌘+Shift+Z on Mac — work everywhere, any keyboard layout */
 window.addEventListener("keydown",e=>{
- const mod=e.ctrlKey||e.metaKey;if(!mod||e.altKey)return;
+ const mod=e.ctrlKey||e.metaKey;if(!mod||e.altKey||homeOn)return;
  const k=e.code==="KeyZ"||(!e.code&&e.key.toLowerCase()==="z"),y=e.code==="KeyY"||(!e.code&&e.key.toLowerCase()==="y");
  if(k){e.preventDefault();e.stopPropagation();e.shiftKey?redo():undo()}
  else if(y&&!e.metaKey){e.preventDefault();e.stopPropagation();redo()}
 },true);
-document.addEventListener("beforeinput",e=>{if(e.inputType==="historyUndo"||e.inputType==="historyRedo"){e.preventDefault();e.inputType==="historyUndo"?undo():redo()}},true);
+document.addEventListener("beforeinput",e=>{if(homeOn)return;if(e.inputType==="historyUndo"||e.inputType==="historyRedo"){e.preventDefault();e.inputType==="historyUndo"?undo():redo()}},true);
 
 /* ---------- autosave (browser) ---------- */
 let db=null;
 function idb(){return new Promise(res=>{try{const r=indexedDB.open("nbb-builder-3",1);r.onupgradeneeded=()=>r.result.createObjectStore("kv");r.onsuccess=()=>res(r.result);r.onerror=()=>res(null)}catch(e){res(null)}})}
 function usedAssets(){const ids=new Set();JSON.stringify(deck,(k,v)=>{if(v&&typeof v==="object"&&typeof v.id==="string"&&!v.type)ids.add(v.id);return v});const o={};ids.forEach(id=>{if(ASSETS[id]&&!BUILTIN[id])o[id]=ASSETS[id]});return o}
 let saveT=null;
-function saveSoon(now){clearTimeout(saveT);const go=()=>{if(!db)return;try{const tx=db.transaction("kv","readwrite");localSavedAt=new Date().toISOString();tx.objectStore("kv").put({deck,assets:usedAssets(),cur,pid:PID,name:PNAME,savedAt:localSavedAt,rev:CURREV,base:SBBASE},"project");tx.oncomplete=()=>{if(!PID)setStatus("Не сохранено")}}catch(e){}};if(now===true)go();else saveT=setTimeout(go,800);deckSaveSoon()}
+function saveSoon(now){clearTimeout(saveT);const go=()=>{if(!db)return;if(EXPORTING){saveT=setTimeout(go,1000);return}try{const tx=db.transaction("kv","readwrite");localSavedAt=new Date().toISOString();tx.objectStore("kv").put({deck,assets:usedAssets(),cur,pid:PID,name:PNAME,savedAt:localSavedAt,rev:CURREV,base:SBBASE},"project");tx.oncomplete=()=>{if(!PID)setStatus("Не сохранено")}}catch(e){}};if(now===true)go();else saveT=setTimeout(go,800);deckSaveSoon()}
 async function loadSaved(){db=await idb();if(!db)return false;return new Promise(res=>{try{const r=db.transaction("kv").objectStore("kv").get("project");r.onsuccess=()=>{const v=r.result;if(v&&v.deck&&v.deck.slides&&v.deck.slides.length){Object.assign(ASSETS,v.assets||{});deck=normalize(v.deck);cur=clamp(v.cur||0,0,deck.slides.length-1);PID=v.pid||null;PNAME=v.name||"";localSavedAt=v.savedAt||"";CURREV=v.rev||0;SBBASE=v.base||null;lastSavedJSON=PID?(SBCONF&&SBBASE?SBBASE:JSON.stringify(deck)):"";res(true)}else res(false)};r.onerror=()=>res(false)}catch(e){res(false)}})}
 
 /* ---------- mutations ---------- */
@@ -1056,7 +1155,7 @@ async function ensureAssets(){
  if(!LIB.backend)return;if(ensuring){ensureAgain=true;return}ensuring=true;ensureAgain=false;
  const need=new Set();JSON.stringify([deck,...DECKS.items.map(x=>{try{return JSON.parse(x.deck)}catch(e){return null}})],(k,v)=>{if(v&&typeof v==="object"&&typeof v.id==="string"&&v.id.startsWith("m_")&&!ASSETS[v.id])need.add(v.id);return v});
  let got=0;for(const id of need){try{const u=await LIB.backend.get(id.slice(2));if(u){ASSETS[id]=u;got++}}catch(e){}}
- ensuring=false;if(got){const fi=focusInfo();renderAll();refocus(fi,true);drawDecks()}if(ensureAgain)setTimeout(ensureAssets,50);
+ ensuring=false;if(got&&EXPORTING){setTimeout(()=>{if(!EXPORTING){renderAll();drawDecks()}},2500)}else if(got){const fi=focusInfo();renderAll();refocus(fi,true);drawDecks()}if(ensureAgain)setTimeout(ensureAssets,50);
 }
 let libEl=null,libQ="",libDel=null;
 function openLib(path){
@@ -1332,17 +1431,98 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"&&(cpEl||calEl))close
 /* ---------- thumbnails ---------- */
 thumbsEl.addEventListener("click",e=>{const ib=e.target.closest(".insb");if(ib){e.stopPropagation();openTpl(ib,+ib.dataset.at);return}
 const t=e.target.closest(".thumb");if(!t)return;const i=+t.dataset.i;const ta=e.target.closest("[data-tact]");
- if(ta){e.stopPropagation();if(ta.dataset.tact==="dup")dupSlide(i);else delSlide(i);return}go(i)});
+ if(ta){e.stopPropagation();if(ta.dataset.tact==="dup")dupSlide(i);else delSlide(i);return}
+ if(e.shiftKey||e.ctrlKey||e.metaKey){e.preventDefault();slideSel(i,e.shiftKey);return}
+ clearSlideSel();go(i)});
 thumbsEl.addEventListener("keydown",e=>{const t=e.target.closest(".thumb");if(!t)return;const i=+t.dataset.i;
  if(e.key==="Enter"||e.key===" "){e.preventDefault();go(i)}
  if(e.altKey&&(e.key==="ArrowUp"||e.key==="ArrowLeft")){e.preventDefault();moveSlide(i,i-1);thumbsEl.children[cur]?.focus()}
  if(e.altKey&&(e.key==="ArrowDown"||e.key==="ArrowRight")){e.preventDefault();moveSlide(i,i+1);thumbsEl.children[cur]?.focus()}});
 let dragI=null;
-thumbsEl.addEventListener("dragstart",e=>{const t=e.target.closest(".thumb");if(!t)return;dragI=+t.dataset.i;t.classList.add("dragging");e.dataTransfer.effectAllowed="move";try{e.dataTransfer.setData("text/plain","slide")}catch(_){}});
+thumbsEl.addEventListener("dragstart",e=>{const t=e.target.closest(".thumb");if(!t)return;dragI=+t.dataset.i;t.classList.add("dragging");
+ const ds=deck.slides[dragI];dragGroup=ds&&SELS.has(ds.id)&&SELS.size>1?selOrder().map(x=>x.id):null;if(dragGroup)thumbsEl.querySelectorAll(".thumb.sel").forEach(x=>x.classList.add("dragging"));e.dataTransfer.effectAllowed="move";try{e.dataTransfer.setData("text/plain","slide")}catch(_){}});
 function dropPos(t,e){const r=t.getBoundingClientRect();const horiz=getComputedStyle(thumbsEl).flexDirection==="row";return horiz?(e.clientX<r.left+r.width/2?"before":"after"):(e.clientY<r.top+r.height/2?"before":"after")}
 thumbsEl.addEventListener("dragover",e=>{if(dragI==null)return;const t=e.target.closest(".thumb");if(!t)return;e.preventDefault();thumbsEl.querySelectorAll(".drop-before,.drop-after").forEach(x=>x.classList.remove("drop-before","drop-after"));t.classList.add("drop-"+dropPos(t,e))});
-thumbsEl.addEventListener("drop",e=>{if(dragI==null)return;const t=e.target.closest(".thumb");if(!t)return;e.preventDefault();let to=+t.dataset.i+(dropPos(t,e)==="after"?1:0);if(to>dragI)to--;const from=dragI;dragI=null;moveSlide(from,to)});
-thumbsEl.addEventListener("dragend",()=>{dragI=null;thumbsEl.querySelectorAll(".dragging,.drop-before,.drop-after").forEach(x=>x.classList.remove("dragging","drop-before","drop-after"))});
+thumbsEl.addEventListener("drop",e=>{if(dragI==null)return;const t=e.target.closest(".thumb");if(!t)return;e.preventDefault();let to=+t.dataset.i+(dropPos(t,e)==="after"?1:0);if(dragGroup){const g=dragGroup;dragGroup=null;dragI=null;moveGroup(g,to);return}if(to>dragI)to--;const from=dragI;dragI=null;moveSlide(from,to)});
+thumbsEl.addEventListener("dragend",()=>{dragI=null;dragGroup=null;thumbsEl.querySelectorAll(".dragging,.drop-before,.drop-after").forEach(x=>x.classList.remove("dragging","drop-before","drop-after"))});
+
+/* ---------- several slides at once ----------
+   Ctrl/⌘+click adds a slide to the selection, Shift+click selects a range. Selected slides can be duplicated,
+   deleted or dragged to a new place together. */
+const SELS=new Set();let selAnchor=null,dragGroup=null;
+function slideSel(i,range){
+ const s=deck.slides[i];if(!s)return;
+ if(!SELS.size&&S())SELS.add(S().id);
+ if(range){const a=deck.slides.findIndex(x=>x.id===(selAnchor||S().id));const lo=Math.min(a<0?cur:a,i),hi=Math.max(a<0?cur:a,i);for(let k=lo;k<=hi;k++)SELS.add(deck.slides[k].id)}
+ else{SELS.has(s.id)?SELS.delete(s.id):SELS.add(s.id);selAnchor=s.id}
+ if(SELS.size===1&&SELS.has(S().id))SELS.clear();
+ markSlideSel();
+}
+function clearSlideSel(){if(!SELS.size)return;SELS.clear();markSlideSel()}
+function markSlideSel(){
+ const ids=new Set(deck.slides.map(s=>s.id));[...SELS].forEach(id=>{if(!ids.has(id))SELS.delete(id)});
+ [...thumbsEl.children].forEach(t=>{const s=deck.slides[+t.dataset.i];t.classList.toggle("sel",!!s&&SELS.has(s.id))});
+ thumbsEl.classList.toggle("selecting",SELS.size>0);
+ const bar=$("selBar");if(!bar)return;bar.hidden=!SELS.size;
+ bar.innerHTML=SELS.size?`<div class="sbh"><b>Выбрано: ${SELS.size}</b><button class="x" data-sa="clr" title="Снять выделение · Esc" aria-label="Снять выделение">${IC.x}</button></div>
+  <div class="sbb"><button class="tb" data-sa="dup" title="Дублировать выбранные">${IC.dup}<span>Дублировать</span></button><button class="tb dangerb" data-sa="del" title="Удалить выбранные · Delete">${IC.trash}<span>Удалить</span></button></div>`:"";
+}
+function selOrder(){return deck.slides.filter(s=>SELS.has(s.id))}
+function dupSel(){
+ const keep=S().id,copies=[];
+ for(let i=deck.slides.length-1;i>=0;i--){const s=deck.slides[i];if(!SELS.has(s.id))continue;const c=clone(s);c.id=uid();deck.slides.splice(i+1,0,c);copies.push(c.id)}
+ SELS.clear();copies.forEach(id=>SELS.add(id));cur=deck.slides.findIndex(x=>x.id===keep);
+ renderAll();markSlideSel();commit(true);markEdit();toast(copies.length>1?`Слайды продублированы: ${copies.length}`:"Слайд продублирован");
+}
+function delSel(){
+ const n=SELS.size;if(!n)return;
+ if(n>=deck.slides.length){toast("Нельзя удалить все слайды: должен остаться хотя бы один.");return}
+ const first=deck.slides.findIndex(s=>SELS.has(s.id));const keep=S().id;
+ deck.slides=deck.slides.filter(s=>!SELS.has(s.id));
+ const k=deck.slides.findIndex(s=>s.id===keep);cur=k>=0?k:clamp(first,0,deck.slides.length-1);
+ SELS.clear();renderAll();markSlideSel();commit(true);markEdit();toast(n>1?`Удалено слайдов: ${n}`:"Слайд удалён",{label:"Вернуть",fn:undo});
+}
+/* move the selected slides so they start where slide `to` (index before the move) was */
+function moveGroup(ids,to){
+ const set=new Set(ids),keep=S().id;
+ const moving=deck.slides.filter(s=>set.has(s.id)),rest=deck.slides.filter(s=>!set.has(s.id));
+ const at=deck.slides.slice(0,to).filter(s=>!set.has(s.id)).length;
+ const next=[...rest.slice(0,at),...moving,...rest.slice(at)];
+ if(next.every((s,i)=>s===deck.slides[i]))return;
+ deck.slides=next;cur=deck.slides.findIndex(s=>s.id===keep);renderAll();markSlideSel();commit(true);markEdit();
+}
+$("selBar")&&$("selBar").addEventListener("click",e=>{const b=e.target.closest("[data-sa]");if(!b)return;const a=b.dataset.sa;if(a==="clr")clearSlideSel();if(a==="dup")dupSel();if(a==="del")delSel()});
+thumbsEl.addEventListener("mousedown",e=>{if(e.shiftKey&&e.target.closest(".thumb"))e.preventDefault()});
+document.addEventListener("keydown",e=>{
+ if(homeOn||showEl)return;
+ const inStrip=e.target.closest&&e.target.closest(".strip");
+ if(SELS.size&&e.key==="Escape"&&!e.target.closest("input,textarea,[contenteditable]")){clearSlideSel();return}
+ if(!inStrip)return;
+ if(SELS.size&&(e.key==="Delete"||e.key==="Backspace")){e.preventDefault();delSel()}
+ if((e.ctrlKey||e.metaKey)&&e.code==="KeyA"){e.preventDefault();deck.slides.forEach(s=>SELS.add(s.id));markSlideSel()}
+});
+
+/* ---------- resizable side panels ---------- */
+const LAY={lw:200,rw:320};
+try{Object.assign(LAY,JSON.parse(localStorage.getItem("nbb-layout")||"{}"))}catch(e){}
+function applyLayout(){
+ const app=$("app");const room=Math.max(0,innerWidth-420);
+ LAY.lw=clamp(LAY.lw,130,Math.min(560,room-260));LAY.rw=clamp(LAY.rw,260,Math.max(260,Math.min(680,room-LAY.lw)));
+ const st=document.querySelector(".strip");const sb=st?Math.max(0,st.offsetWidth-st.clientWidth-1):0;
+ const tw=Math.max(80,LAY.lw-50-sb);
+ app.style.setProperty("--lw",LAY.lw+"px");app.style.setProperty("--rw",LAY.rw+"px");app.style.setProperty("--tw",tw+"px");app.style.setProperty("--tk",tw/1920);
+}
+function saveLayout(){try{localStorage.setItem("nbb-layout",JSON.stringify(LAY))}catch(e){}}
+["rszL","rszR"].forEach(id=>{const h=$(id);if(!h)return;const left=id==="rszL";
+ h.addEventListener("pointerdown",e=>{e.preventDefault();h.setPointerCapture(e.pointerId);h.classList.add("on");document.body.classList.add("resizing");
+  const mv=ev=>{if(left)LAY.lw=ev.clientX;else LAY.rw=innerWidth-ev.clientX;applyLayout()};
+  const up=()=>{h.classList.remove("on");document.body.classList.remove("resizing");h.removeEventListener("pointermove",mv);h.removeEventListener("pointerup",up);h.removeEventListener("pointercancel",up);saveLayout();fitStage()};
+  h.addEventListener("pointermove",mv);h.addEventListener("pointerup",up);h.addEventListener("pointercancel",up)});
+ h.addEventListener("dblclick",()=>{if(left)LAY.lw=200;else LAY.rw=320;applyLayout();saveLayout()});
+ h.addEventListener("keydown",e=>{const d=e.key==="ArrowLeft"?-20:e.key==="ArrowRight"?20:0;if(!d)return;e.preventDefault();if(left)LAY.lw+=d;else LAY.rw-=d;applyLayout();saveLayout()});
+});
+applyLayout();addEventListener("resize",applyLayout);
+{let lastSb=-1;const st=document.querySelector(".strip");st&&new ResizeObserver(()=>{const sb=st.offsetWidth-st.clientWidth;if(sb!==lastSb){lastSb=sb;applyLayout()}}).observe(st.firstElementChild)}
 
 const addWrap=$("addWrap");
 let tplHTML=null;
@@ -1365,7 +1545,7 @@ document.addEventListener("click",e=>{if(!e.target.closest("#addWrap")&&!e.targe
 document.addEventListener("keydown",e=>{if(e.key==="Escape")addWrap.querySelector(".tplm")?.remove()});
 
 document.addEventListener("keydown",e=>{
- if(showEl||cpEl||calEl)return;
+ if(showEl||cpEl||calEl||homeOn)return;
  if(e.target.closest("input,textarea,[contenteditable]"))return;
  if(e.key==="PageDown"||(e.key==="ArrowDown"&&!e.target.closest(".thumb"))){e.preventDefault();go(cur+1)}
  if(e.key==="PageUp"||(e.key==="ArrowUp"&&!e.target.closest(".thumb"))){e.preventDefault();go(cur-1)}
@@ -1396,15 +1576,12 @@ async function renderIMG(i){links=[];
 const fname=()=>{const t=plain(deck.slides[0]?.data?.title||"Презентация").replace(/\*/g,"").replace(/\s+/g," ").trim().slice(0,40)||"Презентация";return t.replace(/[\\/:*?"<>|«»]/g,"")};
 $("pdfBtn").onclick=async()=>{
  const b=busy("Готовлю PDF…");
- try{if(!window.jspdf)throw new Error("Библиотека PDF не загрузилась. Проверьте интернет и обновите страницу.");
-  const pdf=new jspdf.jsPDF({orientation:"landscape",unit:"px",format:[1920,1080],hotfixes:["px_scaling"],compress:true});
-  for(let i=0;i<deck.slides.length;i++){b.set(`Готовлю PDF… слайд ${i+1} из ${deck.slides.length}`);const url=await renderIMG(i);if(i)pdf.addPage([1920,1080],"landscape");pdf.addImage(url,"JPEG",0,0,1920,1080,undefined,"FAST");links.forEach(l=>{try{pdf.link(l.x,l.y,l.w,l.h,{url:l.url})}catch(e){}})}
-  const blob=pdf.output("blob");b.done();await saveFile(fname()+".pdf",blob);
- }catch(e){b.done();toast(e.message||"Не получилось собрать PDF")}
+ try{const d=deck;const blob=await buildPDF(d,i=>b.set(`Готовлю PDF… слайд ${i+1} из ${d.slides.length}`));b.done();await saveFile((PID?safeName(PNAME):fname())+".pdf",blob)}
+ catch(e){b.done();toast(e.message||"Не получилось собрать PDF")}
 };
 async function exportFile(){const data=JSON.stringify({app:"nbb-builder",v:2,name:PNAME,deck,assets:usedAssets()});if(await saveFile((PNAME||fname()).replace(/[\\/:*?"<>|«»]/g,"")+".json",data))toast("Файл проекта скачан")}
 const projIn=$("projIn");
-projIn.addEventListener("change",async()=>{const f=projIn.files[0];if(!f)return;try{const o=JSON.parse(await f.text());if(!o.deck||!Array.isArray(o.deck.slides))throw 0;if(!(await guardDraft()))return;Object.assign(ASSETS,o.assets||{});deck=normalize(o.deck);cur=0;PID=null;PNAME="";lastSavedJSON="";CURREV=0;SBBASE=null;renderAll();resetHistory();updateTitle();ensureAssets();if(await saveAs(false));else{setStatus("Не сохранено");toast("Проект открыт")}}catch(e){toast("Это не файл проекта конструктора.")}});
+projIn.addEventListener("change",async()=>{const f=projIn.files[0];if(!f)return;try{const o=JSON.parse(await f.text());if(!o.deck||!Array.isArray(o.deck.slides))throw 0;if(!(await guardDraft()))return;Object.assign(ASSETS,o.assets||{});deck=normalize(o.deck);cur=0;PID=newPid();PNAME=uniqName(String(o.name||f.name.replace(/\.json$/i,"")||"Новая презентация").slice(0,120));lastSavedJSON="";CURREV=0;SBBASE=null;SELS.clear();closeDecks();renderAll();fitStage();resetHistory();updateTitle();ensureAssets();await deckSaveNow();saveSoon(true);toast(`Презентация «${PNAME}» открыта и сохранена`)}catch(e){toast("Это не файл проекта конструктора.")}});
 
 /* ---------- saved presentations ----------
    Published page: stored in the artifact's db next to the media library (shared with everyone who opens the link
@@ -1458,7 +1635,7 @@ function deckRecord(){
 let deckT=null,deckQ=Promise.resolve();
 function deckSaveSoon(){if(!PID)return;clearTimeout(deckT);deckT=setTimeout(()=>deckSaveNow(),1200)}
 function deckSaveNow(){
- clearTimeout(deckT);if(!PID||!DECKS.backend)return deckQ;
+ clearTimeout(deckT);if(!PID||!DECKS.backend)return deckQ;if(EXPORTING){deckT=setTimeout(deckSaveNow,1500);return deckQ}
  deckQ=deckQ.then(async()=>{
   if(DECKS.shared&&moveAssetsToLibrary())await finalizeMoved();
   if(SBCONF&&DECKS.backend.saveCur)return sbSaveCur();
@@ -1472,7 +1649,7 @@ function deckSaveNow(){
 }
 const hhmm=()=>{const d=new Date();return String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0")};
 function setStatus(t){$("saveState").textContent=t}
-function updateTitle(){if(SBCONF&&typeof sbPresence==="function")sbPresence();const b=$("deckName");b.textContent=PID?PNAME:"Без названия";b.classList.toggle("draft",!PID);b.title=PID?"Переименовать":"Сохранить и дать название"}
+function updateTitle(){if(SBCONF&&typeof sbPresence==="function")sbPresence();const b=$("deckName");b.textContent=PID?PNAME:"Новая презентация";b.classList.toggle("draft",!PID);b.title=PID?"Переименовать":"Сохранить и дать название"}
 function defaultName(){const c=deck.slides.find(s=>s.type==="cover");const t=c?plain(c.data.title).replace(/\*/g,"").replace(/\s+/g," ").trim():"";return t.slice(0,60)||"Презентация"}
 const newPid=()=>"p"+Date.now().toString(36)+uid();
 async function saveAs(asCopy){
@@ -1488,15 +1665,17 @@ async function renameDeck(pid){
  if(isCur){PNAME=name;updateTitle();lastSavedJSON="";await deckSaveNow();saveSoon()}
  else if(rec){const {pid:_,...r}=rec;await DECKS.backend.put(pid,{...r,name})}
 }
-async function copyDeck(pid){
+async function copyDeck(pid,quiet){
  if(pid===PID)await deckSaveNow();
- const rec=DECKS.items.find(x=>x.pid===pid);if(!rec)return;const {pid:_,...r}=rec;const now=new Date().toISOString();
- try{await DECKS.backend.put(newPid(),{...r,name:r.name+" (копия)",createdAt:now,updatedAt:now});toast("Копия создана")}catch(e){toast("Не получилось создать копию.")}
+ const rec=DECKS.items.find(x=>x.pid===pid);if(!rec)return false;const {pid:_,rev:_r,by:_b,...r}=rec;const now=new Date().toISOString();
+ if(rec.pid===PID){r.deck=JSON.stringify(deck);r.slides=deck.slides.length}
+ try{await DECKS.backend.put(newPid(),{...r,name:uniqName(r.name+" (копия)"),createdAt:now,updatedAt:now});if(!quiet)toast("Копия создана");return true}catch(e){toast("Не получилось создать копию.");return false}
 }
+function uniqName(base){const names=new Set(DECKS.items.map(x=>x.name));if(!names.has(base))return base;let n=2;while(names.has(base+" "+n))n++;return base+" "+n}
 async function deleteDeck(pid){
  deletingPid=pid;
  try{await DECKS.backend.del(pid)}catch(e){toast("Не получилось удалить.");return}
- if(pid===PID){PID=null;PNAME="";lastSavedJSON="";CURREV=0;SBBASE=null;updateTitle();setStatus("Не сохранено");saveSoon()}
+ if(pid===PID){PID=null;PNAME="";lastSavedJSON="";CURREV=0;SBBASE=null;deck=freshDeck();cur=0;SELS.clear();hist=[];hi=-1;commit(true);renderAll();updateTitle();setStatus("");saveSoon()}
 }
 function resetHistory(){hist=[];hi=-1;commit(true)}
 function loadRecord(rec,silent){
@@ -1513,7 +1692,7 @@ async function guardDraft(){
  return c==="discard";
 }
 async function openDeck(pid){if(pid===PID){closeDecks();return}const rec=DECKS.items.find(x=>x.pid===pid);if(!rec)return;if(!(await guardDraft()))return;closeDecks();loadRecord(rec)}
-async function newDeck(){if(!(await guardDraft()))return;closeDecks();deck=freshDeck();cur=0;PID=null;PNAME="";lastSavedJSON="";CURREV=0;SBBASE=null;SEL=[];renderAll();fitStage();resetHistory();saveSoon(true);updateTitle();setStatus("Не сохранено")}
+async function newDeck(){if(!(await guardDraft()))return;deck=freshDeck();cur=0;PID=newPid();PNAME=uniqName("Новая презентация");lastSavedJSON="";CURREV=0;SBBASE=null;SEL=[];SELS.clear();closeDecks();renderAll();fitStage();resetHistory();updateTitle();await deckSaveNow();saveSoon(true)}
 
 /* small dialogs */
 function dialog(html,onClick){const w=document.createElement("div");w.className="libw dlg";w.innerHTML=`<div class="lib dlgbox" role="dialog">${html}</div>`;document.body.append(w);w.addEventListener("click",e=>onClick(e,w));return w}
@@ -1532,63 +1711,172 @@ function choose(title,text,btns){return new Promise(res=>{
  const kd=e=>{if(e.key==="Escape"){e.stopPropagation();done("cancel")}};document.addEventListener("keydown",kd,true);
 })}
 
-/* presentations panel */
-let decksEl=null,decksDel=null;
+/* ---------- home: all presentations ----------
+   The first screen. Lists every saved presentation (name, last change, slide count); a click opens it in the editor.
+   Several can be selected (checkbox, or Ctrl/⌘/Shift+click) to download, duplicate or delete together. */
 const fmtDate=s=>{try{return new Date(s).toLocaleString("ru-RU",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})}catch(e){return""}};
 const plural=(n,a,b,c)=>{const m=n%10,h=n%100;return n+" "+(m===1&&h!==11?a:m>=2&&m<=4&&(h<12||h>14)?b:c)};
-function openDecks(){
- closeLib();closePop();
- decksEl=document.createElement("div");decksEl.className="libw";decksEl.setAttribute("role","dialog");decksEl.setAttribute("aria-label","Презентации");
- decksEl.innerHTML=`<div class="lib decks"><div class="libh"><h3>Все мои презентации</h3><button class="x" data-dk="close" aria-label="Закрыть">${IC.x}</button></div>
-  <div class="libbar"><button class="tb primary" data-dk="new">${IC.plus}Новая презентация</button><button class="tb" data-dk="saveas">Сохранить как…</button><span class="sp"></span><button class="tb" data-dk="import">Открыть файл</button><button class="tb" data-dk="export">Скачать файл</button></div>
-  <div class="libnote" id="decksNote"></div><div class="libgrid dgrid" id="decksGrid"></div></div>`;
- document.body.append(decksEl);drawDecks();
- decksEl.addEventListener("click",e=>{
-  if(e.target===decksEl)return closeDecks();
-  const b=e.target.closest("[data-dk]");if(!b)return;const a=b.dataset.dk,pid=b.dataset.pid;
-  if(a==="close")return closeDecks();
-  if(a==="new")return newDeck();
-  if(a==="saveas"){closeDecks();return saveAs(!!PID)}
-  if(a==="import"){closeDecks();projIn.value="";return projIn.click()}
-  if(a==="export")return exportFile();
-  if(a==="migrate")return sbMigrate();
-  if(a==="logout")return sbLogout();
-  if(a==="open")return openDeck(pid);
-  if(a==="ren")return renameDeck(pid);
-  if(a==="copy")return copyDeck(pid);
-  if(a==="del"){decksDel=pid;return drawDecks()}
-  if(a==="delno"){decksDel=null;return drawDecks()}
-  if(a==="delyes"){decksDel=null;deleteDeck(pid);DECKS.items=DECKS.items.filter(x=>x.pid!==pid);return drawDecks()}
- });
+let homeOn=false,decksEl=null;const homeSel=new Set();let homeQ="",homeAnchor=null,EXPORTING=false;
+const homeEl=$("home");
+const IC_DL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>';
+const IC_MORE='<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>';
+const IC_OPEN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>';
+function buildHome(){
+ homeEl.innerHTML=`<div class="htop"><div class="brand">Конструктор презентаций</div><span class="sp"></span><span class="hwho" id="hWho"></span></div>
+ <div class="hbody">
+  <div class="hhead"><h1>Все мои презентации</h1>
+   <div class="hbar"><input class="in hsearch" id="hSearch" type="search" placeholder="Поиск по названию" aria-label="Поиск по названию">
+    <button class="tb" data-dk="import">${IC_OPEN}Открыть</button>
+    <button class="tb primary" data-dk="new">${IC.plus}Новая презентация</button></div></div>
+  <div class="hsel" id="hSel" hidden></div>
+  <div class="hnote" id="hNote"></div>
+  <div class="hgrid" id="hGrid"></div>
+ </div>`;
+ decksEl=homeEl;
+ homeEl.querySelector("#hSearch").addEventListener("input",e=>{homeQ=e.target.value;drawDecks()});
+ homeEl.addEventListener("click",homeClick);
+ homeEl.addEventListener("change",e=>{const c=e.target.closest("[data-dk=sel]");if(c){c.checked?homeSel.add(c.dataset.pid):homeSel.delete(c.dataset.pid);homeAnchor=c.dataset.pid;drawSel()}});
 }
-function closeDecks(){if(decksEl){decksEl.remove();decksEl=null;decksDel=null}}
+function showHome(){
+ if(!homeEl.firstChild)buildHome();
+ if(PID&&!EXPORTING)deckSaveNow();
+ closeLib();closePop();closeMenu();hideTip&&hideTip();
+ homeOn=true;homeEl.hidden=false;document.body.classList.add("on-home");drawDecks();
+}
+function hideHome(){
+ if(!homeOn)return;homeOn=false;homeEl.hidden=true;homeSel.clear();closeMenu();document.body.classList.remove("on-home");
+ try{history.pushState({nbb:"ed"},"")}catch(e){}
+ requestAnimationFrame(()=>{fitStage();renderThumbs()});
+}
+function openDecks(){try{if(history.state&&history.state.nbb==="ed")return history.back()}catch(e){}showHome()}
+function closeDecks(){hideHome()}
+addEventListener("popstate",()=>{if(!homeOn)showHome()});
 function deckThumb(rec){
  let d;try{d=rec.pid===PID?deck:normalize(JSON.parse(rec.deck))}catch(e){return""}
  if(rec.assets)Object.assign(ASSETS,rec.assets);
  const prev=deck;deck=d;let h="";try{h=renderSlide(d.slides[0],0,"thumb")}catch(e){}deck=prev;return h;
 }
+const homeList=()=>{const q=homeQ.trim().toLowerCase();return DECKS.items.filter(x=>!q||String(x.name||"").toLowerCase().includes(q))};
+const thumbCache=new Map();
 function drawDecks(){
- if(!decksEl)return;const grid=decksEl.querySelector("#decksGrid"),note=decksEl.querySelector("#decksNote");
- note.textContent=(DECKS.shared?(SBCONF?"Общее хранилище команды: презентации видят все участники и могут редактировать их одновременно.":"Общее хранилище: презентации видят все, кто открывает эту ссылку."):"Презентации хранятся в этом браузере.")+(DECKS.items.length?` Всего: ${DECKS.items.length}.`:"");
- if(SBCONF&&SB&&ME){note.insertAdjacentHTML("beforeend",(legacy.length?` <button class="lnk" data-dk="migrate">Перенести в облако ${plural(legacy.length,"презентацию","презентации","презентаций")} из этого браузера</button>`:"")+`<span class="who">${esc(ME)} · <button class="lnk" data-dk="logout">Выйти</button></span>`)}
- if(!DECKS.ready){grid.innerHTML=`<div class="libempty">Загружаю…</div>`;return}
- if(!DECKS.items.length){grid.innerHTML=`<div class="libempty">Здесь появятся сохранённые презентации. Нажмите «Сохранить» вверху, чтобы добавить текущую.</div>`;return}
- grid.innerHTML=DECKS.items.map(x=>`<div class="dcard${x.pid===PID?" on":""}">
-   <button class="dthumb" data-dk="open" data-pid="${x.pid}" aria-label="Открыть ${esc(x.name)}"><div class="dts">${deckThumb(x)}</div></button>
-   <div class="dmeta"><b title="${esc(x.name)}">${esc(x.name)}</b><span>${x.pid===PID?"Открыта сейчас · ":""}${fmtDate(x.updatedAt)} · ${plural(x.slides|0,"слайд","слайда","слайдов")}</span></div>
-   ${decksDel===x.pid?`<div class="libconf"><button data-dk="delyes" data-pid="${x.pid}">Удалить</button><button data-dk="delno">Отмена</button></div>`:
-   `<div class="dacts"><button class="x" data-dk="ren" data-pid="${x.pid}" title="Переименовать" aria-label="Переименовать">${IC.pen}</button><button class="x" data-dk="copy" data-pid="${x.pid}" title="Копия" aria-label="Копия">${IC.dup}</button><button class="x" data-dk="del" data-pid="${x.pid}" title="Удалить" aria-label="Удалить">${IC.trash}</button></div>`}
-  </div>`).join("");
+ if(!homeOn||!homeEl.firstChild)return;
+ const grid=homeEl.querySelector("#hGrid"),note=homeEl.querySelector("#hNote"),who=homeEl.querySelector("#hWho");
+ who.innerHTML=SBCONF&&SB&&ME?`<button class="lnk hname" data-dk="myname" title="Изменить имя">${esc(MYNAME||"Указать имя")}</button> · ${esc(ME)} · <button class="lnk" data-dk="logout">Выйти</button>`:"";
+ note.innerHTML=(DECKS.shared?(SBCONF?"Общее хранилище команды: презентации видят все участники и могут редактировать их одновременно.":"Общее хранилище: презентации видят все, кто открывает эту ссылку."):"Презентации хранятся в этом браузере.")
+  +(SBCONF&&typeof legacy!=="undefined"&&legacy.length?` <button class="lnk" data-dk="migrate">Перенести в облако ${plural(legacy.length,"презентацию","презентации","презентаций")} из этого браузера</button>`:"");
+ [...homeSel].forEach(p=>{if(!DECKS.items.some(x=>x.pid===p))homeSel.delete(p)});
+ if(!DECKS.ready){grid.innerHTML=`<div class="libempty">Загружаю презентации…</div>`;drawSel();return}
+ const list=homeList();
+ const newTile=homeQ.trim()?"":`<button class="hnew" data-dk="new"><span>${IC.plus}</span>Создать презентацию</button>`;
+ if(!list.length){grid.innerHTML=newTile+(DECKS.items.length?`<div class="libempty">Ничего не нашлось.</div>`:"");drawSel();return}
+ grid.innerHTML=newTile+list.map(x=>{
+  const key=x.pid+"|"+x.updatedAt+"|"+(x.pid===PID?JSON.stringify(deck.slides[0]).length:"");let th=thumbCache.get(key);if(th==null){th=deckThumb(x);thumbCache.set(key,th)}
+  const by=SBCONF&&x.by?` · ${esc(whoName(x.by))}`:"";
+  return `<div class="hcard${homeSel.has(x.pid)?" sel":""}" data-pid="${x.pid}">
+   <button class="dthumb" data-dk="open" data-pid="${x.pid}" aria-label="Открыть ${esc(x.name)}"><div class="dts">${th}</div></button>
+   <label class="hchk" title="Выбрать"><input type="checkbox" data-dk="sel" data-pid="${x.pid}"${homeSel.has(x.pid)?" checked":""} aria-label="Выбрать ${esc(x.name)}"></label>
+   <div class="hmeta"><b title="${esc(x.name)}">${esc(x.name)}</b><span>Изменено ${fmtDate(x.updatedAt)}${by}</span><span>${plural(x.slides|0,"слайд","слайда","слайдов")}</span></div>
+   <button class="x hmore" data-dk="menu" data-pid="${x.pid}" title="Действия" aria-label="Действия">${IC_MORE}</button>
+  </div>`}).join("");
  grid.querySelectorAll(".dthumb").forEach(t=>t.style.setProperty("--k",t.clientWidth/1920));
+ if(thumbCache.size>300)thumbCache.clear();
+ drawSel();
 }
-document.addEventListener("keydown",e=>{if(e.key==="Escape"&&decksEl){if(decksDel){decksDel=null;drawDecks()}else closeDecks()}});
+function drawSel(){
+ const bar=homeEl.querySelector("#hSel");if(!bar)return;const n=homeSel.size;
+ homeEl.classList.toggle("selecting",n>0);
+ homeEl.querySelectorAll(".hcard").forEach(c=>{const on=homeSel.has(c.dataset.pid);c.classList.toggle("sel",on);const cb=c.querySelector("input");if(cb)cb.checked=on});
+ bar.hidden=!n;if(!n){bar.innerHTML="";return}
+ const all=homeList().length;
+ bar.innerHTML=`<b>Выбрано: ${n}</b>${n<all?`<button class="lnk" data-dk="selall">Выбрать все (${all})</button>`:""}<span class="sp"></span>
+  <button class="tb primary" data-dk="dlmenu">${IC_DL}Скачать</button><button class="tb" data-dk="dupsel">${IC.dup}Дублировать</button><button class="tb dangerb" data-dk="delsel">${IC.trash}Удалить</button><button class="x" data-dk="selclr" title="Снять выделение" aria-label="Снять выделение">${IC.x}</button>`;
+}
+let menuEl=null;
+function closeMenu(){if(menuEl){menuEl.remove();menuEl=null}}
+function openMenu(anchor,items){
+ closeMenu();menuEl=document.createElement("div");menuEl.className="hmenu";menuEl.setAttribute("role","menu");
+ menuEl.innerHTML=items.map(([k,l,ic,cls])=>`<button role="menuitem" class="${cls||""}" data-mk="${k}">${ic||""}<span>${esc(l)}</span></button>`).join("");
+ document.body.append(menuEl);const r=anchor.getBoundingClientRect(),m=menuEl.getBoundingClientRect();
+ menuEl.style.left=clamp(r.right-m.width,8,innerWidth-m.width-8)+"px";menuEl.style.top=(r.bottom+6+m.height>innerHeight?r.top-m.height-6:r.bottom+6)+"px";
+ return new Promise(res=>{menuEl.addEventListener("click",e=>{const b=e.target.closest("[data-mk]");if(b){const k=b.dataset.mk;closeMenu();res(k)}});menuEl._res=res});
+}
+document.addEventListener("pointerdown",e=>{if(menuEl&&!menuEl.contains(e.target)&&!e.target.closest("[data-dk=menu],[data-dk=dlmenu]")){menuEl._res&&menuEl._res(null);closeMenu()}},true);
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&menuEl){closeMenu();return}if(homeOn&&e.key==="Escape"&&homeSel.size){homeSel.clear();drawSel()}
+ if(homeOn&&(e.ctrlKey||e.metaKey)&&e.code==="KeyA"&&!e.target.closest("input,textarea")){e.preventDefault();homeList().forEach(x=>homeSel.add(x.pid));drawSel()}});
+async function homeClick(e){
+ const b=e.target.closest("[data-dk]");if(!b||b.dataset.dk==="sel")return;const a=b.dataset.dk,pid=b.dataset.pid;
+ if(a==="open"){
+  if(e.shiftKey||e.ctrlKey||e.metaKey||homeSel.size){e.preventDefault();
+   if(e.shiftKey&&homeAnchor){const ids=homeList().map(x=>x.pid);const i0=ids.indexOf(homeAnchor),i1=ids.indexOf(pid);if(i0>=0&&i1>=0){for(let i=Math.min(i0,i1);i<=Math.max(i0,i1);i++)homeSel.add(ids[i])}}
+   else{homeSel.has(pid)?homeSel.delete(pid):homeSel.add(pid);homeAnchor=pid}
+   return drawSel()}
+  return openDeck(pid)}
+ if(a==="new")return newDeck();
+ if(a==="import"){projIn.value="";return projIn.click()}
+ if(a==="migrate")return sbMigrate();
+ if(a==="logout")return sbLogout();
+ if(a==="myname")return sbRename();
+ if(a==="selall"){homeList().forEach(x=>homeSel.add(x.pid));return drawSel()}
+ if(a==="selclr"){homeSel.clear();return drawSel()}
+ if(a==="dupsel"){const ids=[...homeSel];homeSel.clear();drawSel();let n=0;for(const p of ids){if(await copyDeck(p,true))n++}if(n)toast(n>1?`Создано копий: ${n}`:"Копия создана");return}
+ if(a==="delsel"){const ids=[...homeSel];const one=ids.length===1&&DECKS.items.find(x=>x.pid===ids[0]);
+  const c=await choose(one?"Удалить презентацию?":`Удалить ${plural(ids.length,"презентацию","презентации","презентаций")}?`,(one?`«${one.name}» `:"Они ")+(DECKS.shared?"удалятся у всех участников. ":"удалятся из этого браузера. ")+"Это нельзя отменить.",[["del","Удалить","dangerb"],["cancel","Отмена"]]);
+  if(c!=="del")return;homeSel.clear();for(const p of ids)await deleteDeck(p);DECKS.items=DECKS.items.filter(x=>!ids.includes(x.pid));drawDecks();return}
+ if(a==="dlmenu"){const k=await openMenu(b,[["pdf","Скачать PDF",IC_DL],["json","Скачать файл проекта (.json)",IC_DL]]);if(k)downloadDecks([...homeSel],k);return}
+ if(a==="menu"){const rec=DECKS.items.find(x=>x.pid===pid);if(!rec)return;
+  const k=await openMenu(b,[["open","Открыть",IC_OPEN],["ren","Переименовать",IC.pen],["dup","Дублировать",IC.dup],["pdf","Скачать PDF",IC_DL],["json","Скачать файл проекта",IC_DL],["del","Удалить",IC.trash,"dangerm"]]);
+  if(k==="open")return openDeck(pid);
+  if(k==="ren")return renameDeck(pid);
+  if(k==="dup")return copyDeck(pid);
+  if(k==="pdf"||k==="json")return downloadDecks([pid],k);
+  if(k==="del"){const c=await choose("Удалить презентацию?",`«${rec.name}» ${DECKS.shared?"удалится у всех участников":"удалится из этого браузера"}. Это нельзя отменить.`,[["del","Удалить","dangerb"],["cancel","Отмена"]]);
+   if(c==="del"){homeSel.delete(pid);await deleteDeck(pid);DECKS.items=DECKS.items.filter(x=>x.pid!==pid);drawDecks()}}
+ }
+}
+/* load the images a stored presentation uses (shared library) before exporting it */
+async function loadDeckAssets(d){
+ const need=new Set();JSON.stringify(d,(k,v)=>{if(v&&typeof v==="object"&&typeof v.id==="string"&&v.id.startsWith("m_")&&!ASSETS[v.id])need.add(v.id);return v});
+ for(const id of need){try{const u=LIB.backend&&await LIB.backend.get(id.slice(2));if(u)ASSETS[id]=u}catch(e){}}
+}
+function assetsOf(d){const ids=new Set();JSON.stringify(d,(k,v)=>{if(v&&typeof v==="object"&&typeof v.id==="string"&&!v.type)ids.add(v.id);return v});const o={};ids.forEach(id=>{if(ASSETS[id]&&!BUILTIN[id])o[id]=ASSETS[id]});return o}
+const safeName=n=>String(n||"Презентация").replace(/[\\/:*?"<>|«»]/g,"").trim().slice(0,80)||"Презентация";
+async function buildPDF(d,prog){
+ if(!window.jspdf)throw new Error("Библиотека PDF не загрузилась. Проверьте интернет и обновите страницу.");
+ const prev=deck;EXPORTING=true;deck=d;
+ try{const pdf=new jspdf.jsPDF({orientation:"landscape",unit:"px",format:[1920,1080],hotfixes:["px_scaling"],compress:true});
+  for(let i=0;i<d.slides.length;i++){prog&&prog(i);const url=await renderIMG(i);if(i)pdf.addPage([1920,1080],"landscape");pdf.addImage(url,"JPEG",0,0,1920,1080,undefined,"FAST");links.forEach(l=>{try{pdf.link(l.x,l.y,l.w,l.h,{url:l.url})}catch(e){}})}
+  return pdf.output("blob")}
+ finally{deck=prev;EXPORTING=false}
+}
+async function downloadDecks(pids,kind){
+ if(PID&&pids.includes(PID))await deckSaveNow();
+ const recs=pids.map(p=>DECKS.items.find(x=>x.pid===p)).filter(Boolean);if(!recs.length)return;
+ const b=busy("Готовлю файлы…");let ok=0;
+ try{for(let n=0;n<recs.length;n++){const rec=recs[n];const pre=recs.length>1?`${n+1} из ${recs.length}: `:"";
+   let d;try{d=rec.pid===PID?JSON.parse(JSON.stringify(deck)):normalize(JSON.parse(rec.deck))}catch(e){continue}
+   if(rec.assets)Object.assign(ASSETS,rec.assets);
+   b.set(pre+"загружаю картинки…");await loadDeckAssets(d);
+   let blob,name;
+   if(kind==="pdf"){blob=await buildPDF(d,i=>b.set(`${pre}«${rec.name}», слайд ${i+1} из ${d.slides.length}`));name=safeName(rec.name)+".pdf"}
+   else{blob=new Blob([JSON.stringify({app:"nbb-builder",v:2,name:rec.name,deck:d,assets:assetsOf(d)})],{type:"application/json"});name=safeName(rec.name)+".json"}
+   if(await saveFile(name,blob))ok++;
+   if(n<recs.length-1)await new Promise(r=>setTimeout(r,500));
+  }}
+ catch(e){toast(e.message||"Не получилось подготовить файл")}
+ finally{b.done()}
+ if(ok>1)toast(`Скачано файлов: ${ok}`);
+}
+
 
 /* ---------- team cloud (Supabase) ----------
    Only in the build that carries window.NBB_SB. Presentations and the media library live in the team's
    Supabase project; people sign in with e-mail and password. Several people can edit one presentation at once:
    every save carries the revision it was based on, and if someone saved in between, the two versions are merged
    slide by slide (and field by field inside a slide) before saving again. Changes from others arrive live. */
-let SB=null,ME="",deletingPid=null;
+let SB=null,ME="",MYNAME="",deletingPid=null;
+/* "updated_by" = email#tab#name; shows the name, or the part of the e-mail before @ for older records */
+const whoName=by=>{const p=String(by||"").split("#");let n="";try{n=decodeURIComponent(p[2]||"")}catch(e){}return n||p[0].replace(/@.*/,"")};
+async function sbRename(){sbAuthScreen.name=MYNAME;const s2=await sbAuthScreen("name","",true);const n=s2&&s2.user&&s2.user.user_metadata&&s2.user.user_metadata.name;if(n){MYNAME=n.trim();sbPresence(true);drawDecks();toast("Имя сохранено")}}
 const MYTAG=()=>ME+"#"+CLIENT;
 const CLIENT=Math.random().toString(36).slice(2,8);
 function sbLib(){return new Promise(res=>{
@@ -1607,35 +1895,39 @@ const sbErr=e=>{const m=String((e&&(e.message||e.error_description))||e||"");
  return m||"Что-то пошло не так.";};
 
 /* sign-in screen */
-function sbAuthScreen(mode,msg){return new Promise(res=>{
+function sbAuthScreen(mode,msg,cancelable){return new Promise(res=>{
  document.querySelector(".auth")?.remove();
  const w=document.createElement("div");w.className="auth";
  const draw=()=>{w.innerHTML=`<form class="authbox" novalidate>
    <div class="brand">Конструктор презентаций</div>
-   <h2>${mode==="up"?"Создать аккаунт":mode==="reset"?"Восстановить пароль":mode==="newpass"?"Новый пароль":"Вход"}</h2>
-   <p class="authsub">${mode==="newpass"?"Придумайте новый пароль для входа.":mode==="reset"?"Пришлём на почту ссылку для смены пароля.":"Общие презентации и медиа команды NEWBEAUTYBOX."}</p>
-   ${mode!=="newpass"?`<label class="fl"><span>Почта</span><input class="in" name="email" type="email" autocomplete="email" required></label>`:""}
-   ${mode!=="reset"?`<label class="fl"><span>Пароль</span><input class="in" name="pass" type="password" autocomplete="${mode==="in"?"current-password":"new-password"}" minlength="6" required></label>`:""}
+   <h2>${mode==="up"?"Создать аккаунт":mode==="reset"?"Восстановить пароль":mode==="newpass"?"Новый пароль":mode==="name"?"Как вас зовут?":"Вход"}</h2>
+   <p class="authsub">${mode==="newpass"?"Придумайте новый пароль для входа.":mode==="reset"?"Пришлём на почту ссылку для смены пароля.":mode==="name"?"Имя увидят коллеги: кто сейчас в презентации и кто менял её последним.":"Общие презентации и медиа команды NEWBEAUTYBOX."}</p>
+   ${mode==="up"||mode==="name"?`<label class="fl"><span>Имя</span><input class="in" name="uname" autocomplete="name" maxlength="60" required></label>`:""}
+   ${mode!=="newpass"&&mode!=="name"?`<label class="fl"><span>Почта</span><input class="in" name="email" type="email" autocomplete="email" required></label>`:""}
+   ${mode!=="reset"&&mode!=="name"?`<label class="fl"><span>Пароль</span><input class="in" name="pass" type="password" autocomplete="${mode==="in"?"current-password":"new-password"}" minlength="6" required></label>`:""}
    <div class="autherr" role="alert">${msg?esc(msg):""}</div>
-   <button class="tb primary authgo" type="submit">${mode==="up"?"Создать аккаунт":mode==="reset"?"Отправить ссылку":mode==="newpass"?"Сохранить пароль":"Войти"}</button>
-   <div class="authalt">${mode==="in"?`Нет аккаунта? <button type="button" data-m="up">Создать</button><br><button type="button" data-m="reset">Забыли пароль?</button>`:mode==="newpass"?"":`<button type="button" data-m="in">Уже есть аккаунт — войти</button>`}</div>
+   <button class="tb primary authgo" type="submit">${mode==="up"?"Создать аккаунт":mode==="reset"?"Отправить ссылку":mode==="newpass"?"Сохранить пароль":mode==="name"?"Продолжить":"Войти"}</button>
+   <div class="authalt">${mode==="in"?`Нет аккаунта? <button type="button" data-m="up">Создать</button><br><button type="button" data-m="reset">Забыли пароль?</button>`:mode==="newpass"?"":mode==="name"?(cancelable?`<button type="button" data-m="cancel">Отмена</button>`:""):`<button type="button" data-m="in">Уже есть аккаунт — войти</button>`}</div>
   </form>`;
-  const f=w.querySelector("form");const em=f.email;if(em){em.value=sbAuthScreen.last||"";(em.value&&f.pass?f.pass:em).focus()}else f.pass.focus();
+  const f=w.querySelector("form");const em=f.email,un=f.uname;if(un)un.value=sbAuthScreen.name||"";if(em)em.value=sbAuthScreen.last||"";
+  if(un&&!un.value)un.focus();else if(em&&!em.value)em.focus();else if(f.pass)f.pass.focus();else if(un)un.focus();
   f.onsubmit=async e=>{e.preventDefault();const err=f.querySelector(".autherr"),btn=f.querySelector(".authgo");
-   const email=em?em.value.trim():"",pass=f.pass?f.pass.value:"";if(em)sbAuthScreen.last=email;
+   const email=em?em.value.trim():"",pass=f.pass?f.pass.value:"",uname=un?un.value.replace(/\s+/g," ").trim():"";if(em)sbAuthScreen.last=email;if(un)sbAuthScreen.name=uname;
+   if(un&&!uname){err.textContent="Напишите, как вас зовут.";return}
    if(em&&!/^\S+@\S+\.\S+$/.test(email)){err.textContent="Проверьте адрес почты.";return}
-   if(f.pass&&pass.length<6){err.textContent="Пароль слишком короткий: нужно не меньше 6 символов.";return}
+   if(f.pass&&pass.length<6&&mode!=="name"){err.textContent="Пароль слишком короткий: нужно не меньше 6 символов.";return}
    btn.disabled=true;err.textContent="";
    try{
     if(mode==="in"){const {data,error}=await SB.auth.signInWithPassword({email,password:pass});if(error)throw error;w.remove();return res(data.session)}
-    if(mode==="up"){const {data,error}=await SB.auth.signUp({email,password:pass,options:{emailRedirectTo:location.href.split("#")[0]}});if(error)throw error;
+    if(mode==="up"){const {data,error}=await SB.auth.signUp({email,password:pass,options:{data:{name:uname,full_name:uname,display_name:uname},emailRedirectTo:location.href.split("#")[0]}});if(error)throw error;
      if(data.session){w.remove();return res(data.session)}
      mode="in";draw();w.querySelector(".autherr").textContent="Мы отправили письмо на "+email+". Нажмите в нём ссылку, затем войдите здесь.";w.querySelector(".autherr").classList.add("ok");return}
     if(mode==="reset"){const {error}=await SB.auth.resetPasswordForEmail(email,{redirectTo:location.href.split("#")[0]});if(error)throw error;
      err.textContent="Готово: проверьте почту и откройте ссылку из письма.";err.classList.add("ok");btn.disabled=false;return}
+    if(mode==="name"){const {error}=await SB.auth.updateUser({data:{name:uname,full_name:uname,display_name:uname}});if(error)throw error;w.remove();const {data:{session}}=await SB.auth.getSession();return res(session)}
     if(mode==="newpass"){const {data,error}=await SB.auth.updateUser({password:pass});if(error)throw error;w.remove();const {data:{session}}=await SB.auth.getSession();toast("Пароль обновлён");return res(session)}
    }catch(x){err.classList.remove("ok");err.textContent=sbErr(x);btn.disabled=false}};
-  w.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;draw()});
+  w.querySelectorAll("[data-m]").forEach(b=>b.onclick=()=>{if(b.dataset.m==="cancel"){w.remove();return res(null)}mode=b.dataset.m;draw()});
  };
  document.body.append(w);draw();
 })}
@@ -1651,6 +1943,8 @@ async function sbBoot(){
  if(session&&recovery){history.replaceState(null,"",location.pathname+location.search);session=await sbAuthScreen("newpass")}
  if(!session)session=await sbAuthScreen("in");
  ME=(session.user&&session.user.email)||"гость";
+ MYNAME=((session.user&&session.user.user_metadata&&session.user.user_metadata.name)||"").trim();
+ if(!MYNAME){const s2=await sbAuthScreen("name");MYNAME=((s2&&s2.user&&s2.user.user_metadata&&s2.user.user_metadata.name)||sbAuthScreen.name||"").trim()}
  try{const {data,error}=await SB.rpc("nbb_allowed");
   if(!error&&data===false){const who=ME;ME="";await SB.auth.signOut();await sbAuthScreen("in","У почты "+who+" нет доступа к конструктору. Попросите администратора добавить её в список команды.");return location.reload()}
   if(error&&/nbb_allowed|function/i.test(error.message||""))toast("Облако ещё не настроено: выполните SQL-скрипт в Supabase.")}catch(e){}
@@ -1673,7 +1967,7 @@ async function sbBoot(){
 function sbDecks(){
  let items=[];const cbs=[];
  const toRec=r=>({pid:r.pid,name:r.name||"",createdAt:r.created_at,updatedAt:r.updated_at,slides:r.slides|0,deck:r.deck,rev:+r.rev||0,by:r.updated_by||""});
- const row=(pid,rec)=>({pid,name:rec.name,created_at:rec.createdAt,updated_at:rec.updatedAt,slides:rec.slides,deck:rec.deck,updated_by:MYTAG()});
+ const row=(pid,rec)=>({pid,name:rec.name,created_at:rec.createdAt,updated_at:rec.updatedAt,slides:rec.slides,deck:rec.deck,updated_by:MYTAG()+"#"+encodeURIComponent(MYNAME)});
  const emit=()=>{items.sort((a,b)=>a.updatedAt<b.updatedAt?1:-1);cbs.forEach(f=>f(items.slice()))};
  const upsertLocal=r=>{const i=items.findIndex(x=>x.pid===r.pid);if(i>=0){if(items[i].rev>r.rev)return;items[i]=r}else items.push(r)};
  const load=async()=>{const {data,error}=await SB.from("decks").select("*").order("updated_at",{ascending:false});if(error)return;items=data.map(toRec);emit()};
@@ -1756,12 +2050,13 @@ function sbApply(next,B,T,who){
  else{const fi=focusInfo();closePop();renderAll();refocus(fi,true)}
  if(hist.length){hist[hi]=snapshot()}else commit(true);updUndo();
  saveSoon(true);ensureAssets();
- if(who)setStatus("Обновлено · "+who.split("#")[0]+" · "+hhmm());
+ if(who)setStatus("Обновлено · "+whoName(who)+" · "+hhmm());
 }
 function renderPanelIfIdle(fi){if(!fi||fi.inStage){const st=panel.scrollTop;renderPanel();panel.scrollTop=st}}
 /* the open presentation changed on the server */
 function sbSync(rec){
  if(!rec||rec.pid!==PID||rec.rev<=CURREV)return;
+ if(EXPORTING){setTimeout(()=>sbSync(rec),1500);return}
  deckQ=deckQ.then(async()=>{
   if(rec.pid!==PID||rec.rev<=CURREV)return;
   if(rec.name&&rec.name!==PNAME){PNAME=rec.name;updateTitle()}
@@ -1818,19 +2113,20 @@ function sbPresence(move){
   presPid=want;PEERS=[];drawPeers();
   if(want){const ch=SB.channel("room:"+want,{config:{presence:{key:MYTAG()}}});presCh=ch;
    ch.on("presence",{event:"sync"},()=>{if(ch!==presCh)return;const st=ch.presenceState();
-     PEERS=Object.entries(st).filter(([k])=>k!==MYTAG()).map(([k,v])=>({key:k,email:(v[0]&&v[0].email)||k.split("#")[0],sid:v[0]&&v[0].sid}));drawPeers()})
+     PEERS=Object.entries(st).filter(([k])=>k!==MYTAG()).map(([k,v])=>({key:k,email:(v[0]&&v[0].email)||k.split("#")[0],name:(v[0]&&v[0].name)||"",sid:v[0]&&v[0].sid}));drawPeers()})
     .subscribe(s=>{if(s==="SUBSCRIBED"&&ch===presCh){sbPresence.sid=null;sbPresence(true)}})}
  }
- if(move&&presCh){const s=S();sbPresence.sid=s&&s.id;try{presCh.track({email:ME,sid:sbPresence.sid})}catch(e){}}
+ if(move&&presCh){const s=S();sbPresence.sid=s&&s.id;try{presCh.track({email:ME,name:MYNAME,sid:sbPresence.sid})}catch(e){}}
 }
 const peerColor=e=>{let h=0;for(const c of e)h=(h*31+c.charCodeAt(0))%360;return`hsl(${h} 62% 48%)`};
 const peerInit=e=>(e||"?").replace(/@.*/,"").replace(/[^A-Za-zА-Яа-яЁё0-9]/g," ").trim().split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase()||"?";
+const peerLabel=p=>p.name?`${p.name} (${p.email})`:p.email;
 function peerDots(sid){const ps=PEERS.filter(p=>p.sid===sid);if(!ps.length)return"";
- return ps.slice(0,3).map(p=>`<i style="background:${peerColor(p.email)}" title="${esc(p.email)} на этом слайде">${esc(peerInit(p.email))}</i>`).join("")}
+ return ps.slice(0,3).map(p=>`<i style="background:${peerColor(p.email)}" title="${esc(peerLabel(p))} на этом слайде">${esc(peerInit(p.name||p.email))}</i>`).join("")}
 function drawPeers(){
  const el=$("peers");if(el){const uniq=[...new Map(PEERS.map(p=>[p.email,p])).values()];
-  el.innerHTML=uniq.length?uniq.slice(0,5).map(p=>`<i style="background:${peerColor(p.email)}" title="${esc(p.email)} тоже редактирует">${esc(peerInit(p.email))}</i>`).join("")+(uniq.length>5?`<b>+${uniq.length-5}</b>`:""):"";
-  el.title=uniq.length?"Сейчас редактируют: "+uniq.map(p=>p.email).join(", "):""}
+  el.innerHTML=uniq.length?uniq.slice(0,5).map(p=>`<i style="background:${peerColor(p.email)}" title="${esc(peerLabel(p))} тоже редактирует">${esc(peerInit(p.name||p.email))}</i>`).join("")+(uniq.length>5?`<b>+${uniq.length-5}</b>`:""):"";
+  el.title=uniq.length?"Сейчас редактируют: "+uniq.map(peerLabel).join(", "):""}
  thumbsEl.querySelectorAll(".tpeers").forEach(t=>{t.innerHTML=peerDots(t.dataset.psid)});
 }
 
@@ -1870,13 +2166,14 @@ $("showBtn").onclick=openShow;
 /* ask the browser to keep the media library and presentations even when disk space runs low */
 try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist().catch(()=>{})}catch(e){}
 new ResizeObserver(fitStage).observe(stageWrap);
+showHome();
 renderAll();fitStage();commit(true);
 document.fonts&&document.fonts.ready.then(()=>renderThumbs());
 loadSaved().then(ok=>{if(ok){renderAll();fitStage();hist=[];hi=-1;commit(true);ensureAssets()}updateTitle();setStatus(PID?"Сохранено":"Не сохранено")});
 $("saveBtn").onclick=()=>saveCmd();
-$("decksBtn").onclick=()=>openDecks();
+$("decksBtn").onclick=()=>openDecks();$("homeBtn").onclick=()=>openDecks();
 $("deckName").onclick=()=>PID?renameDeck(PID):saveAs(false);
-window.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&!e.altKey&&(e.code==="KeyS"||(!e.code&&e.key.toLowerCase()==="s"))){e.preventDefault();saveCmd()}},true);
+window.addEventListener("keydown",e=>{if(homeOn&&(e.ctrlKey||e.metaKey)&&e.code==="KeyS"){e.preventDefault();return}if((e.ctrlKey||e.metaKey)&&!e.altKey&&(e.code==="KeyS"||(!e.code&&e.key.toLowerCase()==="s"))){e.preventDefault();saveCmd()}},true);
 window.addEventListener("pagehide",()=>{try{saveSoon(true);if(PID)deckSaveNow()}catch(e){}});
 window.__nbb={get deck(){return deck},go,undo,redo,typo,html:i=>renderSlide(deck.slides[i],i,"export")};
 })();
