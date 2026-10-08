@@ -317,7 +317,7 @@ textarea.in{resize:vertical;min-height:60px;display:block}
 .slide .slot:hover .rsz{opacity:1}
 .slide .slot.dropover{box-shadow:inset 0 0 0 calc(3px / var(--sc)) #ff1173}
 
-.s-fill .f-title,.s-timing .t-title,.s-media .m-title,.s-promo .p-title{-webkit-text-stroke:.96px currentColor}
+.s-fill .f-title,.s-timing .t-title,.s-media .m-title,.s-promo .p-title,.s-lab .lb-title,.s-tools .tl-title,.s-examples .ex-title,.s-growth .gr-title,.s-terms .te-title{-webkit-text-stroke:.96px currentColor}
 /* Обложка */
 .s-cover .c-logo{left:58px;top:64px;width:188px;height:112px}
 .s-cover .c-logo svg{display:block;width:100%;height:100%}
@@ -674,6 +674,80 @@ body.cmode .stage{outline:2px solid var(--accent);outline-offset:3px}
 .cmarea{border:2px dashed rgba(230,176,0,.9);background:rgba(255,212,0,.16)}
 .cmarea.on,.cmarea.pend,.cmarea.draw{border-style:solid;border-color:#F2B800;background:rgba(255,214,0,.32)}
 @media (max-width:980px){.thumb .num{flex-direction:row;align-items:center}}
+
+/* Data Lab */
+.s-lab .lb-title,.s-tools .tl-title,.s-examples .ex-title,.s-growth .gr-title,.s-terms .te-title{left:52px;top:44px;width:1468px;line-height:1.09}
+.s-lab .lb-body{left:58px;top:168px;width:960px;font-size:31px;line-height:1.3744;color:var(--text);white-space:pre-wrap}
+.s-lab .lb-body .pp + .pp{margin-top:14px}
+.s-lab .lb-panel{left:25px;top:370px;width:1870px;height:513px;background:var(--panel);border-radius:12px}
+.s-lab .lb-arr{width:66px;height:22px;color:var(--arrow);z-index:3;pointer-events:none;transform-origin:50% 50%}
+.s-lab .lb-arr.mv{pointer-events:auto;cursor:move;padding:0}
+.s-lab .lb-arr.mv:hover,.s-lab .lb-arr.moving{outline:calc(1.5px / var(--sc)) dashed rgba(255,17,115,.6);outline-offset:calc(4px / var(--sc));border-radius:4px}
+.s-lab .lb-arr svg{width:66px;height:22px;display:block}
+.s-lab .fr{z-index:2}
+.s-lab .fr > .slot{border-radius:12px}
+.s-lab .fr > .slot:not(.empty){background:transparent}
+.s-lab .fr .rsz{display:none}
+.s-lab .fr-move{position:absolute;left:calc(8px / var(--sc));top:calc(8px / var(--sc));z-index:5;width:calc(28px / var(--sc));height:calc(28px / var(--sc));border-radius:50%;border:0;padding:0;display:grid;place-items:center;background:#fff;color:#2b2427;box-shadow:0 calc(1px / var(--sc)) calc(6px / var(--sc)) rgba(60,10,30,.3);cursor:move;opacity:0;transition:opacity .12s}
+.s-lab .fr-move svg{width:calc(15px / var(--sc));height:calc(15px / var(--sc))}
+.s-lab .fr:hover .fr-move,.s-lab .fr.moving .fr-move{opacity:1}
+.s-lab .fr-rsz{position:absolute;right:calc(-7px / var(--sc));bottom:calc(-7px / var(--sc));z-index:5;width:calc(16px / var(--sc));height:calc(16px / var(--sc));border-radius:calc(4px / var(--sc));background:#fff;border:calc(2px / var(--sc)) solid #ff1173;cursor:nwse-resize;opacity:0;transition:opacity .12s}
+.s-lab .fr:hover .fr-rsz,.s-lab .fr.moving .fr-rsz{opacity:1}
+.s-lab .fr:hover > .slot,.s-lab .fr.moving > .slot{outline:calc(1.5px / var(--sc)) dashed rgba(255,17,115,.6);outline-offset:calc(2px / var(--sc))}
+.s-lab .fr > .fr-del{top:calc(-10px / var(--sc));right:calc(-10px / var(--sc))}
+.s-lab .fr > .slot .slotbar{top:calc(8px / var(--sc));right:calc(8px / var(--sc));left:calc(44px / var(--sc));flex-wrap:wrap;justify-content:flex-end}
+.s-lab .lb-addf{right:25px;top:893px;z-index:3}
+/* tools */
+.s-tools .tl-list{left:58px;top:331px;width:967px;height:574px;display:flex;flex-direction:column;gap:15px}
+.s-tools .tl-row{position:relative;flex:1 1 0;min-height:0;background:var(--card);border-radius:12px;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px 40px;font-size:36px;line-height:1.2;color:var(--text);white-space:pre-wrap}
+.s-tools .tl-row > .eb{top:calc(-10px / var(--sc));right:calc(-10px / var(--sc))}
+.s-tools .tl-add{position:absolute;right:0;top:calc(100% + 10px / var(--sc))}
+.s-tools .tl-photo{left:1037px;top:333px}
+/* examples (same photo row as promo) */
+.s-examples .p-row{left:58px;top:286px;width:1805px;height:640px;display:flex;justify-content:center;align-items:center;gap:20px}
+.s-examples .p-cell{position:relative;flex:none}
+.s-examples .p-cell > .eb{top:calc(-10px / var(--sc));left:calc(-10px / var(--sc))}
+.s-examples .p-add{position:absolute;right:calc(-40px / var(--sc));top:50%;transform:translateY(-50%)}
+.s-examples .p-add .eb{position:relative}
+/* growth */
+.s-growth .gr-note{left:57px;bottom:160px;width:800px;font-size:31px;line-height:1.3744;color:var(--text);white-space:pre-wrap}
+.s-growth .gr-grid{left:909px;bottom:160px;width:954px;display:grid;grid-template-columns:472px 472px;grid-auto-rows:1fr;gap:10px}
+.s-growth .gr-card{position:relative;min-height:var(--mh,257px);background:var(--card);border-radius:12px;display:flex;align-items:center;justify-content:center;gap:24px;padding:18px 24px;text-align:center}
+.s-growth .gr-card > .eb{top:calc(-10px / var(--sc));right:calc(-10px / var(--sc))}
+.s-growth .gr-it{position:relative;flex:1 1 0;min-width:0;display:flex;flex-direction:column;align-items:center;gap:28px}
+.s-growth .gr-card.two{gap:12px;padding:18px 10px}.s-growth .gr-card.two .gr-it{gap:30px}
+.s-growth .gr-it > .eb{top:calc(-8px / var(--sc));right:calc(-8px / var(--sc))}
+.s-growth .gr-v{font-weight:600;font-size:80px;line-height:1;color:var(--num);white-space:pre-wrap;max-width:100%}
+.s-growth .gr-v .sw{font-size:.55em}
+.s-growth .gr-card.two .gr-v{font-size:66px}
+.s-growth .gr-l{font-size:24px;line-height:1.25;color:var(--text);white-space:pre-wrap;max-width:min(100%,340px)}
+.s-growth .gr-iadd{position:absolute;right:calc(8px / var(--sc));bottom:calc(8px / var(--sc));opacity:0;transition:opacity .12s}
+.s-growth .gr-card:hover .gr-iadd{opacity:1}.s-growth .gr-iadd .eb{position:relative}
+.s-growth .gr-add{position:absolute;left:0;top:calc(100% + 10px / var(--sc))}
+/* terms */
+.s-terms .te-main{left:58px;top:188px;bottom:144px;width:1804px;display:flex;flex-direction:column}
+.s-terms .te-gap{flex:1 0 40px}
+.s-terms .te-body{flex:none;margin-left:9px;width:880px;font-size:31px;line-height:1.3744;color:var(--text);white-space:pre-wrap}
+.s-terms .te-body .pp + .pp{margin-top:14px}
+.s-terms .mk{color:var(--mark)}
+.s-terms .te-wrap{position:relative;flex:none;min-height:580px;display:flex;flex-direction:column;gap:12px}
+.s-terms .te-banner{flex:none;height:76px;background:var(--banner);color:var(--bannerText);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:38px;line-height:1;white-space:nowrap;padding:0 30px}
+.s-terms .te-cols{position:relative;flex:1 0 auto;display:flex;gap:16px;align-items:stretch}
+.s-terms .te-col{position:relative;flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:17px}
+.s-terms .te-col > .eb{top:calc(-10px / var(--sc));right:calc(-10px / var(--sc));z-index:3}
+.s-terms .te-head{flex:none;height:77px;background:var(--head);color:var(--headText);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:38px;font-weight:500;line-height:1;white-space:nowrap;padding:0 16px;overflow:hidden}
+.s-terms .te-card{position:relative;flex:1 0 auto;background:var(--card);border-radius:12px;padding:14px 4px 14px 21px;display:flex;flex-direction:column;justify-content:center}
+.s-terms .te-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--tg,11px)}
+.s-terms .te-li{position:relative;display:flex;gap:13px;align-items:flex-start;font-size:26.5px;letter-spacing:-.1px;line-height:1.12;color:var(--text)}
+.s-terms .te-li .wrap{white-space:pre-wrap;min-width:0}
+.s-terms .te-dot{flex:none;width:14px;height:14px;border-radius:50%;background:var(--marker);margin-top:9px}
+.s-terms .te-li > .eb{position:absolute;right:calc(-18px / var(--sc));top:4px;width:calc(20px / var(--sc));height:calc(20px / var(--sc))}
+.s-terms .te-li > .eb svg{width:calc(10px / var(--sc));height:calc(10px / var(--sc))}
+.s-terms .te-badd{position:absolute;left:50%;bottom:calc(-14px / var(--sc));transform:translateX(-50%);opacity:0;transition:opacity .12s;z-index:4}
+.s-terms .te-badd .eb{position:relative}
+.s-terms .te-badd[hidden]{display:none}
+.s-terms .te-col:hover .te-badd{opacity:1}
+.s-terms .te-add{position:absolute;right:calc(-40px / var(--sc));top:50%;transform:translateY(-50%)}.s-terms .te-add .eb{position:relative}
 </style>
 
 <div class="app" id="app">
@@ -764,10 +838,11 @@ const paras=s=>String(s??"").split("\n").map(p=>`<div class="pp">${txt(p)||"<br>
 const TYPES={
  cover:{name:"Обложка"},concept:{name:"Описание концепции"},fill:{name:"Наполнение бокса"},
  timing:{name:"Тайминг запуска"},media:{name:"Медиаподдержка запуска"},promo:{name:"Примеры промо"},contacts:{name:"Контакты"},
- blogger:{name:"Про блогера"},partner:{name:"О партнёре"},wow:{name:"Обложка вау"},free:{name:"Свободный слайд"}
+ blogger:{name:"Про блогера"},partner:{name:"О партнёре"},wow:{name:"Обложка вау"},free:{name:"Свободный слайд"},
+ lab:{name:"Data Lab"},tools:{name:"Инструменты"},examples:{name:"Примеры интеграции"},growth:{name:"Рост продаж"},terms:{name:"Условия участия"}
 };
 const CNAME={bg:"Фон",text:"Текст",accent:"Заголовок",pill:"Плашки",card:"Фон блока",cardText:"Текст блока",bar:"Плашка",barText:"Текст плашки",panel:"Фон блока",
- catBg:"Фон категории",catText:"Текст категории",date:"Дата",hl:"Фон блока",hlText:"Текст блока",line:"Пунктир",big:"Фон блока",bigText:"Текст блока",cardTitle:"Название блока",marker:"Маркеры",runText:"Текст плашки",block:"Фон блока",blockText:"Текст блока",reachText:"Охваты",link:"Кнопка-ссылка"};
+ catBg:"Фон категории",catText:"Текст категории",date:"Дата",hl:"Фон блока",hlText:"Текст блока",line:"Пунктир",big:"Фон блока",bigText:"Текст блока",cardTitle:"Название блока",marker:"Маркеры",runText:"Текст плашки",block:"Фон блока",blockText:"Текст блока",reachText:"Охваты",link:"Кнопка-ссылка",arrow:"Стрелки",num:"Цифры",mark:"Выделение",banner:"Плашка",bannerText:"Текст плашки",head:"Шапка колонки",headText:"Текст шапки"};
 function make(type){
  const id=uid();
  const P={bg:"#FFEAF1",accent:"#FF1173",pill:"#FA6A9D"};
@@ -797,11 +872,28 @@ function make(type){
    colors:{...P,text:"#524E4D",block:"#FA6A9D",blockText:"#FFFFFF",link:"#FA6A9D"}};
  case "wow":return{id,type,data:{title:"Предложение\nоб участии\n*в совместном проекте*",partnerLogo:null,photo:null},colors:{bg:"#FA6A9D",text:"#FFFFFF",pill:"#FFFFFF"}};
  case "free":return{id,type,data:{title:"Заголовок слайда",body:"Текст под заголовком. Его можно заменить или удалить.",images:[{x:1100,y:300,w:700,h:520,img:null,auto:true}]},colors:{...P,text:"#524E4D"}};
+ case "lab":return{id,type,data:{title:"NewBeauty Data Lab",body:"Собираем обратную связь от клиентов по каждому продукту, агрегируем полученные данные в исследование и делимся им с брендами-участниками.",images:[0,1,2,3].map(k=>({x:Math.round(58+k*464.5),y:438,w:410,h:385,img:null}))},
+   colors:{...P,text:"#524E4D",panel:"#FFFFFF",arrow:"#FF1173"}};
+ case "tools":return{id,type,data:{title:"Еще больше инструментов\n*для digital-семплинга*",tools:["Участие в коллаборациях","Поддержка товаров на маркетплейсах","Запуски собственных боксов"],photo:null},
+   colors:{...P,text:"#524E4D",card:"#FFFAFC"}};
+ case "examples":return{id,type,data:{title:"Примеры интеграции бренда\n*семплинг в бьюти-боксах*",photos:[null,null,null,null]},colors:{...P}};
+ case "growth":return{id,type,data:{title:"Рост продаж через\n*семплинг в бьюти-боксах*",note:"На основе опроса 9 049 клиентов NewBeautyBox, пройденного в течение 6-ти месяцев после покупки бьюти-боксов.",cards:[
+   {items:[{value:"59%",label:"купили хотя бы одно средство после того, как попробовали его в боксе"}]},
+   {items:[{value:"79%",label:"попробовавших купили и другие средства понравившегося бренда из бокса"}]},
+   {items:[{value:"Каждый 3-й",label:"узнавший о бьюти-средстве из бокса, покупает его"}]},
+   {items:[{value:"66%",label:"рекомендовали средство из бокса друзьям"},{value:"59%",label:"рекомендаций конвертировались в покупку"}]}]},
+   colors:{...P,text:"#524E4D",card:"#FFFFFF",num:"#FF1173"}};
+ case "terms":return{id,type,data:{title:"Условия *участия*",body:"Участие для бренда *бесплатно*, необходимо только предоставить продукцию на наш склад.",banner:"NewBeautyBox реализует продвижение полного цикла:",cols:[
+   {head:"Сэмплинг-продукт",bullets:["производство боксов","сборка и комплектация боксов","доставка боксов","клиентское обслуживание"]},
+   {head:"Медиа",bullets:["медиапланирование","контент-план и материалы для анонсирования боксов в соцмедиа","influencer-marketing: список блогеров, ТЗ и отправка боксов","ведение и контроль рекламной кампании"]},
+   {head:"Продакшн",bullets:["разработка креативной концепции проекта","фото, видео, креативы"]},
+   {head:"Обратная связь",bullets:["полный отчет о промо кампании, обратная связь о продуктах от покупателей боксов"]}]},
+   colors:{...P,text:"#524E4D",mark:"#FF1173",banner:"#FF9FC0",bannerText:"#FFFFFF",head:"#FF5D8B",headText:"#FFFFFF",card:"#FFFFFF",marker:"#FF5D8B"}};
  case "contacts":return{id,type,data:{head:"Вместе мы создаём *масштабные*\n*коллаборации* с реальным эффектом\nи долгой жизнью.",manager:2},colors:{bg:"#FA6A9D",text:"#FFFFFF",pill:"#FFFFFF"}};
  }
 }
 const ORDER=["cover","concept","fill","timing","media","promo","contacts"];
-const MENU_ORDER=["cover","wow","partner","blogger","concept","fill","timing","media","promo","contacts","free"];
+const MENU_ORDER=["cover","wow","partner","blogger","concept","fill","timing","media","promo","lab","tools","examples","growth","terms","contacts","free"];
 const MANAGERS0=[
  {name:"Кукушкина Валерия",role:"Менеджер по работе с партнерами",phone:"+7 915 063 16 53",email:"kukushkina.v@newbeautybox.ru",url:"https://newbeautybox.ru/b2b/",photo:{id:"b_m1",w:1000,h:1000,z:1,ox:.5,oy:.5}},
  {name:"Чекаева Лилия",role:"Менеджер по работе с партнерами",phone:"+7 985 310 79 17",email:"liliya.chekaeva@newbeautybox-team.ru",url:"https://newbeautybox.ru/b2b/",photo:{id:"b_m2",w:650,h:869,z:1,ox:.5,oy:.5}},
@@ -818,6 +910,7 @@ function normalize(d){d.meta=d.meta||{year:"2026",brand:"NEWBEAUTYBOX"};if(!Arra
   timing:{accent:"#FF1073",date:"#FF5D8B",text:"#000000",hl:"#FF5D8B",pill:"#F86B9C"},
   media:{accent:"#FF1073",big:"#FF5D8B",cardTitle:"#FF5D8B",text:"#000000",marker:"#F86B9C",pill:"#F86B9C"},
   promo:{accent:"#FF1073",pill:"#F86B9C"},contacts:{bg:"#F86B9C"}};
+ d.slides.forEach(s=>{if(s.type==="lab"&&s.data&&Array.isArray(s.data.photos)&&!s.data.images){const n=s.data.photos.length,W=(1803-55*(n-1))/n;s.data.images=s.data.photos.map((r,k)=>({x:Math.round(58+k*(W+55)),y:438,w:Math.round(W),h:385,img:r}));delete s.data.photos}});
  d.slides.forEach(s=>{const base=make(s.type);if(s.type==="contacts"&&s.data&&s.data.head==="Вместе мы создаём *масштабные коллаборации* с реальным эффектом и долгой жизнью.")s.data.head=base.data.head;const f=FIG[s.type]||{};if(s.colors)Object.keys(f).forEach(k=>{if((s.colors[k]||"").toUpperCase()===f[k])s.colors[k]=base.colors[k]});s.colors=Object.assign({},base.colors,s.colors||{});s.data=Object.assign({},base.data,s.data||{});if(s.type==="promo"&&!s.data.head)s.data.head="Примеры промо"});return d}
 
 /* ---------- paths ---------- */
@@ -863,7 +956,77 @@ const yearPill=()=>`<div class="pill year"${ck("pill")}><span${ed("meta.year")}>
 const pagePill=i=>`<div class="pill page"${ck("pill")}>PAGE ${i+1}</div>`;
 const brandPill=(cls="brandp")=>`<div class="pill ${cls}"${ck("pill")}><span${ed("meta.brand",{upper:1})}>${txt(deck.meta.brand)}</span></div>`;
 
+/* text with *marked* words in the accent colour (not italic) */
+const markParas=s=>String(s??"").split("\n").map(p=>`<div class="pp">${typo(esc(p)).replace(/\*([^*]+)\*/g,'<span class="mk"${ck("mark")}>$1</span>')||"<br>"}</div>`).join("");
+/* figures: digits (with % etc.) large, words around them smaller — "Каждый 3-й" */
+const bigNum=v=>typo(esc(v)).split(/([0-9][0-9 \u00A0.,]*[%+×]?)/).map((t,k)=>t?(k%2?`<span class="bn">${t}</span>`:`<span class="sw">${t}</span>`):"").join("");
+const ARROW_SVG='<svg viewBox="452 612 67 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M508.718 630.493C511.544 628.333 514.404 626.171 517.258 624.145C496.256 621.202 475.056 621.002 454.092 623.548C453.257 623.611 453.191 622.273 453.985 622.135C472.939 619.002 492.195 618.376 511.354 620.271L504.38 616.575C504.039 616.393 503.767 616.08 503.618 615.694C503.468 615.309 503.449 614.877 503.566 614.482C503.682 614.087 503.926 613.756 504.25 613.551C504.575 613.346 504.958 613.282 505.326 613.37C511.408 614.885 517.223 617.56 522.512 621.277C522.75 621.413 522.954 621.615 523.103 621.863C523.253 622.11 523.343 622.396 523.365 622.691C523.388 622.986 523.341 623.282 523.231 623.549C523.12 623.817 522.95 624.047 522.735 624.218C518.646 627.251 514.558 630.285 510.448 633.262C510.121 633.511 509.717 633.604 509.324 633.521C508.931 633.437 508.581 633.184 508.352 632.817C508.122 632.45 508.032 631.999 508.1 631.563C508.169 631.127 508.391 630.742 508.718 630.493Z" fill="currentColor"/></svg>';
 const R={
+ lab(s,i){const d=s.data;const fs=d.images;
+  /* arrows connect neighbouring pictures: from the right edge of one to the left edge of the next */
+  const arrows=fs.slice(1).map((b,k)=>{const a=fs[k];const x1=a.x+a.w,y1=a.y+a.h/2,x2=b.x,y2=b.y+b.h/2;const cx=(x1+x2)/2,cy=(y1+y2)/2;const ang=Math.atan2(y2-y1,x2-x1)*180/Math.PI;
+   const o=(d.arrows&&d.arrows[k])||{dx:0,dy:0};
+   return `<div class="abs lb-arr${E()?" mv":""}" data-arrow="${k}" style="left:${cx-33+o.dx}px;top:${cy-11+o.dy}px;transform:rotate(${ang.toFixed(1)}deg)"${E()?' title="Перетащите стрелку. Двойной клик — вернуть на место"':""}>${ARROW_SVG}</div>`}).join("");
+  return `
+  <div class="abs ttl lb-title wrap"${ck("accent")}${ed("data.title",{rich:1})}>${rich(d.title)}</div>
+  ${brandPill()}
+  <div class="abs lb-body wrap"${ck("text")}${ed("data.body",{multi:1,para:1})}>${paras(d.body)}</div>
+  <div class="abs lb-panel"${ck("panel,arrow")}></div>
+  ${fs.map((f,j)=>`<div class="abs fr hov" data-fr="${j}" style="left:${f.x}px;top:${f.y}px;width:${f.w}px;height:${f.h}px">${slot(s,`data.images.${j}.img`,f.w,f.h,{fit:1,noclear:1})}${E()?`<button class="fr-move" data-frmove="${j}" title="Перетащите, чтобы переместить" aria-label="Переместить" tabindex="-1">${IC.move}</button><div class="fr-rsz" data-frrsz="${j}" title="Тяните, чтобы изменить ширину и высоту"></div>${fs.length>1?eb("del",`data-list="data.images" data-i="${j}"`,IC.x,"del fr-del","Удалить картинку"):""}`:""}</div>`).join("")}
+  ${arrows}
+  ${E()&&fs.length<8?`<div class="abs lb-addf"><button class="pillbtn" data-act="addimg" tabindex="-1">${IC.plus}Картинка</button></div>`:""}
+  ${yearPill()}${pagePill(i)}`},
+ tools(s,i){const d=s.data;const n=d.tools.length;return `
+  <div class="abs ttl tl-title wrap"${ck("accent")}${ed("data.title",{rich:1})}>${rich(d.title)}</div>
+  ${brandPill()}
+  <div class="abs tl-list">
+   ${d.tools.map((t,j)=>`<div class="tl-row hov"${ck("card,text")}>${n>1?eb("del",`data-list="data.tools" data-i="${j}"`,IC.x,"del","Удалить пункт"):""}<div class="wrap"${ed(`data.tools.${j}`,{multi:1})}>${txt(t)}</div></div>`).join("")}
+   ${E()&&n<5?`<div class="tl-add"><button class="pillbtn" data-act="add" data-list="data.tools" tabindex="-1">${IC.plus}Пункт</button></div>`:""}
+  </div>
+  ${slot(s,"data.photo",827,572,{cls:"abs tl-photo"})}
+  ${yearPill()}${pagePill(i)}`},
+ examples(s,i){const d=s.data;const n=d.photos.length;const GAP=20,AW=1805,AH=640,DEF=436/640;
+  const ars=d.photos.map(r=>r&&ASSETS[r.id]?r.w/r.h:DEF);const sum=ars.reduce((a,b)=>a+b,0);
+  const H=Math.min(AH,(AW-GAP*(n-1))/sum);
+  return `
+  <div class="abs ttl ex-title wrap"${ck("accent")}${ed("data.title",{rich:1})}>${rich(d.title)}</div>
+  ${brandPill()}
+  <div class="abs p-row">
+   ${d.photos.map((r,j)=>`<div class="p-cell hov">${n>1?eb("del",`data-list="data.photos" data-i="${j}"`,IC.x,"del","Убрать"):""}${slot(s,`data.photos.${j}`,Math.round(ars[j]*H),Math.round(H))}</div>`).join("")}
+   ${E()&&n<6?`<div class="p-add">${eb("add",`data-list="data.photos"`,IC.plus,"always","Добавить фото")}</div>`:""}
+  </div>
+  ${yearPill()}${pagePill(i)}`},
+ growth(s,i){const d=s.data;const n=d.cards.length;const rows=Math.ceil(n/2);return `
+  <div class="abs ttl gr-title wrap"${ck("accent")}${ed("data.title",{rich:1})}>${rich(d.title)}</div>
+  ${brandPill()}
+  <div class="abs gr-note wrap"${ck("text")}${ed("data.note",{multi:1,para:1})}>${paras(d.note)}</div>
+  <div class="abs gr-grid" style="--mh:${Math.floor((524-10*(rows-1))/rows)}px">
+   ${d.cards.map((c,j)=>`<div class="gr-card hov${c.items.length>1?" two":""}"${ck("card,num,text")}>${n>1?eb("del",`data-list="data.cards" data-i="${j}"`,IC.x,"del","Удалить блок"):""}
+     ${c.items.map((it,k)=>`<div class="gr-it">${c.items.length>1?eb("del",`data-list="data.cards.${j}.items" data-i="${k}"`,IC.x,"del sm","Убрать цифру"):""}<div class="gr-v wrap"${ck("num")}${ed(`data.cards.${j}.items.${k}.value`)}>${bigNum(it.value)}</div><div class="gr-l wrap"${ck("text")}${ed(`data.cards.${j}.items.${k}.label`,{multi:1})}>${txt(it.label)}</div></div>`).join("")}
+     ${E()&&c.items.length<2?`<div class="gr-iadd">${eb("add",`data-list="data.cards.${j}.items"`,IC.plus,"always","Вторая цифра в блоке")}</div>`:""}
+   </div>`).join("")}
+   ${E()&&n<6?`<div class="gr-add"><button class="pillbtn" data-act="add" data-list="data.cards" tabindex="-1">${IC.plus}Блок</button></div>`:""}
+  </div>
+  ${yearPill()}${pagePill(i)}`},
+ terms(s,i){const d=s.data;const n=d.cols.length;return `
+  <div class="abs ttl te-title wrap"${ck("accent")}${ed("data.title",{rich:1})}>${rich(d.title)}</div>
+  ${brandPill()}
+  <div class="abs te-main">
+  <div class="te-body wrap"${ck("text,mark")}${ed("data.body",{multi:1,para:1})}>${markParas(d.body)}</div>
+  <div class="te-gap"></div>
+  <div class="te-wrap">
+   <div class="te-banner"${ck("banner,bannerText")}><span class="wrap"${ed("data.banner")}>${txt(d.banner)}</span></div>
+   <div class="te-cols">
+    ${d.cols.map((c,j)=>`<div class="te-col hov">${n>1?eb("del",`data-list="data.cols" data-i="${j}"`,IC.x,"del","Удалить колонку"):""}
+      <div class="te-head"${ck("head,headText")}><span class="wrap"${ed(`data.cols.${j}.head`)}>${txt(c.head)}</span></div>
+      <div class="te-card"${ck("card,text,marker")}><ul class="te-list">${c.bullets.map((t,k)=>`<li class="te-li hov"><i class="te-dot"${ck("marker")}></i><span class="wrap"${ck("text")}${ed(`data.cols.${j}.bullets.${k}`,{multi:1})}>${txt(t)}</span>${c.bullets.length>1?eb("del",`data-list="data.cols.${j}.bullets" data-i="${k}"`,IC.x,"del","Удалить пункт"):""}</li>`).join("")}</ul>
+       ${E()&&c.bullets.length<8?`<div class="te-badd">${eb("add",`data-list="data.cols.${j}.bullets"`,IC.plus,"always","Добавить пункт")}</div>`:""}</div>
+    </div>`).join("")}
+    ${E()&&n<5?`<div class="te-add">${eb("add",`data-list="data.cols"`,IC.plus,"always","Добавить колонку")}</div>`:""}
+   </div>
+  </div>
+  </div>
+  ${yearPill()}${pagePill(i)}`},
  cover(s,i){const d=s.data;return `
   <div class="abs c-logo">${LOGO_SVG}</div>
   <div class="abs c-div"${ck("text")}></div>
@@ -1014,8 +1177,14 @@ let MEDIA_ROOM={bullet:true,block:true};
 /* "Медиаподдержка": the right column has a fixed height. White blocks share it; when the text no longer fits,
    the blocks shrink to their content and the spacing (between blocks, inside them, between bullets) tightens. */
 const MEDIA_STEPS=[[14,14,8],[12,12,7],[10,10,6],[9,8,5],[8,7,4],[7,6,3],[6,5,2]];
+/* "Условия участия": bullets sit in the vertical middle of the white cards; when they need more room the space
+   around and between them shrinks first, and only then the whole block rises */
+/* each column on its own: bullets stay in the middle of the card; if a column gets crowded only its gaps shrink */
+function fitTerms(sl){const M=sl.querySelector(".te-main");if(!M)return;const r=M.getBoundingClientRect();if(!r.width)return;const k=r.width/1804;
+ sl.querySelectorAll(".te-list").forEach(l=>{let g=11;for(;g>3;g--){l.style.gap=g+"px";if(l.getBoundingClientRect().height/k+28<=398)break}l.style.gap=g+"px";l.dataset.g=g})}
 function fitMedia(root){
- if(!root)return;const list=root.classList&&root.classList.contains("s-media")?[root]:root.querySelectorAll(".s-media");
+ if(!root)return;
+ (root.classList&&root.classList.contains("s-terms")?[root]:[...root.querySelectorAll(".s-terms")]).forEach(fitTerms);const list=root.classList&&root.classList.contains("s-media")?[root]:root.querySelectorAll(".s-media");
  list.forEach(sl=>{const R=sl.querySelector(".m-right");if(!R)return;const rr=R.getBoundingClientRect();if(!rr.height)return;const k=rr.height/682;
   const set=st=>{sl.style.setProperty("--bg",st[0]+"px");sl.style.setProperty("--bp",st[1]+"px");sl.style.setProperty("--mg",st[2]+"px")};
   const need=st=>{set(st);const bs=[...R.children].filter(x=>x.classList.contains("m-block"));
@@ -1026,6 +1195,25 @@ function fitMedia(root){
   sl.querySelectorAll(".m-badd").forEach(x=>x.hidden=!sl.dataset.roomBullet);const ab=sl.querySelector(".m-addb");if(ab)ab.hidden=!sl.dataset.roomBlock;
  });
 }
+/* "Условия участия": the columns grow upward; new bullets only while they still stay clear of the text above */
+function termsRoom(){const s=S();if(!s||s.type!=="terms")return;const sl=stage.firstElementChild;const g=sl&&sl.querySelector(".te-gap");if(!g)return;
+ const k=sl.querySelector(".te-main").getBoundingClientRect().width/1804;const room=g.getBoundingClientRect().height/k-40;
+ /* a bullet fits if the column still has free space inside its white card, or the whole block can still rise */
+ sl.querySelectorAll(".te-col").forEach((col,j)=>{const card=col.querySelector(".te-card"),list=col.querySelector(".te-list"),add=col.querySelector(".te-badd");
+  const n=list.children.length,g=+list.dataset.g||11;
+  const free=(card.getBoundingClientRect().height-list.getBoundingClientRect().height)/k-28+(g-3)*Math.max(0,n-1);
+  const ok=free+room>=34;if(add)add.hidden=!ok;
+  const b=panel.querySelector(`.addbtn[data-list="data.cols.${j}.bullets"]`);if(b)b.disabled=!ok||(s.data.cols[j]&&s.data.cols[j].bullets.length>=8)})}
+stage.addEventListener("input",()=>requestAnimationFrame(()=>{if(S()&&S().type==="terms"){fitMedia(stage.firstElementChild);termsRoom()}}));
+/* Data Lab arrows can be dragged; the shift is kept relative to their automatic place */
+let arrDrag=null;
+stage.addEventListener("pointerdown",e=>{const a=e.target.closest("[data-arrow].mv");if(!a||CMODE)return;e.preventDefault();e.stopPropagation();
+ const s=S();const k=+a.dataset.arrow;s.data.arrows=s.data.arrows||[];const o=s.data.arrows[k]||{dx:0,dy:0};
+ arrDrag={a,k,o:{...o},x:e.clientX,y:e.clientY,l:parseFloat(a.style.left),t:parseFloat(a.style.top)};a.setPointerCapture(e.pointerId);a.classList.add("moving")},true);
+stage.addEventListener("pointermove",e=>{if(!arrDrag)return;const dx=(e.clientX-arrDrag.x)/scale,dy=(e.clientY-arrDrag.y)/scale;arrDrag.a.style.left=arrDrag.l+dx+"px";arrDrag.a.style.top=arrDrag.t+dy+"px";arrDrag.dx=dx;arrDrag.dy=dy});
+stage.addEventListener("pointerup",()=>{if(!arrDrag)return;const s=S();const r=arrDrag;arrDrag=null;r.a.classList.remove("moving");if(!r.dx&&!r.dy)return;
+ s.data.arrows[r.k]={dx:Math.round(r.o.dx+r.dx),dy:Math.round(r.o.dy+r.dy)};renderThumb(cur);commit(true);markEdit()});
+stage.addEventListener("dblclick",e=>{const a=e.target.closest("[data-arrow].mv");if(!a)return;const s=S();if(s.data.arrows&&s.data.arrows[+a.dataset.arrow]){s.data.arrows[+a.dataset.arrow]=null;renderMain();renderThumb(cur);commit(true)}});
 let FILL_FULL=false;
 /* "Наполнение бокса": another category may be added only while it still fits with gaps of at least 3px */
 function fillRoom(){
@@ -1042,7 +1230,7 @@ function mediaRoom(){const s=S();if(!s||s.type!=="media")return;const sl=stage.f
  panel.querySelectorAll('.addbtn[data-list]').forEach(b=>{const l=b.dataset.list;if(/^data\.blocks\.\d+\.bullets$/.test(l)){const j=+l.split(".")[2];b.disabled=!nr.bullet||(s.data.blocks[j]&&s.data.blocks[j].bullets.length>=9)}else if(l==="data.blocks")b.disabled=!nr.block||s.data.blocks.length>=6});
  MEDIA_ROOM=nr}
 stage.addEventListener("input",()=>requestAnimationFrame(mediaRoom));
-function renderMain(){const s=S();if(!s)return;stage.innerHTML=renderSlide(s,cur,"edit");stage.firstElementChild.style.zoom=scale;fillRoom();mediaRoom();if(CMOPEN&&CMOPEN.type==="new"&&!CMODE)CMOPEN=null;drawPins();drawPop();if(selSid!==s.id){SEL=[];selSid=s.id}if(typeof applySel==="function"&&SEL.length)applySel();else hideBucket()}
+function renderMain(){const s=S();if(!s)return;stage.innerHTML=renderSlide(s,cur,"edit");stage.firstElementChild.style.zoom=scale;fillRoom();mediaRoom();if(S().type==="terms")fitMedia(stage.firstElementChild);termsRoom();if(CMOPEN&&CMOPEN.type==="new"&&!CMODE)CMOPEN=null;drawPins();drawPop();if(selSid!==s.id){SEL=[];selSid=s.id}if(typeof applySel==="function"&&SEL.length)applySel();else hideBucket()}
 function thumbHTML(s,i){
  return `<div class="thumb${i===cur?" on":""}${SELS.has(s.id)?" sel":""}" draggable="true" data-i="${i}" role="button" tabindex="0" aria-label="Слайд ${i+1}: ${TYPES[s.type].name}">
   <span class="num">${i+1}<span class="tcmw" data-csid="${s.id}">${cmDot(s.id)}</span></span>
@@ -1078,44 +1266,61 @@ function contentFields(s){
  const d=s.data;
  switch(s.type){
  case "cover":return F("data.title","Заголовок",{area:1,rows:3,tip:RICH_TIP})
-  +U("data.partnerLogo","Логотип партнёра",{logo:1,tip:"SVG или PNG. Логотип вписывается в отведённую область целиком, с сохранением пропорций."})
-  +U("data.photo","Изображение бокса",{tip:"На слайде фото можно двигать мышью, масштабировать колесом или уголком справа внизу."})
-  +F("data.date","Месяц и год",{upper:1,tip:"Всегда набирается заглавными буквами."});
+  +U("data.partnerLogo","Логотип партнёра",{logo:1,tip:""})
+  +U("data.photo","Изображение бокса",{tip:""})
+  +F("data.date","Месяц и год",{upper:1,tip:""});
  case "concept":return F("data.title","Заголовок",{area:1,rows:2,tip:RICH_TIP})
-  +U("data.photo","Изображение",{tip:"На слайде фото можно двигать мышью, масштабировать колесом или уголком справа внизу."})
-  +F("data.body","Описание концепции",{area:1,rows:8,tip:"Пустая строка — новый абзац. Текст прижат к низу колонки."})
-  +`<div class="fld">${L("Блоки","Высота всех блоков выравнивается по самому высокому. До 5 блоков.")}<div class="grp">${d.stats.map((t,j)=>`<div class="item">${d.stats.length>1?delBtn("data.stats",j):""}${F(`data.stats.${j}.value`,null)}${F(`data.stats.${j}.label`,null)}</div>`).join("")}${addBtn("data.stats","Блок",d.stats.length>=5)}</div></div>`;
+  +U("data.photo","Изображение",{tip:""})
+  +F("data.body","Описание концепции",{area:1,rows:8,tip:""})
+  +`<div class="fld">${L("Блоки")}<div class="grp">${d.stats.map((t,j)=>`<div class="item">${d.stats.length>1?delBtn("data.stats",j):""}${F(`data.stats.${j}.value`,null)}${F(`data.stats.${j}.label`,null)}</div>`).join("")}${addBtn("data.stats","Блок",d.stats.length>=5)}</div></div>`;
  case "fill":return F("data.segValue","Сегмент")+F("data.runValue","Тираж")
-  +`<div class="fld">${L("Категории и наполнение","Текст наполнения фиксирован по ширине и растёт только по высоте. Категории можно добавлять, пока они помещаются в блок: расстояние между ними сокращается до 3 px.")}<div class="grp">${d.rows.map((r,j)=>`<div class="item">${d.rows.length>1?delBtn("data.rows",j):""}${F(`data.rows.${j}.cat`,null)}${F(`data.rows.${j}.desc`,null,{area:1,rows:2})}</div>`).join("")}${addBtn("data.rows","Категория",FILL_FULL)}</div></div>`
-  +U("data.photo","Изображение состава",{tip:"На слайде фото можно двигать мышью, масштабировать колесом или уголком справа внизу."});
+  +`<div class="fld">${L("Категории и наполнение")}<div class="grp">${d.rows.map((r,j)=>`<div class="item">${d.rows.length>1?delBtn("data.rows",j):""}${F(`data.rows.${j}.cat`,null)}${F(`data.rows.${j}.desc`,null,{area:1,rows:2})}</div>`).join("")}${addBtn("data.rows","Категория",FILL_FULL)}</div></div>`
+  +U("data.photo","Изображение состава",{tip:""});
  case "timing":return d.items.map((t,j)=>`<div class="fld">${L(plain(t.label).replace(/\n/g," "))}<div class="datef"><input class="in" id="f_data_items_${j}_date" data-path="data.items.${j}.date" value="${esc(t.date)}"><button class="calbtn" data-act="cal" data-i="${j}" title="Календарь" aria-label="Выбрать дату">${IC.cal}</button></div></div>`).join("");
- case "media":return F("data.reachValue","Охват",{tip:"Число в левом блоке. Подпись под ним можно поправить прямо на слайде."})
-  +`<div class="fld">${L("Блоки","Правая колонка фиксирована по высоте. Когда места не хватает, белые блоки ужимаются, а расстояние между пунктами сокращается. До 6 блоков, до 9 пунктов в блоке.")}<div class="grp">${d.blocks.map((b,j)=>`<div class="item">${d.blocks.length>1?delBtn("data.blocks",j,"Удалить блок"):""}${F(`data.blocks.${j}.title`,null)}
+ case "media":return F("data.reachValue","Охват",{tip:""})
+  +`<div class="fld">${L("Блоки")}<div class="grp">${d.blocks.map((b,j)=>`<div class="item">${d.blocks.length>1?delBtn("data.blocks",j,"Удалить блок"):""}${F(`data.blocks.${j}.title`,null)}
      ${b.bullets.map((t,k)=>`<div class="sub"><input class="in" id="f_b${j}_${k}" data-path="data.blocks.${j}.bullets.${k}" value="${esc(t)}">${b.bullets.length>1?`<button class="x" data-act="del" data-list="data.blocks.${j}.bullets" data-i="${k}" title="Удалить пункт" aria-label="Удалить пункт">${IC.x}</button>`:"<span></span>"}</div>`).join("")}
      ${addBtn(`data.blocks.${j}.bullets`,"Пункт",b.bullets.length>=9||!MEDIA_ROOM.bullet,1)}</div>`).join("")}${addBtn("data.blocks","Блок",d.blocks.length>=6||!MEDIA_ROOM.block)}</div></div>`;
  case "blogger":return F("data.title","Заголовок",{area:1,rows:2,tip:RICH_TIP})
-  +F("data.body","Описание блогера",{area:1,rows:6,tip:"Ширина текста фиксирована, растёт только высота."})
+  +F("data.body","Описание блогера",{area:1,rows:6,tip:""})
   +F("data.audTitle","Блок про аудиторию")+F("data.audText",null,{area:1,rows:3})
-  +U("data.photo","Фото блогера",{tip:"Фото вписывается в круг. Его можно двигать мышью и масштабировать колесом или уголком."})
-  +`<div class="fld">${L("Охваты","Блоки стоят в одну строку: если их мало, они прижаты влево, если много — сужаются. Высота у всех одинаковая. Текст до тире в строке набирается полужирным. До 6 блоков, до 5 строк в блоке.")}<div class="grp">${d.reach.map((r,j)=>`<div class="item">${d.reach.length>1?delBtn("data.reach",j,"Удалить блок"):""}
+  +U("data.photo","Фото блогера",{tip:""})
+  +`<div class="fld">${L("Охваты","Текст до тире в строке набирается полужирным.")}<div class="grp">${d.reach.map((r,j)=>`<div class="item">${d.reach.length>1?delBtn("data.reach",j,"Удалить блок"):""}
      <select class="in" data-soc="${j}" aria-label="Соцсеть">${Object.entries(SOC).map(([k,v])=>`<option value="${k}"${r.net===k?" selected":""}>${v.name}</option>`).join("")}</select>
      ${r.lines.map((t,k)=>`<div class="sub"><input class="in" id="f_r${j}_${k}" data-path="data.reach.${j}.lines.${k}" value="${esc(t)}">${r.lines.length>1?`<button class="x" data-act="del" data-list="data.reach.${j}.lines" data-i="${k}" title="Удалить строку" aria-label="Удалить строку">${IC.x}</button>`:"<span></span>"}</div>`).join("")}
      ${addBtn(`data.reach.${j}.lines`,"Строка",r.lines.length>=5,1)}</div>`).join("")}${addBtn("data.reach","Блок",d.reach.length>=6)}</div></div>`;
  case "partner":return F("data.title","Заголовок",{area:1,rows:2,tip:RICH_TIP})
-  +U("data.partnerLogo","Логотип партнёра",{logo:1,tip:"SVG или PNG. Логотип вписывается в отведённую область целиком, с сохранением пропорций."})
-  +U("data.photo","Изображение",{tip:"На слайде фото можно двигать мышью, масштабировать колесом или уголком справа внизу."})
+  +U("data.partnerLogo","Логотип партнёра",{logo:1,tip:""})
+  +U("data.photo","Изображение",{tip:""})
   +F("data.url","Ссылка на сайт",{tip:"По этой ссылке открывается сайт партнёра при клике на кнопку в показе и в PDF."})+F("data.linkText","Текст кнопки")
-  +F("data.body","Описание партнёра",{area:1,rows:6,tip:"Текст и блоки прижаты к низу: при росте текста они поднимаются вверх вместе с кнопкой."})
-  +`<div class="fld">${L("Текст в блоке","Высота всех блоков выравнивается по самому высокому. До 4 блоков.")}<div class="grp">${d.pblocks.map((b,j)=>`<div class="item">${d.pblocks.length>1?delBtn("data.pblocks",j):""}${F(`data.pblocks.${j}.text`,null,{area:1,rows:3})}</div>`).join("")}${addBtn("data.pblocks","Блок",d.pblocks.length>=4)}</div></div>`;
+  +F("data.body","Описание партнёра",{area:1,rows:6,tip:""})
+  +`<div class="fld">${L("Текст в блоке")}<div class="grp">${d.pblocks.map((b,j)=>`<div class="item">${d.pblocks.length>1?delBtn("data.pblocks",j):""}${F(`data.pblocks.${j}.text`,null,{area:1,rows:3})}</div>`).join("")}${addBtn("data.pblocks","Блок",d.pblocks.length>=4)}</div></div>`;
  case "wow":return F("data.title","Заголовок",{area:1,rows:3,tip:RICH_TIP})
-  +U("data.partnerLogo","Логотип партнёра",{logo:1,tip:"SVG или PNG. Логотип вписывается в отведённую область целиком, с сохранением пропорций."})
-  +U("data.photo","Фото-фон",{tip:"Фото на весь слайд. Его можно двигать мышью и масштабировать колесом или уголком справа внизу."});
+  +U("data.partnerLogo","Логотип партнёра",{logo:1,tip:""})
+  +U("data.photo","Фото-фон",{tip:""});
  case "free":return F("data.title","Заголовок",{area:1,rows:2,tip:RICH_TIP})
-  +F("data.body","Текст",{area:1,rows:4,tip:"Текст стоит под заголовком и растёт вниз. На слайде его можно перетащить в любое место за значок со стрелками слева от текста."})
+  +F("data.body","Текст",{area:1,rows:4,tip:"Текст можно перетащить по слайду за значок со стрелками слева от него."})
   +(d.bodyPos?`<button class="addbtn sm" data-act="tbreset">Вернуть текст под заголовок</button>`:"")
-  +`<div class="fld">${L("Изображения","PNG, JPG или SVG. На слайде рамку двигают за значок со стрелками и меняют размер уголком. Фото внутри рамки можно сдвигать мышью и масштабировать колесом, а кнопкой с квадратом — вписать целиком, без обрезки. До 12 изображений.")}<div class="grp">${d.images.map((f,j)=>`<div class="item" style="padding:0;border:0">${U(`data.images.${j}.img`,null,{keep:1})}<button class="x del" data-act="del" data-list="data.images" data-i="${j}" title="Удалить" aria-label="Удалить" style="top:15px;right:8px">${IC.x}</button></div>`).join("")}${addBtn("data.images","Изображение",d.images.length>=12)}</div></div>`;
+  +`<div class="fld">${L("Изображения","Кнопка с квадратом на фото вписывает его в рамку целиком, без обрезки.")}<div class="grp">${d.images.map((f,j)=>`<div class="item" style="padding:0;border:0">${U(`data.images.${j}.img`,null,{keep:1})}<button class="x del" data-act="del" data-list="data.images" data-i="${j}" title="Удалить" aria-label="Удалить" style="top:15px;right:8px">${IC.x}</button></div>`).join("")}${addBtn("data.images","Изображение",d.images.length>=12)}</div></div>`;
+ case "lab":return F("data.title","Заголовок",{area:1,rows:2,tip:RICH_TIP})
+  +F("data.body","Текст",{area:1,rows:4,tip:""})
+  +`<div class="fld">${L("Картинки")}<div class="grp">${d.images.map((f,j)=>`<div class="item" style="padding:0;border:0">${U(`data.images.${j}.img`,null,{keep:1})}${d.images.length>1?`<button class="x del" data-act="del" data-list="data.images" data-i="${j}" title="Убрать" aria-label="Убрать" style="top:15px;right:8px">${IC.x}</button>`:""}</div>`).join("")}<button class="addbtn" data-act="addimg"${d.images.length>=8?" disabled":""}>${IC.plus}Картинка</button></div></div>`;
+ case "tools":return F("data.title","Заголовок",{area:1,rows:2,tip:RICH_TIP})
+  +`<div class="fld">${L("Пункты")}<div class="grp">${d.tools.map((t,j)=>`<div class="item">${d.tools.length>1?delBtn("data.tools",j):""}${F(`data.tools.${j}`,null)}</div>`).join("")}${addBtn("data.tools","Пункт",d.tools.length>=5)}</div></div>`
+  +U("data.photo","Изображение",{tip:""});
+ case "examples":return F("data.title","Заголовок",{area:1,rows:2,tip:RICH_TIP})
+  +`<div class="fld">${L("Фото")}<div class="grp">${d.photos.map((r,j)=>`<div class="item" style="padding:0;border:0">${U(`data.photos.${j}`,null,{keep:1})}${d.photos.length>1?`<button class="x del" data-act="del" data-list="data.photos" data-i="${j}" title="Убрать" aria-label="Убрать" style="top:15px;right:8px">${IC.x}</button>`:""}</div>`).join("")}${addBtn("data.photos","Фото",d.photos.length>=6)}</div></div>`;
+ case "growth":return F("data.title","Заголовок",{area:1,rows:2,tip:RICH_TIP})
+  +F("data.note","Подпись снизу",{area:1,rows:3,tip:""})
+  +`<div class="fld">${L("Блоки с цифрами","Слова рядом с цифрой набираются мельче, как в «Каждый 3-й».")}<div class="grp">${d.cards.map((c,j)=>`<div class="item">${d.cards.length>1?delBtn("data.cards",j,"Удалить блок"):""}${c.items.map((it,k)=>`${k?'<div class="hr"></div>':""}${F(`data.cards.${j}.items.${k}.value`,null)}${F(`data.cards.${j}.items.${k}.label`,null,{area:1,rows:2})}`).join("")}${c.items.length<2?addBtn(`data.cards.${j}.items`,"Вторая цифра",false,1):`<button class="addbtn sm" data-act="del" data-list="data.cards.${j}.items" data-i="1">${IC.x}Убрать вторую цифру</button>`}</div>`).join("")}${addBtn("data.cards","Блок",d.cards.length>=6)}</div></div>`;
+ case "terms":return F("data.title","Заголовок",{area:1,rows:2,tip:RICH_TIP})
+  +F("data.body","Текст",{area:1,rows:3,tip:"Слова между *звёздочками* выделяются цветом (как «бесплатно»)."})
+  +F("data.banner","Плашка")
+  +`<div class="fld">${L("Колонки")}<div class="grp">${d.cols.map((c,j)=>`<div class="item">${d.cols.length>1?delBtn("data.cols",j,"Удалить колонку"):""}${F(`data.cols.${j}.head`,null)}
+     ${c.bullets.map((t,k)=>`<div class="sub"><input class="in" id="f_c${j}_${k}" data-path="data.cols.${j}.bullets.${k}" value="${esc(t)}">${c.bullets.length>1?`<button class="x" data-act="del" data-list="data.cols.${j}.bullets" data-i="${k}" title="Удалить пункт" aria-label="Удалить пункт">${IC.x}</button>`:"<span></span>"}</div>`).join("")}
+     ${addBtn(`data.cols.${j}.bullets`,"Пункт",c.bullets.length>=8,1)}</div>`).join("")}${addBtn("data.cols","Колонка",d.cols.length>=5)}</div></div>`;
  case "promo":return F("data.title","Название")
-  +`<div class="fld">${L("Медиа","Все фото одной высоты, ширина зависит от пропорций снимка, отступы между ними равные. До 6 фото.")}<div class="grp">${d.photos.map((r,j)=>`<div class="item" style="padding:0;border:0">${U(`data.photos.${j}`,null,{keep:1})}${d.photos.length>1?`<button class="x del" data-act="del" data-list="data.photos" data-i="${j}" title="Убрать" aria-label="Убрать" style="top:15px;right:8px">${IC.x}</button>`:""}</div>`).join("")}${addBtn("data.photos","Фото",d.photos.length>=6)}</div></div>`;
+  +`<div class="fld">${L("Медиа")}<div class="grp">${d.photos.map((r,j)=>`<div class="item" style="padding:0;border:0">${U(`data.photos.${j}`,null,{keep:1})}${d.photos.length>1?`<button class="x del" data-act="del" data-list="data.photos" data-i="${j}" title="Убрать" aria-label="Убрать" style="top:15px;right:8px">${IC.x}</button>`:""}</div>`).join("")}${addBtn("data.photos","Фото",d.photos.length>=6)}</div></div>`;
  case "contacts":{const mi=clamp(d.manager|0,0,deck.managers.length-1);return `<div class="fld">${L("Менеджер")}<div class="seg">${deck.managers.map((m,j)=>`<div class="mgrw"><button class="mgr${mi===j?" on":""}" data-act="setmgr" data-i="${j}">${m.photo&&ASSETS[m.photo.id]?`<img src="${ASSETS[m.photo.id]}" alt="">`:`<span class="noph"></span>`}<span>${esc(m.name)||"Без имени"}</span></button>${deck.managers.length>1?`<button class="x" data-act="delmgr" data-i="${j}" title="Удалить менеджера" aria-label="Удалить менеджера">${IC.x}</button>`:""}</div>`).join("")}<button class="addbtn" data-act="addmgr">${IC.plus}Новый менеджер</button></div></div>
   <div class="hr"></div>
   ${F(`managers.${mi}.name`,"Имя")}${F(`managers.${mi}.role`,"Должность")}${F(`managers.${mi}.phone`,"Телефон")}${F(`managers.${mi}.email`,"Почта")}${F(`managers.${mi}.url`,"Сайт")}${U(`managers.${mi}.photo`,"Фото",{keep:1})}`;}
@@ -1185,12 +1390,17 @@ function setValue(path,val,fromSlide){
 }
 function newItem(list){
  if(list==="data.stats")return{value:"Значение",label:"Подпись"};
+ if(list==="data.tools")return"Новый пункт";
+ if(list==="data.cards")return{items:[{value:"00%",label:"Подпись к цифре"}]};
+ if(/^data\.cards\.\d+\.items$/.test(list))return{value:"00%",label:"Подпись"};
+ if(list==="data.cols")return{head:"Колонка",bullets:["пункт"]};
  if(list==="data.rows")return{cat:"Категория",desc:"наполнение"};
  if(list==="data.blocks")return{title:"Новый блок",bullets:["пункт"]};
  if(list==="data.photos")return null;
  if(list==="data.reach")return{net:"vk",lines:["0 к - охваты"]};
  if(/^data\.reach\.\d+\.lines$/.test(list))return"0 к - охваты";
  if(list==="data.pblocks")return{text:"Текст блока"};
+ if(list==="data.images"&&S().type==="lab"){const fs=S().data.images;const l=fs[fs.length-1]||{x:58,y:438,w:410,h:385};let x=l.x+l.w+55;let y=l.y;if(x+l.w>1890){x=Math.min(l.x+40,1890-l.w);y=Math.min(l.y+40,1000-l.h)}return{x:Math.round(x),y:Math.round(y),w:l.w,h:l.h,img:null}}
  if(list==="data.images"){const fs=S().data.images||[],W=520,H=300;
    /* first free cell of a 3×2 grid under the title; otherwise a small cascade */
    const hit=(x,y)=>fs.some(f=>x<f.x+f.w&&x+W>f.x&&y<f.y+f.h&&y+H>f.y);
@@ -1346,7 +1556,7 @@ stage.addEventListener("pointerdown",e=>{
  const fmv=e.target.closest("[data-frmove],[data-frrsz]");
  if(fmv){const j=+(fmv.dataset.frmove??fmv.dataset.frrsz);const arr=S().data.images;const f=arr[j];const el=fmv.closest(".fr");if(!f||!el)return;e.preventDefault();fmv.setPointerCapture(e.pointerId);el.classList.add("moving");el.style.zIndex=10;
   /* the frame being moved or resized comes to the front */
-  if(j!==arr.length-1){arr.splice(j,1);arr.push(f)}
+  if(j!==arr.length-1&&S().type!=="lab"){arr.splice(j,1);arr.push(f)}
   drag={kind:fmv.dataset.frmove!=null?"frmove":"frrsz",sl:el,f,x:e.clientX,y:e.clientY,fx:f.x,fy:f.y,fw:f.w,fh:f.h,id:e.pointerId,ar:e.shiftKey};return}
  const rz=e.target.closest("[data-rsz]");
  if(rz){const path=rz.dataset.rsz;const ref=G(path);const sl=rz.parentElement;e.preventDefault();sl.setPointerCapture(e.pointerId);drag={kind:"rsz",sl,path,ref,x:e.clientX,y:e.clientY,z:ref.z||1,W:+sl.dataset.w,H:+sl.dataset.h,id:e.pointerId};return}
@@ -1390,7 +1600,7 @@ function doAct(b){
  if(a==="add"){const fromStage=stage.contains(b);const arr=G(b.dataset.list);arr.push(newItem(b.dataset.list));structural();
    if(fromStage){const t=stage.querySelector(`[data-path^="${b.dataset.list}.${arr.length-1}"]`);if(t){t.focus();selectAll(t)}}
    else{const t=panel.querySelector(`[data-path^="${b.dataset.list}.${arr.length-1}"]`);if(t){t.focus();t.select&&t.select()}}return}
- if(a==="del"){const arr=G(b.dataset.list);arr.splice(+b.dataset.i,1);return structural()}
+ if(a==="del"){const arr=G(b.dataset.list);arr.splice(+b.dataset.i,1);if(b.dataset.list==="data.images"&&S().type==="lab"&&S().data.arrows)S().data.arrows=[];return structural()}
  if(a==="nextmgr"){s.data.manager=((s.data.manager|0)+1)%deck.managers.length;return structural()}
  if(a==="setmgr"){s.data.manager=+b.dataset.i;return structural()}
  if(a==="addmgr"){deck.managers.push({name:"Имя Фамилия",role:"Менеджер по работе с партнерами",phone:"+7 ",email:"",url:"https://newbeautybox.ru/b2b/",photo:null});
@@ -1434,7 +1644,7 @@ panel.addEventListener("change",e=>{const t=e.target;if(t.dataset.soc!==undefine
    multi-selection; the bucket then pins to the selection and recolours every selected element at once. */
 let bucketFor=null;
 let SEL=[];                      // indices of [data-ck] elements in the current stage slide
-const FILLK=new Set(["bg","card","bar","panel","catBg","hl","big","block"]);
+const FILLK=new Set(["bg","card","bar","panel","catBg","hl","big","block","banner","head"]);
 const ckEls=()=>[...stage.querySelectorAll("[data-ck]")];
 function applySel(){const els=ckEls();els.forEach((el,i)=>el.classList.toggle("sel",SEL.includes(i)));
  const n=bucket.querySelector("b");n.textContent=SEL.length>1?SEL.length:"";n.hidden=SEL.length<2;
