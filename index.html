@@ -108,7 +108,15 @@ svg{flex:none}
 
 /* panel */
 .panel{grid-area:panel;overflow:auto;border-left:1px solid var(--line);background:var(--surface);padding:0 0 60px}
-.ph{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line);padding:13px 16px;display:flex;align-items:baseline;gap:8px}
+.phw{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.ph{padding:13px 16px 8px;display:flex;align-items:baseline;gap:8px}
+.ptabs{display:flex;gap:4px;padding:0 12px}
+.ptabs button{position:relative;display:inline-flex;align-items:center;gap:6px;border:0;background:none;padding:8px 6px 10px;font-size:13px;color:var(--muted);cursor:pointer}
+.ptabs button svg{width:15px;height:15px}
+.ptabs button.on{color:var(--ink);font-weight:600}
+.ptabs button.on::after{content:"";position:absolute;left:4px;right:4px;bottom:-1px;height:2px;border-radius:2px;background:var(--accent)}
+.ptabs button b{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--accent);color:#fff;font-size:11px;font-weight:600;display:inline-grid;place-items:center}
+.ptabs button b:empty{display:none}
 .ph h2{margin:0;font-size:15px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .ph .pg{font-size:12px;color:var(--muted)}
 .body{padding:14px 16px;display:flex;flex-direction:column;gap:16px}
@@ -351,7 +359,7 @@ textarea.in{resize:vertical;min-height:60px;display:block}
 .s-fill .f-cat > span{text-align:left}
 .s-fill .f-desc{font-size:22px;line-height:1.21;color:var(--text);white-space:pre-wrap;text-transform:lowercase}
 .s-fill .f-row > .eb{right:calc(-20px / var(--sc));top:50%;margin-top:calc(-14px / var(--sc))}
-.s-fill .f-add{position:absolute;left:34px;bottom:calc(8px / var(--sc))}
+.s-fill .f-add{position:absolute;right:0;top:calc(100% + 8px / var(--sc))}
 .s-fill .f-photo{left:969px;top:288px}
 
 /* Тайминг */
@@ -551,7 +559,121 @@ body.on-home .app{visibility:hidden}
 .hmenu button:hover{background:var(--surface-2)}
 .hmenu button svg{width:16px;height:16px;color:var(--muted)}
 .hmenu .dangerm,.hmenu .dangerm svg{color:var(--danger)}
+.hbtns{display:contents}
+.hcnt{display:inline-grid;place-items:center;min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--surface-2);font-size:12px;font-weight:600;color:var(--muted)}
+.trashview .hcard .dthumb{filter:grayscale(.35);opacity:.85}
+.trashview .hcard.sel .dthumb{filter:none;opacity:1}
+.tb:disabled.dangerb{opacity:.4}
 @media (max-width:640px){.hbody{padding:20px 16px 40px}.hsearch{width:100%}.hbar{width:100%}.hgrid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}}
+
+/* comments */
+.cmbtn{gap:4px}.cmbtn b{min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--accent);color:#fff;font-size:11px;font-weight:600;display:inline-grid;place-items:center}.cmbtn b:empty{display:none}
+.tcmw{position:absolute;left:5px;top:5px;z-index:3}
+.tcm{min-width:20px;height:20px;padding:0 6px;border-radius:10px 10px 10px 3px;border:2px solid #fff;background:var(--accent);color:#fff;font:600 11px/1 "Manrope NBB",sans-serif;display:grid;place-items:center;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+.panel[data-mode="cm"]{padding-bottom:0}
+.cmw{display:flex;flex-direction:column;min-height:calc(100% - 90px)}
+.cmscope{display:flex;gap:4px;padding:12px 16px 4px}
+.cmscope button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 11px;font-size:12px;color:var(--muted);cursor:pointer}
+.cmscope button.on{background:var(--accent-soft);border-color:transparent;color:var(--accent);font-weight:600}
+.cmlist{flex:1;padding:8px 16px 16px;display:flex;flex-direction:column;gap:12px}
+.cmempty{color:var(--muted);font-size:13px;line-height:1.5;padding:18px 4px}
+.cth{border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--surface)}
+.cth.res{background:var(--surface-2)}.cth.res .cmb{color:var(--muted)}
+.cmslide{align-self:flex-start;border:0;background:var(--surface-2);border-radius:6px;padding:3px 8px;font-size:11.5px;color:var(--muted);cursor:pointer}
+.cmslide:hover{color:var(--accent)}
+.cmsg.rep{padding-left:30px}
+.cmh{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);min-width:0}
+.cmh b{color:var(--ink);font-weight:600;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.cmh span{white-space:nowrap}
+.cmh .cmdel{margin-left:auto;width:24px;height:24px;opacity:0}.cmsg:hover .cmdel,.cmdel:focus-visible{opacity:1}
+.cmh .cmdel svg{width:14px;height:14px}
+.cav{flex:none;width:22px;height:22px;border-radius:50%;display:grid;place-items:center;color:#fff;font:600 9.5px/1 "Manrope NBB",sans-serif;font-style:normal}
+.cmb{margin:5px 0 0 29px;font-size:13.5px;line-height:1.45;color:var(--ink);overflow-wrap:anywhere}
+.crep{display:flex;flex-direction:column;gap:6px}
+.crep textarea,.cmnew textarea{resize:none;font:inherit;font-size:13px;line-height:1.4;min-height:34px;padding:7px 10px}
+.crepb{display:flex;gap:6px;justify-content:flex-end}
+.crepb .tb{height:30px;font-size:12.5px;padding:0 10px}
+.cmclose svg{width:14px;height:14px;color:#1f8a4c}
+.cmres{display:flex;align-items:center;gap:6px;font-size:12px;color:#1f8a4c}.cmres svg{width:14px;height:14px}.cmres .sp{flex:1}
+.cmtog{align-self:flex-start;font-size:12.5px;margin-top:4px}
+.cmnew{position:sticky;bottom:0;background:var(--surface);border-top:1px solid var(--line);padding:12px 16px 14px;display:flex;flex-direction:column;gap:8px}
+.cmnb{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11.5px;color:var(--faint)}
+.cmnb .tb{height:32px}
+
+.cmlayer{position:absolute;inset:0;z-index:40;cursor:crosshair;border-radius:3px;box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--accent) 35%,transparent)}
+.cmarea{position:absolute;border:2px dashed color-mix(in srgb,var(--accent) 70%,transparent);border-radius:6px;background:color-mix(in srgb,var(--accent) 6%,transparent);pointer-events:none;transition:background .12s,border-color .12s}
+.cmarea.on,.cmarea.pend,.cmarea.draw{border-style:solid;border-color:var(--accent);background:color-mix(in srgb,var(--accent) 16%,transparent)}
+.cmarea.res{border-color:#1f8a4c;background:rgba(31,138,76,.1)}
+.cmarea[hidden]{display:none}
+.cmpin{position:absolute;transform:translate(-4px,calc(-100% + 4px));min-width:28px;height:28px;padding:0 7px;border-radius:14px 14px 14px 3px;border:2px solid #fff;background:var(--accent);color:#fff;font:700 12px/1 "Manrope NBB",sans-serif;display:grid;place-items:center;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.28);transition:transform .12s}
+.cmpin svg{width:14px;height:14px}
+.cmpin.on{transform:translate(-4px,calc(-100% + 4px)) scale(1.18)}
+.cmpin.res{background:#1f8a4c}
+.cmpin.pend{background:#231c20;cursor:default}
+.cmanchor{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);line-height:1.4}
+.cmanchor.on{color:var(--accent);font-weight:600}
+.cmanchor .x{margin-left:auto;width:22px;height:22px}
+.cmhint{color:var(--faint)}
+.cmnum{flex:none;min-width:20px;height:20px;padding:0 5px;border-radius:10px 10px 10px 3px;background:var(--accent);color:#fff;font:700 11px/1 "Manrope NBB",sans-serif;display:inline-grid;place-items:center}
+.cmnum svg{width:12px;height:12px}
+.cmnum.off{background:#1f8a4c}
+.cmwhere{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}
+.cth.act{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.cth.flash{animation:cmflash .9s}
+@keyframes cmflash{0%{box-shadow:0 0 0 6px var(--accent-soft)}100%{box-shadow:0 0 0 3px var(--accent-soft)}}
+
+.htrash{position:fixed;right:24px;bottom:24px;z-index:6;display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px;border-radius:22px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow);font-size:14px;color:var(--ink);cursor:pointer}
+.htrash:hover{border-color:var(--accent);color:var(--accent)}
+.htrash svg{width:18px;height:18px}
+.htrash b{min-width:20px;height:20px;padding:0 6px;border-radius:10px;background:var(--accent);color:#fff;font-size:11.5px;display:inline-grid;place-items:center}
+.htrash[hidden]{display:none}
+.cmbtn.on{background:var(--accent);border-color:var(--accent);color:#fff}.cmbtn.on b{background:#fff;color:var(--accent)}
+body.cmode .stage{outline:2px solid var(--accent);outline-offset:3px}
+.cmlayer{border-radius:3px;box-shadow:none}
+.cmpin{display:flex;align-items:center;gap:0;padding:2px;min-width:0;height:auto;border-radius:16px 16px 16px 3px;background:#fff;color:var(--ink);border:0;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.cmpin .cav{width:26px;height:26px;font-size:10px}
+.cmpin span{padding:0 7px 0 5px;font:700 12px/1 "Manrope NBB",sans-serif;color:var(--accent)}
+.cmpin.on{background:var(--accent)}.cmpin.on span{color:#fff}
+.cmpin.pend{background:var(--accent);color:#fff;width:30px;height:30px;padding:0;display:grid;place-items:center}
+.cmpin.pend svg{width:16px;height:16px}
+.cmpop{position:absolute;z-index:45;width:330px;max-width:calc(100% - 12px);background:var(--surface);border-radius:14px;box-shadow:0 12px 40px rgba(40,10,25,.28),0 0 0 1px var(--line);display:flex;flex-direction:column;cursor:default;font-size:13px}
+.cmph{display:flex;align-items:center;gap:8px;padding:10px 10px 8px 14px;border-bottom:1px solid var(--line)}
+.cmph b{font-weight:600;font-size:13.5px}.cmph .sp{flex:1}.cmph>.x{width:26px;height:26px}
+.cmph .cmres{height:28px;padding:0 9px;font-size:12px}.cmph .cmres svg{width:14px;height:14px;color:#1f8a4c}
+.cmthr{max-height:300px;overflow:auto;padding:10px 14px;display:flex;flex-direction:column;gap:12px}
+.cmcomp{padding:10px 12px 10px;display:flex;flex-direction:column;gap:6px;border-top:1px solid var(--line)}
+.cmph+.cmcomp{border-top:0}
+.cmcomp textarea{resize:none;font:inherit;font-size:13.5px;line-height:1.4;min-height:38px;padding:8px 10px}
+.cmcb{display:flex;align-items:center;gap:6px}.cmcb .sp{flex:1}
+.cmclip{width:30px;height:30px}.cmclip svg{width:18px;height:18px}
+.cmkbd{font-size:11px;color:var(--faint)}
+.cmsend{width:32px;height:32px;border-radius:50%;border:0;background:var(--accent);color:#fff;display:grid;place-items:center;cursor:pointer}.cmsend svg{width:16px;height:16px}
+.cmimgs{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 0 29px}
+.cmimgs.att{margin:0}
+.cmimg{position:relative;width:72px;height:72px;border-radius:8px;overflow:hidden;border:1px solid var(--line);padding:0;background:var(--surface-2);cursor:zoom-in}
+.cmimg img{width:100%;height:100%;object-fit:cover;display:block}
+.cmimgs.att .cmimg{cursor:default;width:56px;height:56px}
+.cmimgs.att .x{position:absolute;right:2px;top:2px;width:18px;height:18px;border-radius:50%;background:rgba(20,20,20,.65);color:#fff}.cmimgs.att .x svg{width:10px;height:10px}
+.cmlight{position:fixed;inset:0;z-index:600;background:rgba(15,8,12,.82);display:grid;place-items:center;padding:30px;cursor:zoom-out}
+.cmlight img{max-width:100%;max-height:100%;border-radius:8px;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.cmlight .x{position:absolute;right:18px;top:18px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.15);color:#fff}
+
+.cmlayer{pointer-events:none;cursor:default}
+.cmlayer.on{pointer-events:auto;cursor:crosshair}
+.cmlayer .cmpin{pointer-events:auto}
+.cmlayer:not(.on) .cmarea:not(.on){display:none}
+.cmlayer:not(.on) .cmpin:not(.on){opacity:.92;transform:translate(-4px,calc(-100% + 4px)) scale(.85);transform-origin:0 100%}
+.cmlayer:not(.on) .cmpin:not(.on) span{display:none}
+.cmlayer:not(.on) .cmpin:hover{opacity:1;transform:translate(-4px,calc(-100% + 4px))}
+
+.thumb .num{display:flex;flex-direction:column;align-items:flex-end;gap:5px}
+.tcmw{position:static}
+.tcmw:empty{display:none}
+.tcm{min-width:18px;height:18px;padding:0 5px;border-radius:9px;border:0;background:var(--accent);color:#fff;font:700 10.5px/1 "Manrope NBB",sans-serif;display:grid;place-items:center;cursor:pointer;box-shadow:none}
+.tcm:hover{filter:brightness(1.1)}
+.cmarea{border:2px dashed rgba(230,176,0,.9);background:rgba(255,212,0,.16)}
+.cmarea.on,.cmarea.pend,.cmarea.draw{border-style:solid;border-color:#F2B800;background:rgba(255,214,0,.32)}
+@media (max-width:980px){.thumb .num{flex-direction:row;align-items:center}}
 </style>
 
 <div class="app" id="app">
@@ -564,6 +686,7 @@ body.on-home .app{visibility:hidden}
     <span class="peers-top" id="peers"></span><span class="save-state" id="saveState"></span>
     <button class="tb icon" id="undoBtn" title="Отменить · Ctrl/⌘+Z" aria-label="Отменить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></button>
     <button class="tb icon" id="redoBtn" title="Повторить · Ctrl+Y / ⌘+Shift+Z" aria-label="Повторить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 14 5-5-5-5"/><path d="M20 9H9.5a5.5 5.5 0 0 0 0 11H13"/></svg></button>
+    <button class="tb cmbtn" id="cmBtn" title="Режим комментариев: нажмите на слайд, чтобы оставить комментарий" aria-label="Комментарии"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><b></b></button>
     <button class="tb" id="saveBtn" title="Сохранить · Ctrl/⌘+S">Сохранить</button>
     <button class="tb" id="showBtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>Показ</button>
     <button class="tb primary" id="pdfBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>PDF</button>
@@ -919,10 +1042,10 @@ function mediaRoom(){const s=S();if(!s||s.type!=="media")return;const sl=stage.f
  panel.querySelectorAll('.addbtn[data-list]').forEach(b=>{const l=b.dataset.list;if(/^data\.blocks\.\d+\.bullets$/.test(l)){const j=+l.split(".")[2];b.disabled=!nr.bullet||(s.data.blocks[j]&&s.data.blocks[j].bullets.length>=9)}else if(l==="data.blocks")b.disabled=!nr.block||s.data.blocks.length>=6});
  MEDIA_ROOM=nr}
 stage.addEventListener("input",()=>requestAnimationFrame(mediaRoom));
-function renderMain(){const s=S();if(!s)return;stage.innerHTML=renderSlide(s,cur,"edit");stage.firstElementChild.style.zoom=scale;fillRoom();mediaRoom();if(selSid!==s.id){SEL=[];selSid=s.id}if(typeof applySel==="function"&&SEL.length)applySel();else hideBucket()}
+function renderMain(){const s=S();if(!s)return;stage.innerHTML=renderSlide(s,cur,"edit");stage.firstElementChild.style.zoom=scale;fillRoom();mediaRoom();if(CMOPEN&&CMOPEN.type==="new"&&!CMODE)CMOPEN=null;drawPins();drawPop();if(selSid!==s.id){SEL=[];selSid=s.id}if(typeof applySel==="function"&&SEL.length)applySel();else hideBucket()}
 function thumbHTML(s,i){
  return `<div class="thumb${i===cur?" on":""}${SELS.has(s.id)?" sel":""}" draggable="true" data-i="${i}" role="button" tabindex="0" aria-label="Слайд ${i+1}: ${TYPES[s.type].name}">
-  <span class="num">${i+1}</span>
+  <span class="num">${i+1}<span class="tcmw" data-csid="${s.id}">${cmDot(s.id)}</span></span>
   <div class="tw"><div class="tscale">${renderSlide(s,i,"thumb")}</div><span class="tpeers" data-psid="${s.id}">${typeof peerDots==="function"?peerDots(s.id):""}</span></div>
   <button class="insb" data-at="${i+1}" title="Добавить слайд сюда" aria-label="Добавить слайд после ${i+1}">${IC.plus}</button>
   <div class="tacts"><button class="mini" data-tact="dup" title="Дублировать" aria-label="Дублировать">${IC.dup}</button>${deck.slides.length>1?`<button class="mini" data-tact="del" title="Удалить" aria-label="Удалить">${IC.trash}</button>`:""}</div>
@@ -1002,7 +1125,7 @@ function renderPanel(){
  const s=S();if(!s){panel.innerHTML="";return}
  const st=panel.scrollTop;
  const showPage=!["cover","contacts","wow"].includes(s.type);
- panel.innerHTML=`<div class="ph"><h2>${TYPES[s.type].name}</h2><span class="pg">${showPage?"Page "+(cur+1):""}</span></div><div class="body">${contentFields(s)}</div>`;
+ panel.innerHTML=`<div class="phw"><div class="ph"><h2>${TYPES[s.type].name}</h2><span class="pg">${showPage?"Page "+(cur+1):""}</span></div></div><div class="body">${contentFields(s)}</div>`;
  panel.scrollTop=st;
 }
 
@@ -1019,7 +1142,7 @@ panel.addEventListener("scroll",hideTip);
 
 /* ---------- history ---------- */
 let hist=[],hi=-1,commitT=null;
-const snapshot=()=>JSON.stringify(deck);
+const snapshot=()=>JSON.stringify(deck,(k,v)=>k==="comments"?undefined:v);
 function commit(now){
  clearTimeout(commitT);
  const go=()=>{commitT=null;const snap=snapshot();if(hist[hi]===snap)return;hist=hist.slice(0,hi+1);hist.push(snap);if(hist.length>150)hist.shift();hi=hist.length-1;updUndo();saveSoon()};
@@ -1028,18 +1151,18 @@ function commit(now){
 function focusInfo(){const a=document.activeElement;if(!a||!a.dataset||!a.dataset.path)return null;let off=null;try{if(a.setSelectionRange)off=a.selectionStart;else{const sl=getSelection();if(sl.rangeCount&&a.contains(sl.anchorNode)){const r=sl.getRangeAt(0).cloneRange();r.selectNodeContents(a);r.setEnd(sl.anchorNode,sl.anchorOffset);off=r.toString().length}}}catch(e){}return{path:a.dataset.path,inStage:stage.contains(a),off}}
 function refocus(fi,keep){if(!fi)return;const root=fi.inStage?stage:panel;const el=root.querySelector(`[data-path="${CSS.escape(fi.path)}"]`);if(!el)return;el.focus({preventScroll:true});
  try{const o=keep&&fi.off!=null?fi.off:null;if(el.setSelectionRange){const n=o==null?el.value.length:Math.min(o,el.value.length);el.setSelectionRange(n,n)}else{const r=document.createRange();r.selectNodeContents(el);r.collapse(false);if(o!=null){const w=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let left=o,n;while((n=w.nextNode())){if(left<=n.length){r.setStart(n,left);r.collapse(true);break}left-=n.length}}const sel=getSelection();sel.removeAllRanges();sel.addRange(r)}}catch(e){}}
-function restore(snap){const fi=focusInfo();const sid=S()&&S().id;const thumbTop=$("thumbs").parentElement.parentElement.scrollTop;deck=JSON.parse(snap);const idx=deck.slides.findIndex(x=>x.id===sid);cur=idx>=0?idx:clamp(cur,0,deck.slides.length-1);closePop();renderAll();$("thumbs").parentElement.parentElement.scrollTop=thumbTop;refocus(fi);saveSoon()}
+function restore(snap){const fi=focusInfo();const sid=S()&&S().id;const thumbTop=$("thumbs").parentElement.parentElement.scrollTop;const keepCm=deck.comments;deck=JSON.parse(snap);if(keepCm)deck.comments=keepCm;const idx=deck.slides.findIndex(x=>x.id===sid);cur=idx>=0?idx:clamp(cur,0,deck.slides.length-1);closePop();renderAll();$("thumbs").parentElement.parentElement.scrollTop=thumbTop;refocus(fi);saveSoon()}
 function undo(){if(commitT)commit(true);if(hi>0){hi--;restore(hist[hi]);updUndo()}}
 function redo(){if(commitT)commit(true);if(hi<hist.length-1){hi++;restore(hist[hi]);updUndo()}}
 function updUndo(){$("undoBtn").disabled=hi<=0;$("redoBtn").disabled=hi>=hist.length-1}
 /* Ctrl+Z / Ctrl+Shift+Z / Ctrl+Y on Windows, ⌘+Z / ⌘+Shift+Z on Mac — work everywhere, any keyboard layout */
 window.addEventListener("keydown",e=>{
- const mod=e.ctrlKey||e.metaKey;if(!mod||e.altKey||homeOn)return;
+ const mod=e.ctrlKey||e.metaKey;if(!mod||e.altKey||homeOn)return;if(e.target.closest&&e.target.closest(".cmpop"))return;
  const k=e.code==="KeyZ"||(!e.code&&e.key.toLowerCase()==="z"),y=e.code==="KeyY"||(!e.code&&e.key.toLowerCase()==="y");
  if(k){e.preventDefault();e.stopPropagation();e.shiftKey?redo():undo()}
  else if(y&&!e.metaKey){e.preventDefault();e.stopPropagation();redo()}
 },true);
-document.addEventListener("beforeinput",e=>{if(homeOn)return;if(e.inputType==="historyUndo"||e.inputType==="historyRedo"){e.preventDefault();e.inputType==="historyUndo"?undo():redo()}},true);
+document.addEventListener("beforeinput",e=>{if(homeOn||(e.target.closest&&e.target.closest(".cmpop")))return;if(e.inputType==="historyUndo"||e.inputType==="historyRedo"){e.preventDefault();e.inputType==="historyUndo"?undo():redo()}},true);
 
 /* ---------- autosave (browser) ---------- */
 let db=null;
@@ -1690,13 +1813,14 @@ async function copyDeck(pid,quiet){
  if(pid===PID)await deckSaveNow();
  const rec=DECKS.items.find(x=>x.pid===pid);if(!rec)return false;const {pid:_,rev:_r,by:_b,...r}=rec;const now=new Date().toISOString();
  if(rec.pid===PID){r.deck=JSON.stringify(deck);r.slides=deck.slides.length}
+ try{const d=JSON.parse(r.deck);delete d.comments;if(d.meta){delete d.meta.trashed;delete d.meta.trashedBy}r.deck=JSON.stringify(d)}catch(e){}
  try{await DECKS.backend.put(newPid(),{...r,name:uniqName(r.name+" (копия)"),createdAt:now,updatedAt:now});if(!quiet)toast("Копия создана");return true}catch(e){toast("Не получилось создать копию.");return false}
 }
 function uniqName(base){const names=new Set(DECKS.items.map(x=>x.name));if(!names.has(base))return base;let n=2;while(names.has(base+" "+n))n++;return base+" "+n}
 async function deleteDeck(pid){
  deletingPid=pid;
  try{await DECKS.backend.del(pid)}catch(e){toast("Не получилось удалить.");return}
- if(pid===PID){PID=null;PNAME="";lastSavedJSON="";CURREV=0;SBBASE=null;deck=freshDeck();cur=0;SELS.clear();hist=[];hi=-1;commit(true);renderAll();updateTitle();setStatus("");saveSoon()}
+ if(pid===PID)dropCurrent();
 }
 function resetHistory(){hist=[];hi=-1;commit(true)}
 function loadRecord(rec,silent){
@@ -1741,17 +1865,18 @@ let homeOn=false,decksEl=null;const homeSel=new Set();let homeQ="",homeAnchor=nu
 const homeEl=$("home");
 const IC_DL='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14"/></svg>';
 const IC_MORE='<svg viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="19" cy="12" r="1.8"/></svg>';
+const IC_BACK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>';
+const IC_RESTORE='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>';
 const IC_OPEN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>';
 function buildHome(){
  homeEl.innerHTML=`<div class="htop"><div class="brand">Конструктор презентаций</div><span class="sp"></span><span class="hwho" id="hWho"></span></div>
  <div class="hbody">
-  <div class="hhead"><h1>Все мои презентации</h1>
-   <div class="hbar"><input class="in hsearch" id="hSearch" type="search" placeholder="Поиск по названию" aria-label="Поиск по названию">
-    <button class="tb" data-dk="import">${IC_OPEN}Открыть</button>
-    <button class="tb primary" data-dk="new">${IC.plus}Новая презентация</button></div></div>
+  <div class="hhead"><h1 id="hTitle">Все мои презентации</h1>
+   <div class="hbar"><input class="in hsearch" id="hSearch" type="search" placeholder="Поиск по названию" aria-label="Поиск по названию"><span id="hBtns" class="hbtns"></span></div></div>
   <div class="hsel" id="hSel" hidden></div>
   <div class="hnote" id="hNote"></div>
   <div class="hgrid" id="hGrid"></div>
+  <button class="htrash" id="hTrash" data-dk="trash" title="Удалённые презентации"></button>
  </div>`;
  decksEl=homeEl;
  homeEl.querySelector("#hSearch").addEventListener("input",e=>{homeQ=e.target.value;drawDecks()});
@@ -1761,7 +1886,7 @@ function buildHome(){
 function showHome(){
  if(!homeEl.firstChild)buildHome();
  if(PID&&!EXPORTING)deckSaveNow();
- closeLib();closePop();closeMenu();hideTip&&hideTip();
+ closeLib();closePop();closeMenu();hideTip&&hideTip();if(typeof setCMode==="function"&&CMODE)setCMode(false);
  homeOn=true;homeEl.hidden=false;document.body.classList.add("on-home");drawDecks();
 }
 function hideHome(){
@@ -1777,7 +1902,35 @@ function deckThumb(rec){
  if(rec.assets)Object.assign(ASSETS,rec.assets);
  const prev=deck;deck=d;let h="";try{h=renderSlide(d.slides[0],0,"thumb")}catch(e){}deck=prev;return h;
 }
-const homeList=()=>{const q=homeQ.trim().toLowerCase();return DECKS.items.filter(x=>!q||String(x.name||"").toLowerCase().includes(q))};
+/* trash: a deleted presentation keeps living in storage with meta.trashed set, until it is deleted for good */
+let homeView="all";const trashCache=new Map();
+function trashInfo(rec){
+ if(rec.pid===PID)return deck.meta&&deck.meta.trashed?{at:deck.meta.trashed,by:deck.meta.trashedBy||""}:null;
+ const key=rec.pid+"|"+rec.updatedAt+"|"+(rec.deck||"").length;if(trashCache.has(key))return trashCache.get(key);
+ let v=null;try{const m=JSON.parse(rec.deck).meta||{};if(m.trashed)v={at:m.trashed,by:m.trashedBy||""}}catch(e){}
+ if(trashCache.size>500)trashCache.clear();trashCache.set(key,v);return v}
+const homeList=()=>{const q=homeQ.trim().toLowerCase();const tr=homeView==="trash";return DECKS.items.filter(x=>!!trashInfo(x)===tr&&(!q||String(x.name||"").toLowerCase().includes(q)))
+ .sort((a,b)=>{if(!tr)return 0;const A=trashInfo(a).at,B=trashInfo(b).at;return A<B?1:-1})};
+function dropCurrent(){PID=null;PNAME="";lastSavedJSON="";CURREV=0;SBBASE=null;deck=freshDeck();cur=0;SELS.clear();hist=[];hi=-1;commit(true);renderAll();updateTitle();setStatus("");saveSoon()}
+async function setTrash(pids,on){
+ const now=new Date().toISOString(),who=(typeof MYNAME!=="undefined"&&MYNAME)||(typeof ME!=="undefined"&&ME)||"";let n=0;
+ const mark=m=>{if(on){m.trashed=now;m.trashedBy=who}else{delete m.trashed;delete m.trashedBy}};
+ for(const pid of pids){const rec=DECKS.items.find(x=>x.pid===pid);if(!rec)continue;
+  try{
+   if(pid===PID){mark(deck.meta);lastSavedJSON="";await deckSaveNow();if(on)dropCurrent();n++;continue}
+   const d=JSON.parse(rec.deck);d.meta=d.meta||{};mark(d.meta);
+   const {pid:_,rev:_r,by:_b,...r}=rec;await DECKS.backend.put(pid,{...r,deck:JSON.stringify(d),updatedAt:now});n++;
+  }catch(e){toast(on?"Не получилось переместить в корзину.":"Не получилось восстановить.")}}
+ drawDecks();return n;
+}
+async function toTrash(ids){homeSel.clear();const n=await setTrash(ids,true);if(n)toast(n>1?`В корзине: ${n}`:"Презентация в корзине",{label:"Вернуть",fn:()=>setTrash(ids,false)})}
+async function fromTrash(ids){homeSel.clear();const n=await setTrash(ids,false);if(n)toast(n>1?`Восстановлено: ${n}`:"Презентация восстановлена")}
+async function purge(ids){
+ const one=ids.length===1&&DECKS.items.find(x=>x.pid===ids[0]);
+ const c=await choose(one?"Удалить навсегда?":`Удалить навсегда ${plural(ids.length,"презентацию","презентации","презентаций")}?`,(one?`«${one.name}» `:"Они ")+(DECKS.shared?"удалятся у всех участников без возможности восстановления.":"удалятся без возможности восстановления."),[["del","Удалить навсегда","dangerb"],["cancel","Отмена"]]);
+ if(c!=="del")return;homeSel.clear();for(const p of ids)await deleteDeck(p);DECKS.items=DECKS.items.filter(x=>!ids.includes(x.pid));drawDecks();
+}
+function setView(v){homeView=v;homeSel.clear();homeQ="";const se=homeEl.querySelector("#hSearch");if(se)se.value="";drawDecks();homeEl.scrollTop=0}
 const thumbCache=new Map();
 function drawDecks(){
  if(!homeOn||!homeEl.firstChild)return;
@@ -1785,18 +1938,24 @@ function drawDecks(){
  who.innerHTML=SBCONF&&SB&&ME?`<button class="lnk hname" data-dk="myname" title="Изменить имя">${esc(MYNAME||"Указать имя")}</button> · ${esc(ME)} · <button class="lnk" data-dk="logout">Выйти</button>`:"";
  note.innerHTML=(DECKS.shared?(SBCONF?"Общее хранилище команды: презентации видят все участники и могут редактировать их одновременно.":"Общее хранилище: презентации видят все, кто открывает эту ссылку."):"Презентации хранятся в этом браузере.")
   +(SBCONF&&typeof legacy!=="undefined"&&legacy.length?` <button class="lnk" data-dk="migrate">Перенести в облако ${plural(legacy.length,"презентацию","презентации","презентаций")} из этого браузера</button>`:"");
- [...homeSel].forEach(p=>{if(!DECKS.items.some(x=>x.pid===p))homeSel.delete(p)});
+ const tr=homeView==="trash";const nTrash=DECKS.items.filter(x=>trashInfo(x)).length;
+ homeEl.querySelector("#hTitle").textContent=tr?"Корзина":"Все мои презентации";homeEl.classList.toggle("trashview",tr);
+ homeEl.querySelector("#hBtns").innerHTML=tr?`<button class="tb" data-dk="back">${IC_BACK}Все презентации</button><button class="tb dangerb" data-dk="empty"${nTrash?"":" disabled"}>${IC.trash}Очистить корзину</button>`
+  :`<button class="tb" data-dk="import">${IC_OPEN}Открыть</button><button class="tb primary" data-dk="new">${IC.plus}Новая презентация</button>`;
+ {const tb=homeEl.querySelector("#hTrash");tb.hidden=tr;tb.innerHTML=`${IC.trash}<span>Корзина</span>${nTrash?`<b>${nTrash}</b>`:""}`}
+ if(tr)note.innerHTML="Удалённые презентации хранятся здесь, пока их не удалят навсегда. Их можно восстановить.";
+ [...homeSel].forEach(p=>{if(!homeList().some(x=>x.pid===p))homeSel.delete(p)});
  if(!DECKS.ready){grid.innerHTML=`<div class="libempty">Загружаю презентации…</div>`;drawSel();return}
  const list=homeList();
- const newTile=homeQ.trim()?"":`<button class="hnew" data-dk="new"><span>${IC.plus}</span>Создать презентацию</button>`;
- if(!list.length){grid.innerHTML=newTile+(DECKS.items.length?`<div class="libempty">Ничего не нашлось.</div>`:"");drawSel();return}
+ const newTile=homeQ.trim()||tr?"":`<button class="hnew" data-dk="new"><span>${IC.plus}</span>Создать презентацию</button>`;
+ if(!list.length){grid.innerHTML=newTile+(tr?`<div class="libempty">${homeQ.trim()?"Ничего не нашлось.":"Корзина пуста."}</div>`:DECKS.items.length&&homeQ.trim()?`<div class="libempty">Ничего не нашлось.</div>`:"");drawSel();return}
  grid.innerHTML=newTile+list.map(x=>{
   const key=x.pid+"|"+x.updatedAt+"|"+(x.pid===PID?JSON.stringify(deck.slides[0]).length:"");let th=thumbCache.get(key);if(th==null){th=deckThumb(x);thumbCache.set(key,th)}
-  const by=SBCONF&&x.by?` · ${esc(whoName(x.by))}`:"";
+  const ti=tr&&trashInfo(x);const by=tr?(ti.by?` · ${esc(String(ti.by).replace(/@.*/,""))}`:""):SBCONF&&x.by?` · ${esc(whoName(x.by))}`:"";
   return `<div class="hcard${homeSel.has(x.pid)?" sel":""}" data-pid="${x.pid}">
-   <button class="dthumb" data-dk="open" data-pid="${x.pid}" aria-label="Открыть ${esc(x.name)}"><div class="dts">${th}</div></button>
+   <button class="dthumb" data-dk="${tr?"tsel":"open"}" data-pid="${x.pid}" aria-label="${tr?"Выбрать":"Открыть"} ${esc(x.name)}"><div class="dts">${th}</div></button>
    <label class="hchk" title="Выбрать"><input type="checkbox" data-dk="sel" data-pid="${x.pid}"${homeSel.has(x.pid)?" checked":""} aria-label="Выбрать ${esc(x.name)}"></label>
-   <div class="hmeta"><b title="${esc(x.name)}">${esc(x.name)}</b><span>Изменено ${fmtDate(x.updatedAt)}${by}</span><span>${plural(x.slides|0,"слайд","слайда","слайдов")}</span></div>
+   <div class="hmeta"><b title="${esc(x.name)}">${esc(x.name)}</b><span>${tr?"Удалено "+fmtDate(ti.at):"Изменено "+fmtDate(x.updatedAt)}${by}</span><span>${plural(x.slides|0,"слайд","слайда","слайдов")}</span></div>
    <button class="x hmore" data-dk="menu" data-pid="${x.pid}" title="Действия" aria-label="Действия">${IC_MORE}</button>
   </div>`}).join("");
  grid.querySelectorAll(".dthumb").forEach(t=>t.style.setProperty("--k",t.clientWidth/1920));fitMedia(grid);
@@ -1810,7 +1969,8 @@ function drawSel(){
  bar.hidden=!n;if(!n){bar.innerHTML="";return}
  const all=homeList().length;
  bar.innerHTML=`<b>Выбрано: ${n}</b>${n<all?`<button class="lnk" data-dk="selall">Выбрать все (${all})</button>`:""}<span class="sp"></span>
-  <button class="tb primary" data-dk="dlmenu">${IC_DL}Скачать</button><button class="tb" data-dk="dupsel">${IC.dup}Дублировать</button><button class="tb dangerb" data-dk="delsel">${IC.trash}Удалить</button><button class="x" data-dk="selclr" title="Снять выделение" aria-label="Снять выделение">${IC.x}</button>`;
+  ${homeView==="trash"?`<button class="tb primary" data-dk="restsel">${IC_RESTORE}Восстановить</button><button class="tb dangerb" data-dk="purgesel">${IC.trash}Удалить навсегда</button>`:
+  `<button class="tb primary" data-dk="dlmenu">${IC_DL}Скачать</button><button class="tb" data-dk="dupsel">${IC.dup}Дублировать</button><button class="tb dangerb" data-dk="delsel">${IC.trash}Удалить</button>`}<button class="x" data-dk="selclr" title="Снять выделение" aria-label="Снять выделение">${IC.x}</button>`;
 }
 let menuEl=null;
 function closeMenu(){if(menuEl){menuEl.remove();menuEl=null}}
@@ -1832,6 +1992,12 @@ async function homeClick(e){
    else{homeSel.has(pid)?homeSel.delete(pid):homeSel.add(pid);homeAnchor=pid}
    return drawSel()}
   return openDeck(pid)}
+ if(a==="tsel"){if(e.shiftKey&&homeAnchor){const ids=homeList().map(x=>x.pid);const i0=ids.indexOf(homeAnchor),i1=ids.indexOf(pid);if(i0>=0&&i1>=0)for(let i=Math.min(i0,i1);i<=Math.max(i0,i1);i++)homeSel.add(ids[i])}else{homeSel.has(pid)?homeSel.delete(pid):homeSel.add(pid);homeAnchor=pid}return drawSel()}
+ if(a==="trash")return setView("trash");
+ if(a==="back")return setView("all");
+ if(a==="empty"){const ids=DECKS.items.filter(x=>trashInfo(x)).map(x=>x.pid);if(ids.length)return purge(ids);return}
+ if(a==="restsel")return fromTrash([...homeSel]);
+ if(a==="purgesel")return purge([...homeSel]);
  if(a==="new")return newDeck();
  if(a==="import"){projIn.value="";return projIn.click()}
  if(a==="migrate")return sbMigrate();
@@ -1840,18 +2006,17 @@ async function homeClick(e){
  if(a==="selall"){homeList().forEach(x=>homeSel.add(x.pid));return drawSel()}
  if(a==="selclr"){homeSel.clear();return drawSel()}
  if(a==="dupsel"){const ids=[...homeSel];homeSel.clear();drawSel();let n=0;for(const p of ids){if(await copyDeck(p,true))n++}if(n)toast(n>1?`Создано копий: ${n}`:"Копия создана");return}
- if(a==="delsel"){const ids=[...homeSel];const one=ids.length===1&&DECKS.items.find(x=>x.pid===ids[0]);
-  const c=await choose(one?"Удалить презентацию?":`Удалить ${plural(ids.length,"презентацию","презентации","презентаций")}?`,(one?`«${one.name}» `:"Они ")+(DECKS.shared?"удалятся у всех участников. ":"удалятся из этого браузера. ")+"Это нельзя отменить.",[["del","Удалить","dangerb"],["cancel","Отмена"]]);
-  if(c!=="del")return;homeSel.clear();for(const p of ids)await deleteDeck(p);DECKS.items=DECKS.items.filter(x=>!ids.includes(x.pid));drawDecks();return}
+ if(a==="delsel")return toTrash([...homeSel]);
  if(a==="dlmenu"){const k=await openMenu(b,[["pdf","Скачать PDF",IC_DL],["json","Скачать файл проекта (.json)",IC_DL]]);if(k)downloadDecks([...homeSel],k);return}
+ if(a==="menu"&&homeView==="trash"){const k=await openMenu(b,[["rest","Восстановить",IC_RESTORE],["purge","Удалить навсегда",IC.trash,"dangerm"]]);
+  if(k==="rest")return fromTrash([pid]);if(k==="purge")return purge([pid]);return}
  if(a==="menu"){const rec=DECKS.items.find(x=>x.pid===pid);if(!rec)return;
-  const k=await openMenu(b,[["open","Открыть",IC_OPEN],["ren","Переименовать",IC.pen],["dup","Дублировать",IC.dup],["pdf","Скачать PDF",IC_DL],["json","Скачать файл проекта",IC_DL],["del","Удалить",IC.trash,"dangerm"]]);
+  const k=await openMenu(b,[["open","Открыть",IC_OPEN],["ren","Переименовать",IC.pen],["dup","Дублировать",IC.dup],["pdf","Скачать PDF",IC_DL],["json","Скачать файл проекта",IC_DL],["del","В корзину",IC.trash,"dangerm"]]);
   if(k==="open")return openDeck(pid);
   if(k==="ren")return renameDeck(pid);
   if(k==="dup")return copyDeck(pid);
   if(k==="pdf"||k==="json")return downloadDecks([pid],k);
-  if(k==="del"){const c=await choose("Удалить презентацию?",`«${rec.name}» ${DECKS.shared?"удалится у всех участников":"удалится из этого браузера"}. Это нельзя отменить.`,[["del","Удалить","dangerb"],["cancel","Отмена"]]);
-   if(c==="del"){homeSel.delete(pid);await deleteDeck(pid);DECKS.items=DECKS.items.filter(x=>x.pid!==pid);drawDecks()}}
+  if(k==="del")return toTrash([pid]);
  }
 }
 /* load the images a stored presentation uses (shared library) before exporting it */
@@ -2045,6 +2210,7 @@ function merge3(B,M,T){
  const J=JSON.stringify,eq=(a,b)=>J(a)===J(b);
  const obj=(b,m,t)=>{b=b||{};m=m||{};t=t||{};const o={};for(const k of new Set([...Object.keys(m),...Object.keys(t)])){const v=eq(m[k],b[k])?t[k]:m[k];if(v!==undefined)o[k]=v}return o};
  const out=obj(B,M,T);
+ if(M.comments||T.comments)out.comments=cmMerge(T.comments,M.comments);
  out.meta=obj(B.meta,M.meta,T.meta);
  out.managers=eq(M.managers,B.managers)?T.managers:M.managers;
  const bm=new Map((B.slides||[]).map(x=>[x.id,x])),mm=new Map((M.slides||[]).map(x=>[x.id,x])),tm=new Map((T.slides||[]).map(x=>[x.id,x]));
@@ -2070,8 +2236,9 @@ function sbApply(next,B,T,who){
  if(same){const fi=focusInfo();renderThumbs();renderPanelIfIdle(fi)}
  else{const fi=focusInfo();closePop();renderAll();refocus(fi,true)}
  if(hist.length){hist[hi]=snapshot()}else commit(true);updUndo();
- saveSoon(true);ensureAssets();
+ saveSoon(true);ensureAssets();cmRefresh();
  if(who)setStatus("Обновлено · "+whoName(who)+" · "+hhmm());
+ if(deck.meta&&deck.meta.trashed&&!homeOn){dropCurrent();showHome();toast("Эту презентацию переместили в корзину на другом компьютере. Её можно восстановить из корзины.")}
 }
 function renderPanelIfIdle(fi){if(!fi||fi.inStage){const st=panel.scrollTop;renderPanel();panel.scrollTop=st}}
 /* the open presentation changed on the server */
@@ -2172,6 +2339,188 @@ async function sbMigrate(){
 }
 async function sbLogout(){try{await deckSaveNow()}catch(e){}ME="";try{await SB.auth.signOut()}catch(e){}location.reload()}
 
+/* ---------- team comments ----------
+   Stored inside the presentation (deck.comments), so they are saved and synced like everything else and need no
+   extra setup. Each comment carries its own change time (u): when two people comment at once the lists are merged
+   comment by comment. Comments are not part of undo/redo.
+   Comment mode (button in the top bar): click anywhere on the slide (or drag to mark an area) → a bubble opens right
+   there; type, attach images with the paperclip, send. Click a numbered pin to read the thread, reply or close it.
+   A click outside the slide leaves comment mode. Open threads also show as a counter on the slide's thumbnail. */
+let CMODE=false,CMOPEN=null,CMACTIVE=null;const cmDrafts={},cmAtt={};
+const IC_CM='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg>';
+const IC_CHECK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+const IC_CLIP='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 11.5-8.6 8.6a5.5 5.5 0 0 1-7.8-7.8l8.6-8.6a3.7 3.7 0 0 1 5.2 5.2l-8.6 8.6a1.8 1.8 0 0 1-2.6-2.6l8-8"/></svg>';
+const IC_SEND='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+const cmList=()=>(deck.comments||[]).filter(c=>!c.del);
+const cmRoots=sid=>cmList().filter(c=>!c.parent&&(sid==null||c.sid===sid)).sort((a,b)=>a.at<b.at?-1:1);
+const cmReplies=id=>cmList().filter(c=>c.parent===id).sort((a,b)=>a.at<b.at?-1:1);
+const cmOpen=sid=>cmRoots(sid).filter(c=>!c.resolved&&deck.slides.some(s=>s.id===c.sid));
+function cmWho(){
+ if(SBCONF&&ME)return Promise.resolve({name:MYNAME||ME.replace(/@.*/,""),email:ME});
+ let n="";try{n=localStorage.getItem("nbb-name")||""}catch(e){}
+ if(n)return Promise.resolve({name:n,email:""});
+ return askName("Как вас зовут?","").then(v=>{if(!v)return null;try{localStorage.setItem("nbb-name",v)}catch(e){}return{name:v,email:""}});
+}
+function cmMine(c){if(SBCONF&&ME)return c.email===ME;let n="";try{n=localStorage.getItem("nbb-name")||""}catch(e){}return !c.email&&c.name===n}
+function cmPut(c){
+ if(!Array.isArray(deck.comments))deck.comments=[];
+ c.u=Date.now();const i=deck.comments.findIndex(x=>x.id===c.id);if(i>=0)deck.comments[i]=c;else deck.comments.push(c);
+ if(hist[hi]!=null)hist[hi]=snapshot();
+ saveSoon();cmRefresh();
+}
+async function cmAdd(body,parent,anchor,imgs){
+ body=String(body||"").trim();imgs=imgs||[];if(!body&&!imgs.length)return null;
+ if(!PID){toast("Сначала сохраните презентацию.");return null}
+ const who=await cmWho();if(!who)return null;
+ const root=parent&&cmList().find(c=>c.id===parent);
+ const c={id:"c"+Date.now().toString(36)+uid(),sid:root?root.sid:S().id,parent:parent||null,body,name:who.name,email:who.email,at:new Date().toISOString()};
+ if(imgs.length)c.img=imgs.map(x=>({id:x.id,w:x.w,h:x.h}));
+ if(!parent&&anchor)c.a={x:anchor.x,y:anchor.y,w:anchor.w||0,h:anchor.h||0};
+ cmPut(c);return c;
+}
+async function cmResolve(id,on){const c=cmList().find(x=>x.id===id);if(!c)return;const who=await cmWho();cmPut({...c,resolved:on,rby:on&&who?who.name:"",rat:on?new Date().toISOString():null})}
+function cmDelete(id){const c=cmList().find(x=>x.id===id);if(!c)return;
+ const del=x=>{const i=deck.comments.findIndex(y=>y.id===x.id);deck.comments[i]={id:x.id,del:true,u:Date.now()}};
+ if(!c.parent)cmReplies(id).forEach(del);del(c);
+ if(hist[hi]!=null)hist[hi]=snapshot();saveSoon();cmRefresh()}
+/* union of two comment lists, newest change of each comment wins */
+function cmMerge(a,b){const m=new Map();[...(a||[]),...(b||[])].forEach(c=>{if(!c||!c.id)return;const p=m.get(c.id);if(!p||(c.u||0)>=(p.u||0))m.set(c.id,c)});return[...m.values()]}
+const cmTime=s=>{try{const d=new Date(s),now=new Date();const t=d.toLocaleTimeString("ru-RU",{hour:"2-digit",minute:"2-digit"});
+ if(d.toDateString()===now.toDateString())return"сегодня, "+t;const y=new Date(now-864e5);if(d.toDateString()===y.toDateString())return"вчера, "+t;
+ return d.toLocaleDateString("ru-RU",{day:"numeric",month:"short"})+", "+t}catch(e){return""}};
+const peerColorC=e=>{let h=0;for(const ch of String(e||"?"))h=(h*31+ch.charCodeAt(0))%360;return`hsl(${h} 62% 48%)`};
+const peerInitC=e=>String(e||"?").replace(/@.*/,"").replace(/[^A-Za-zА-Яа-яЁё0-9]/g," ").trim().split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase()||"?";
+const cmAva=c=>`<i class="cav" style="background:${peerColorC(c.email||c.name)}">${esc(peerInitC(c.name||c.email))}</i>`;
+const cmText=t=>esc(t).replace(/\n/g,"<br>");
+/* number of a pinned thread on its slide (open threads, in order of creation) */
+function cmNum(r){const l=cmRoots(r.sid).filter(x=>!x.resolved);const i=l.findIndex(x=>x.id===r.id);return i>=0?i+1:0}
+function cmDot(sid){const n=cmOpen(sid).length;return n?`<button class="tcm" data-cmdot="1" title="Открытых комментариев: ${n}" aria-label="Открытых комментариев: ${n}">${n}</button>`:""}
+function drawCommentDots(){thumbsEl.querySelectorAll(".tcmw").forEach(w=>{w.innerHTML=cmDot(w.dataset.csid)});const b=$("cmBtn");if(b){const n=cmOpen(null).length;b.querySelector("b").textContent=n||"";b.classList.toggle("on",CMODE)}}
+function cmRefresh(){drawCommentDots();drawPins();drawPop()}
+
+/* ---- attachments ---- */
+let cmFileKey=null;const cmFile=document.createElement("input");cmFile.type="file";cmFile.accept="image/*";cmFile.multiple=true;cmFile.hidden=true;document.body.append(cmFile);
+cmFile.addEventListener("change",async()=>{const key=cmFileKey;const fs=[...cmFile.files];cmFile.value="";if(!key)return;
+ for(const f of fs){if(!/^image\//.test(f.type)){toast("К комментарию можно прикрепить только изображение.");continue}
+  try{let url=await readURL(f);const im=await loadImg(url);let w=im.naturalWidth||800,h=im.naturalHeight||600;
+   if(f.type!=="image/svg+xml"&&(Math.max(w,h)>1800||url.length>2e6)){const k=Math.min(1,1800/Math.max(w,h));const c=document.createElement("canvas");c.width=Math.round(w*k);c.height=Math.round(h*k);c.getContext("2d").drawImage(im,0,0,c.width,c.height);url=c.toDataURL("image/jpeg",.86);w=c.width;h=c.height}
+   const mid=await sha(url);const id="m_"+mid;ASSETS[id]=url;libAdd(mid,url,w,h,"Комментарий: "+(f.name||"изображение"));
+   (cmAtt[key]=cmAtt[key]||[]).push({id,w,h});
+  }catch(e){toast("Не получилось открыть файл.")}}
+ drawPop();const t=stage.querySelector(".cmpop textarea");t&&t.focus()});
+const cmImgs=list=>list&&list.length?`<div class="cmimgs">${list.map(x=>ASSETS[x.id]?`<button class="cmimg" data-cmview="${x.id}" title="Открыть"><img src="${ASSETS[x.id]}" alt=""></button>`:`<span class="cmimg ld"></span>`).join("")}</div>`:"";
+function cmLightbox(id){const u=ASSETS[id];if(!u)return;const w=document.createElement("div");w.className="cmlight";w.innerHTML=`<img src="${u}" alt=""><button class="x" aria-label="Закрыть">${IC.x}</button>`;w.onclick=()=>w.remove();document.body.append(w)}
+
+/* ---- pins and bubbles on the slide ---- */
+const pct=(v,t)=>(v/t*100).toFixed(3)+"%";
+function drawPins(){
+ let L=stage.querySelector(".cmlayer");const s=S();
+ if(homeOn||!s){if(L)L.remove();stage.querySelector(".cmpop")?.remove();return}
+ if(!L){L=document.createElement("div");L.className="cmlayer";stage.append(L)}
+ L.classList.toggle("on",CMODE);
+ const roots=cmRoots(s.id).filter(r=>!r.resolved&&deck.slides.some(x=>x.id===r.sid));
+ const pend=CMOPEN&&CMOPEN.type==="new"?CMOPEN.a:null;const act=CMOPEN&&CMOPEN.type==="thread"?CMOPEN.id:CMACTIVE;
+ const ap=a=>a||{x:60,y:60,w:0,h:0};
+ const area=(a,cls,id)=>a&&a.w?`<div class="cmarea ${cls}"${id?` data-aid="${id}"`:""} style="left:${pct(a.x,1920)};top:${pct(a.y,1080)};width:${pct(a.w,1920)};height:${pct(a.h,1080)}"></div>`:"";
+ const pin=(a,label,cls,id)=>{a=ap(a);const x=a.w?a.x+a.w:a.x;return`<button class="cmpin ${cls}"${id?` data-pin="${id}"`:""} style="left:${pct(x,1920)};top:${pct(a.y,1080)}" tabindex="-1">${label}</button>`};
+ L.innerHTML=roots.map(r=>area(r.a,r.id===act?"on":"",r.id)+pin(r.a,`${cmAva(r)}<span>${cmNum(r)}</span>`,r.id===act?"on":"",r.id)).join("")
+  +(pend?area(pend,"pend")+pin(pend,IC.plus,"pend"):"")+`<div class="cmarea draw" hidden></div>`;
+}
+function cmMsg(c,root){
+ return `<div class="cmsg${root?"":" rep"}">
+  <div class="cmh">${cmAva(c)}<b title="${esc(c.email||"")}">${esc(c.name||"Без имени")}</b><span>${cmTime(c.at)}</span>
+   ${cmMine(c)?`<button class="x cmdel" data-cm="del" data-cid="${c.id}" title="${root?"Удалить обсуждение":"Удалить ответ"}" aria-label="Удалить">${IC.trash}</button>`:""}</div>
+  ${c.body?`<div class="cmb">${cmText(c.body)}</div>`:""}${cmImgs(c.img)}</div>`;
+}
+function cmComposer(key,ph){
+ const att=cmAtt[key]||[];
+ return `<div class="cmcomp">${att.length?`<div class="cmimgs att">${att.map((x,i)=>`<span class="cmimg">${ASSETS[x.id]?`<img src="${ASSETS[x.id]}" alt="">`:""}<button class="x" data-cm="unatt" data-key="${key}" data-i="${i}" aria-label="Убрать файл">${IC.x}</button></span>`).join("")}</div>`:""}
+  <textarea class="in" rows="1" data-ckey="${key}" placeholder="${ph}" aria-label="${ph}">${esc(cmDrafts[key]||"")}</textarea>
+  <div class="cmcb"><button class="x cmclip" data-cm="attach" data-key="${key}" title="Прикрепить изображение" aria-label="Прикрепить изображение">${IC_CLIP}</button><span class="sp"></span><span class="cmkbd">Ctrl+Enter</span><button class="cmsend" data-cm="send" data-key="${key}" title="Отправить" aria-label="Отправить">${IC_SEND}</button></div></div>`;
+}
+function drawPop(){
+ let P=stage.querySelector(".cmpop");
+ if(!CMOPEN||homeOn||(!CMODE&&CMOPEN.type==="new")){if(P)P.remove();return}
+ let html,a;
+ if(CMOPEN.type==="new"){a=CMOPEN.a;html=`<div class="cmph"><b>Новый комментарий</b><button class="x" data-cm="close" aria-label="Закрыть">${IC.x}</button></div>${cmComposer("new","Напишите комментарий…")}`}
+ else{const r=cmList().find(x=>x.id===CMOPEN.id);if(!r||r.resolved||r.sid!==S().id){CMOPEN=null;if(P)P.remove();drawPins();return}a=r.a||{x:60,y:60,w:0,h:0};
+  html=`<div class="cmph"><span class="cmnum">${cmNum(r)}</span><b>Обсуждение</b><span class="sp"></span><button class="tb cmres" data-cm="resolve" data-cid="${r.id}" title="Закрыть обсуждение — оно пропадёт со слайда">${IC_CHECK}Решено</button><button class="x" data-cm="close" aria-label="Свернуть">${IC.x}</button></div>
+   <div class="cmthr">${cmMsg(r,true)}${cmReplies(r.id).map(x=>cmMsg(x,false)).join("")}</div>${cmComposer(r.id,"Ответить…")}`}
+ /* keep what is being typed */
+ const prev=P&&P.querySelector("textarea");const keep=prev&&document.activeElement===prev?[prev.selectionStart,prev.selectionEnd]:null;const sc=P&&P.querySelector(".cmthr")?P.querySelector(".cmthr").scrollTop:null;
+ if(!P){P=document.createElement("div");P.className="cmpop";stage.append(P)}
+ P.innerHTML=html;
+ const t=P.querySelector("textarea");if(t){cmGrow(t);if(keep){t.focus();try{t.setSelectionRange(keep[0],keep[1])}catch(e){}}}
+ const th=P.querySelector(".cmthr");if(th)th.scrollTop=sc!=null?sc:th.scrollHeight;
+ /* place next to the pin, inside the stage */
+ const W=stage.clientWidth,H=stage.clientHeight,px=(a.w?a.x+a.w:a.x)/1920*W,py=a.y/1080*H,pw=P.offsetWidth,ph=P.offsetHeight;
+ let left=px+22;if(left+pw>W-6)left=Math.max(6,(a.w?a.x/1920*W:px)-pw-22);let top=py-34;top=Math.max(6,Math.min(top,H-ph-6));
+ P.style.left=left+"px";P.style.top=top+"px";
+}
+function cmGrow(t){t.style.height="auto";t.style.height=Math.min(160,t.scrollHeight+2)+"px"}
+function setCMode(on){CMODE=on;if(!on){CMOPEN=null;CMACTIVE=null}else{SEL=[];hideBucket&&hideBucket()}document.body.classList.toggle("cmode",on);drawCommentDots();drawPins();drawPop()}
+function cmOpenThread(id){CMOPEN={type:"thread",id};drawPins();drawPop();setTimeout(()=>{const t=stage.querySelector(".cmpop textarea");t&&t.focus()},20)}
+async function cmSend(key){
+ const P=stage.querySelector(".cmpop");const t=P&&P.querySelector(`textarea[data-ckey="${key}"]`);const body=t?t.value:"";const imgs=cmAtt[key]||[];
+ if(!body.trim()&&!imgs.length)return;
+ const c=key==="new"?await cmAdd(body,null,CMOPEN&&CMOPEN.a,imgs):await cmAdd(body,key,null,imgs);
+ if(!c)return;delete cmDrafts[key];delete cmAtt[key];
+ if(key==="new"){CMOPEN={type:"thread",id:c.id}}
+ drawPins();drawPop();const nt=stage.querySelector(".cmpop textarea");nt&&nt.focus();
+}
+/* outside comment mode a pin is a small folded bubble: hovering it unfolds the thread */
+let cmHoverT=null;
+stage.addEventListener("mouseover",e=>{const pn=e.target.closest("[data-pin]");const inPop=e.target.closest(".cmpop");
+ if(pn||inPop)clearTimeout(cmHoverT);
+ if(pn&&!cmDrag&&(!CMOPEN||(CMOPEN.hover&&CMOPEN.id!==pn.dataset.pin))){CMOPEN={type:"thread",id:pn.dataset.pin,hover:true};drawPins();drawPop()}});
+stage.addEventListener("mouseout",e=>{if(!CMOPEN||!CMOPEN.hover)return;const to=e.relatedTarget;if(to&&to.closest&&(to.closest(".cmpop")||to.closest("[data-pin]")))return;
+ clearTimeout(cmHoverT);cmHoverT=setTimeout(()=>{const P=stage.querySelector(".cmpop");const t=P&&P.querySelector("textarea");
+  if(!CMOPEN||!CMOPEN.hover)return;if(t&&(document.activeElement===t||t.value.trim()))return;CMOPEN=null;drawPins();drawPop()},350)});
+stage.addEventListener("focusin",e=>{if(e.target.closest(".cmpop")&&CMOPEN)CMOPEN.hover=false});
+let cmDrag=null;
+stage.addEventListener("pointerdown",e=>{
+ if(e.target.closest(".cmpop")){if(CMOPEN)CMOPEN.hover=false;return}
+ const pn=e.target.closest("[data-pin]");if(pn){e.preventDefault();e.stopPropagation();cmOpenThread(pn.dataset.pin);return}
+ if(!CMODE)return;
+ const L=e.target.closest(".cmlayer");if(!L)return;
+ if(e.target.closest(".cmpin.pend"))return;
+ if(e.button!==0)return;e.preventDefault();
+ const sl=stage.firstElementChild.getBoundingClientRect();const toS=ev=>({x:clamp((ev.clientX-sl.left)/sl.width*1920,0,1920),y:clamp((ev.clientY-sl.top)/sl.height*1080,0,1080)});
+ cmDrag={p0:toS(e),c0:[e.clientX,e.clientY],toS,wasOpen:!!CMOPEN};L.setPointerCapture(e.pointerId);
+});
+stage.addEventListener("pointermove",e=>{if(!cmDrag)return;const d=stage.querySelector(".cmlayer .cmarea.draw");if(!d)return;
+ const p=cmDrag.toS(e),a=cmDrag.p0;if(Math.hypot(e.clientX-cmDrag.c0[0],e.clientY-cmDrag.c0[1])<6){d.hidden=true;return}
+ d.hidden=false;d.style.left=pct(Math.min(a.x,p.x),1920);d.style.top=pct(Math.min(a.y,p.y),1080);d.style.width=pct(Math.abs(p.x-a.x),1920);d.style.height=pct(Math.abs(p.y-a.y),1080)});
+stage.addEventListener("pointerup",e=>{if(!cmDrag)return;const p=cmDrag.toS(e),a=cmDrag.p0,moved=Math.hypot(e.clientX-cmDrag.c0[0],e.clientY-cmDrag.c0[1])>=6,was=cmDrag.wasOpen;cmDrag=null;
+ /* a plain click while a bubble is open just closes it */
+ if(was&&!moved){const draft=stage.querySelector(".cmpop textarea");if(CMOPEN&&CMOPEN.type==="new"&&draft&&draft.value.trim()){draft.focus();return}CMOPEN=null;drawPins();drawPop();return}
+ const an=moved?{x:Math.round(Math.min(a.x,p.x)),y:Math.round(Math.min(a.y,p.y)),w:Math.max(8,Math.round(Math.abs(p.x-a.x))),h:Math.max(8,Math.round(Math.abs(p.y-a.y)))}:{x:Math.round(a.x),y:Math.round(a.y),w:0,h:0};
+ CMOPEN={type:"new",a:an};drawPins();drawPop();{const t=stage.querySelector(".cmpop textarea");t&&t.focus()}});
+stage.addEventListener("pointercancel",()=>{cmDrag=null;drawPins()});
+stage.addEventListener("click",async e=>{
+ const v=e.target.closest("[data-cmview]");if(v){cmLightbox(v.dataset.cmview);return}
+ const b=e.target.closest(".cmpop [data-cm]");if(!b)return;const a=b.dataset.cm;
+ if(a==="close"){CMOPEN=null;drawPins();drawPop();return}
+ if(a==="send")return cmSend(b.dataset.key);
+ if(a==="attach"){cmFileKey=b.dataset.key;cmFile.click();return}
+ if(a==="unatt"){const l=cmAtt[b.dataset.key]||[];l.splice(+b.dataset.i,1);return drawPop()}
+ if(a==="resolve"){await cmResolve(b.dataset.cid,true);CMOPEN=null;drawPins();drawPop();toast("Обсуждение закрыто",{label:"Вернуть",fn:()=>cmResolve(b.dataset.cid,false)});return}
+ if(a==="del"){const id=b.dataset.cid;const c=cmList().find(x=>x.id===id);const r=await choose(c&&!c.parent?"Удалить обсуждение?":"Удалить ответ?",c&&!c.parent&&cmReplies(id).length?"Удалятся комментарий и все ответы на него.":"Комментарий удалится у всех участников.",[["del","Удалить","dangerb"],["cancel","Отмена"]]);
+  if(r==="del"){cmDelete(id);if(c&&!c.parent){CMOPEN=null;drawPins();drawPop()}}}
+});
+stage.addEventListener("input",e=>{const t=e.target;if(t.dataset&&t.dataset.ckey){cmDrafts[t.dataset.ckey]=t.value;cmGrow(t);const P=stage.querySelector(".cmpop");if(P){const ph=P.offsetHeight,H=stage.clientHeight;if(P.offsetTop+ph>H-6)P.style.top=Math.max(6,H-ph-6)+"px"}}},true);
+stage.addEventListener("keydown",e=>{const t=e.target;if(!(t.dataset&&t.dataset.ckey))return;e.stopPropagation();
+ if(e.key==="Enter"&&(e.ctrlKey||e.metaKey||!e.shiftKey&&false)){e.preventDefault();cmSend(t.dataset.ckey)}
+ if(e.key==="Escape"){e.preventDefault();CMOPEN=null;drawPins();drawPop()}},true);
+/* leaving comment mode: a click anywhere outside the slide */
+document.addEventListener("pointerdown",e=>{const t=e.target;
+ if(!CMODE){if(CMOPEN&&t.closest&&!t.closest(".cmpop")&&!t.closest(".cmpin")&&!t.closest(".cmlight")&&!t.closest(".libw")&&!t.closest(".toast")){CMOPEN=null;drawPins();drawPop()}return}
+ if(t.closest&&(t.closest("#stage")||t.closest("#cmBtn")||t.closest(".cmlight")||t.closest(".libw")||t.closest(".toast")||t.closest("[data-cmdot]")))return;
+ setCMode(false)},true);
+document.addEventListener("keydown",e=>{if(e.key!=="Escape"||homeOn||(!CMODE&&!CMOPEN))return;if(document.querySelector(".cmlight")){document.querySelector(".cmlight").remove();return}if(CMOPEN){CMOPEN=null;drawPins();drawPop()}else setCMode(false)});
+thumbsEl.addEventListener("click",e=>{const d=e.target.closest("[data-cmdot]");if(!d)return;e.stopPropagation();const t=d.closest(".thumb");if(t){clearSlideSel();go(+t.dataset.i)}setCMode(true);
+ const r=cmOpen(S().id)[0];if(r)cmOpenThread(r.id)},true);
+
 /* ---------- show ---------- */
 let showEl=null,showI=0;
 function renderShow(){const st=showEl.querySelector(".stage");const k=Math.min(innerWidth/1920,innerHeight/1080);st.style.width=1920*k+"px";st.style.height=1080*k+"px";st.innerHTML=renderSlide(deck.slides[showI],showI,"thumb");st.firstElementChild.style.zoom=k;fitMedia(st.firstElementChild);showEl.querySelector(".cnt").textContent=`${showI+1} / ${deck.slides.length}`}
@@ -2192,7 +2541,7 @@ renderAll();fitStage();commit(true);
 document.fonts&&document.fonts.ready.then(()=>{renderThumbs();mediaRoom()});
 loadSaved().then(ok=>{if(ok){renderAll();fitStage();hist=[];hi=-1;commit(true);ensureAssets()}updateTitle();setStatus(PID?"Сохранено":"Не сохранено")});
 $("saveBtn").onclick=()=>saveCmd();
-$("decksBtn").onclick=()=>openDecks();$("homeBtn").onclick=()=>openDecks();
+$("decksBtn").onclick=()=>openDecks();$("homeBtn").onclick=()=>openDecks();$("cmBtn").onclick=()=>setCMode(!CMODE);
 $("deckName").onclick=()=>PID?renameDeck(PID):saveAs(false);
 window.addEventListener("keydown",e=>{if(homeOn&&(e.ctrlKey||e.metaKey)&&e.code==="KeyS"){e.preventDefault();return}if((e.ctrlKey||e.metaKey)&&!e.altKey&&(e.code==="KeyS"||(!e.code&&e.key.toLowerCase()==="s"))){e.preventDefault();saveCmd()}},true);
 window.addEventListener("pagehide",()=>{try{saveSoon(true);if(PID)deckSaveNow()}catch(e){}});
